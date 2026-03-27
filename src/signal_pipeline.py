@@ -1,0 +1,358 @@
+"""
+signal_pipeline.py
+==================
+Steps 2-5 of the Substance Abuse Detection pipeline:
+
+  Step 2 — Load & clean CDC data, align to a monthly datetime index
+  Step 2b — Load NSDUH population rates + NIDA death rates as denominators
+  Step 3 — Compute a social-signal time series from real classifier output
+            *** Awaiting real posts dataset — see STEP 3 PLACEHOLDER below ***
+  Step 4 — Spike detection + cross-correlation (on NSDUH-normalized signal)
+  Step 5 — ICD-10 → substance mapping reference (WONDER data helper)
+
+Run:
+    python signal_pipeline.py
+
+Outputs (once real posts data is provided):
+    data/processed/cdc_cleaned.csv      – cleaned CDC data
+    data/processed/social_signal.csv    – monthly post counts per substance
+    data/processed/correlations.json    – lag-by-lag Pearson r / p for each substance
+"""
+
+from pathlib import Path
+import json
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+# ── Paths ──────────────────────────────────────────────────────────────────────
+ROOT          = Path(__file__).parent.parent   # project root (one level above src/)
+DATA          = ROOT / "data"
+RAW_CDC       = DATA / "raw" / "cdc_overdose_data.csv"
+RAW_NSDUH     = DATA / "raw" / "nsduh_prevalence.csv"
+RAW_NIDA      = DATA / "raw" / "nida_rates.csv"
+PROCESSED     = DATA / "processed"
+PROCESSED.mkdir(parents=True, exist_ok=True)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP 2 — Load & clean CDC data
+# ══════════════════════════════════════════════════════════════════════════════
+
+# The CDC CSV stores month as a full name ("January", "February", …).
+# pd.to_datetime handles this directly when we combine year + month name.
+SUBSTANCE_MAP = {
+    # exact indicator strings from the CDC dataset
+    "Opioids (T40.1-T40.4,T40.6)":                                         "opioid",
+    "Heroin (T40.1)":                                                        "opioid",
+    "Synthetic opioids (T40.4)":                                             "opioid",
+    "Natural & semi-synthetic opioids (T40.2)":                              "opioid",
+    "Methadone (T40.3)":                                                     "opioid",
+    "Natural & semi-synthetic opioids, incl. methadone (T40.2, T40.3)":     "opioid",
+    "Natural, semi-synthetic, & synthetic opioids, incl. methadone (T40.2-T40.4)": "opioid",
+    "Cocaine (T40.5)":                                                       "cocaine",
+    "Psychostimulants with abuse potential (T43.6)":                         "stimulant",
+    "Stimulants (T43.6)":                                                    "stimulant",
+    "Alcohol-induced causes":                                                "alcohol",
+}
+
+
+def load_cdc_overdose(path: Path = RAW_CDC) -> pd.DataFrame:
+    """
+    Step 2 — load the local CDC CSV, build a proper datetime index,
+    map indicator labels to substance categories, and return a clean frame.
+    """
+    df = pd.read_csv(path, low_memory=False)
+
+    # Build datetime: year (int) + month (full name like "January")
+    df["date"] = pd.to_datetime(
+        df["year"].astype(str) + " " + df["month"].astype(str),
+        format="%Y %B",          # %B = full month name
+        errors="coerce",
+    )
+
+    df["substance"] = df["indicator"].map(SUBSTANCE_MAP)
+    df = df.dropna(subset=["substance", "date"])
+
+    # Use data_value first; fall back to predicted_value for provisional rows
+    df["deaths"] = pd.to_numeric(df["data_value"], errors="coerce")
+    df["deaths"] = df["deaths"].fillna(
+        pd.to_numeric(df.get("predicted_value", np.nan), errors="coerce")
+    )
+    df = df.dropna(subset=["deaths"])
+
+    clean = df[["date", "state", "substance", "deaths"]].copy()
+    clean["deaths"] = clean["deaths"].astype(float)
+    return clean
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP 3 — Social signal time series
+# ══════════════════════════════════════════════════════════════════════════════
+
+def compute_social_signal(posts_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Step 3 — convert a posts DataFrame into a monthly signal.
+
+    posts_df expected columns:
+        timestamp   – datetime
+        substance   – one of opioid / cocaine / stimulant / alcohol
+        risk_level  – low / medium / high
+    """
+    posts_df = posts_df.copy()
+    posts_df["date"] = posts_df["timestamp"].dt.to_period("M").dt.to_timestamp()
+
+    signal = (
+        posts_df[posts_df["risk_level"].isin(["medium", "high"])]
+        .groupby(["date", "substance"])
+        .size()
+        .reset_index(name="post_count")
+    )
+    return signal
+
+
+# ── STEP 3 PLACEHOLDER ────────────────────────────────────────────────────────
+# Real posts data has not been provided yet.
+# Once your NLP classifier produces a posts DataFrame with columns:
+#   timestamp (datetime), substance (str), risk_level (low/medium/high)
+# save it as:  data/raw/posts_classified.csv
+# and this pipeline will pick it up automatically.
+POSTS_PATH = DATA / "raw" / "posts_classified.csv"
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP 2b — Load NSDUH + NIDA denominators
+# ══════════════════════════════════════════════════════════════════════════════
+
+def load_denominators() -> tuple[dict, dict]:
+    """
+    Load NSDUH disorder prevalence rates and NIDA death rates.
+
+    Returns
+    -------
+    nsduh_rates : dict  {substance: avg_population_rate_pct (float)}
+        Average past-year disorder prevalence % (persons 12+) across available years.
+        Used to normalize post_count into population-adjusted units.
+
+    nida_rates : dict  {substance: {year: deaths_per_100k}}
+        Secondary reference; attached to output for reporting.
+    """
+    nsduh, nida = {}, {}
+
+    if RAW_NSDUH.exists():
+        df = pd.read_csv(RAW_NSDUH)
+        # Use the 3 most recent years to compute a stable average
+        recent = df.sort_values("year").groupby("substance").tail(3)
+        nsduh = recent.groupby("substance")["population_rate_pct"].mean().round(4).to_dict()
+        print(f"  NSDUH loaded: {len(nsduh)} substance(s): {list(nsduh.keys())}")
+    else:
+        print(f"  ⚠  NSDUH file not found at {RAW_NSDUH}")
+        print("     Run fetch_nsduh.py first, or normalization will be skipped.")
+
+    if RAW_NIDA.exists():
+        df = pd.read_csv(RAW_NIDA)
+        nida = (
+            df.groupby(["substance", "year"])["deaths_per_100k"]
+            .mean().reset_index()
+            .pivot(index="year", columns="substance", values="deaths_per_100k")
+            .to_dict()
+        )
+        print(f"  NIDA loaded: {list(nida.keys())} substances")
+    else:
+        print(f"  ⚠  NIDA file not found at {RAW_NIDA}")
+        print("     Run fetch_nida_summary.py first.")
+
+    return nsduh, nida
+
+
+def normalize_signal(signal_df: pd.DataFrame,
+                     nsduh_rates: dict) -> pd.DataFrame:
+    """
+    Normalize raw post_count by NSDUH disorder prevalence rate.
+
+    Formula:
+        normalized_count = post_count / population_rate_pct * 100
+
+    Interpretation: "posts per 1 % of the population with that disorder".
+    This makes the opioid signal (low base rate ~2%) comparable to the
+    alcohol signal (high base rate ~10%) on the same scale.
+
+    If a substance has no NSDUH rate, raw post_count is preserved.
+    """
+    df = signal_df.copy()
+    df["population_rate_pct"] = df["substance"].map(nsduh_rates)
+    mask = df["population_rate_pct"].notna() & (df["population_rate_pct"] > 0)
+    df["normalized_count"] = df["post_count"].copy().astype(float)
+    df.loc[mask, "normalized_count"] = (
+        df.loc[mask, "post_count"] / df.loc[mask, "population_rate_pct"] * 100
+    )
+    return df
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP 4 — Spike detection + cross-correlation
+# ══════════════════════════════════════════════════════════════════════════════
+
+def detect_spikes(series: pd.Series, window: int = 3,
+                  threshold: float = 2.0) -> pd.Series:
+    """
+    Return a boolean Series marking months where the rolling z-score
+    exceeds `threshold` standard deviations.
+    """
+    rolling_mean = series.rolling(window, center=True, min_periods=1).mean()
+    rolling_std  = series.rolling(window, center=True, min_periods=1).std()
+    z = (series - rolling_mean) / rolling_std.replace(0, np.nan)
+    return z > threshold
+
+
+def correlate_signals(social_series: pd.Series, cdc_series: pd.Series,
+                      max_lag: int = 3) -> dict:
+    """
+    Step 4 — compute Pearson cross-correlation between the social signal
+    and CDC deaths at lags −max_lag … +max_lag.
+
+    Convention: positive lag means social signal LEADS CDC deaths.
+    Returns dict  lag (int)  →  {'r': float, 'p': float}
+    """
+    combined = pd.concat(
+        [social_series.rename("social"), cdc_series.rename("cdc")], axis=1
+    ).dropna()
+
+    if len(combined) < 5:
+        return {}   # not enough data
+
+    social = combined["social"]
+    cdc_   = combined["cdc"]
+
+    results = {}
+    for lag in range(-max_lag, max_lag + 1):
+        # positive lag → shift CDC forward → social leads
+        shifted = cdc_.shift(lag)
+        mask = shifted.notna()
+        if mask.sum() < 5:
+            continue
+        r, p = stats.pearsonr(social[mask], shifted[mask])
+        results[lag] = {"r": round(float(r), 3), "p": round(float(p), 4)}
+
+    return results
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP 5 — ICD-10 → substance mapping (for WONDER / raw death data)
+# ══════════════════════════════════════════════════════════════════════════════
+
+ICD10_MAP = {
+    "T40.0": "opioid",    # Opium
+    "T40.1": "opioid",    # Heroin
+    "T40.2": "opioid",    # Natural/semisynthetic opioids (oxycodone, hydrocodone)
+    "T40.3": "opioid",    # Methadone
+    "T40.4": "opioid",    # Synthetic opioids (fentanyl, tramadol)
+    "T40.5": "cocaine",
+    "T40.6": "opioid",    # Other/unspecified narcotics
+    "T43.6": "stimulant", # Psychostimulants (meth, Adderall)
+    "T51.0": "alcohol",   # Ethanol
+    "T51.1": "alcohol",   # Methanol
+    "T51.9": "alcohol",   # Unspecified alcohol
+}
+
+
+def map_icd10_to_substance(icd_code: str) -> str | None:
+    """Return substance category for an ICD-10 T-code, or None if unknown."""
+    return ICD10_MAP.get(icd_code.strip())
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# MAIN — run the full pipeline
+# ══════════════════════════════════════════════════════════════════════════════
+
+def main():
+    # ── Step 2: load & clean CDC data ─────────────────────────────────────────
+    print("Step 2 — Loading CDC data …")
+    cdc = load_cdc_overdose()
+    print(f"  Rows after cleaning: {len(cdc):,}")
+    print(f"  Date range: {cdc['date'].min().date()} → {cdc['date'].max().date()}")
+    print(f"  Substances: {sorted(cdc['substance'].unique())}")
+    cdc.to_csv(PROCESSED / "cdc_cleaned.csv", index=False)
+    print(f"  Saved → {PROCESSED / 'cdc_cleaned.csv'}\n")
+
+    # ── Step 2b: load NSDUH + NIDA denominators ────────────────────────────────
+    print("Step 2b — Loading population denominators …")
+    nsduh_rates, nida_rates = load_denominators()
+    print()
+
+    # ── Step 3: social signal (PLACEHOLDER — awaiting real dataset) ──────────
+    print("Step 3 — Social signal …")
+    if not POSTS_PATH.exists():
+        print(f"  ⚠  No posts dataset found at: {POSTS_PATH}")
+        print("     Provide your classified posts CSV with columns:")
+        print("       timestamp, substance, risk_level")
+        print("     Then re-run this script.")
+        print("\nSteps 4–5 skipped until posts data is available. CDC data saved.")
+        return
+
+    posts_df = pd.read_csv(POSTS_PATH, parse_dates=["timestamp"])
+    signal_df = compute_social_signal(posts_df)
+    print(f"  Signal rows: {len(signal_df):,}")
+    signal_df.to_csv(PROCESSED / "social_signal.csv", index=False)
+    print(f"  Saved → {PROCESSED / 'social_signal.csv'}\n")
+
+    # Normalize by NSDUH population rate (if available)
+    if nsduh_rates:
+        signal_df = normalize_signal(signal_df, nsduh_rates)
+        print("  Signal normalized by NSDUH disorder prevalence rates.")
+        signal_val_col = "normalized_count"
+    else:
+        signal_val_col = "post_count"
+        print("  ⚠  No NSDUH rates — using raw post_count for correlation.")
+    print()
+
+    # ── Step 4: spike detection + cross-correlation ───────────────────────────
+    print("Step 4 — Cross-correlation analysis (social signal vs CDC deaths) …")
+    all_correlations = {}
+
+    for substance in sorted(cdc["substance"].unique()):
+        # aggregate nationally and index by date
+        cdc_series = (
+            cdc[cdc["substance"] == substance]
+            .groupby("date")["deaths"].sum()
+            .asfreq("MS")          # monthly start frequency; fills gaps with NaN
+        )
+
+        sig_subset = signal_df[signal_df["substance"] == substance]
+        if sig_subset.empty:
+            continue
+        social_series = sig_subset.set_index("date")[signal_val_col].asfreq("MS")
+
+        # Detect spike months for a quick summary
+        cdc_spikes    = detect_spikes(cdc_series.dropna())
+        social_spikes = detect_spikes(social_series.dropna())
+        print(f"\n  [{substance}]")
+        print(f"    CDC spike months    : {cdc_spikes.sum()}")
+        print(f"    Social spike months : {social_spikes.sum()}")
+
+        # Cross-correlation
+        corr = correlate_signals(social_series, cdc_series, max_lag=3)
+        all_correlations[substance] = corr
+
+        best_lag = max(corr, key=lambda k: corr[k]["r"]) if corr else "n/a"
+        best_r   = corr[best_lag]["r"] if corr else "n/a"
+        print(f"    Best lag (highest r): {best_lag} months  →  r = {best_r}")
+        if isinstance(best_lag, int) and best_lag > 0:
+            print(f"    ✓ Social signal leads CDC deaths by {best_lag} month(s) "
+                  f"— candidate early-warning indicator!")
+
+    # Save full results
+    out_path = PROCESSED / "correlations.json"
+    with open(out_path, "w") as f:
+        json.dump(all_correlations, f, indent=2)
+    print(f"\n  Cross-correlation results saved → {out_path}")
+
+    # ── Step 5: ICD-10 mapping demo ───────────────────────────────────────────
+    print("\nStep 5 — ICD-10 mapping reference (sample):")
+    for code in ["T40.1", "T40.4", "T40.5", "T43.6", "T51.0"]:
+        print(f"  {code} → {map_icd10_to_substance(code)}")
+
+    print("\nPipeline complete ✓")
+
+
+if __name__ == "__main__":
+    main()
