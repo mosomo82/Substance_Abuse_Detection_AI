@@ -1,0 +1,31 @@
+# Core data science
+pandas==3.0.1
+numpy==2.4.3
+scipy==1.17.1
+scikit-learn==1.8.0
+
+# NLP
+sentence-transformers==5.3.0
+spacy==3.8.13
+# After install, run: python -m spacy download en_core_web_sm
+
+# LLM
+google-generativeai>=0.8.0
+
+# HTTP
+requests==2.33.0
+
+# Vector store
+faiss-cpu>=1.7.4
+
+# Clustering
+hdbscan>=0.8.33
+
+# Dimensionality reduction (optional — for UMAP visualization)
+umap-learn>=0.5.6
+
+# Narrative evolution pipeline
+pyarrow>=14.0.0        # parquet I/O for embedding persistence
+plotly>=5.20.0         # interactive figures
+kaleido>=0.2.1         # static PNG export from Plotly
+streamlit>=1.35.0      # dashboard
