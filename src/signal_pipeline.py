@@ -89,17 +89,25 @@ def load_cdc_overdose(path: Path = RAW_CDC) -> pd.DataFrame:
 # STEP 3 — Social signal time series
 # ══════════════════════════════════════════════════════════════════════════════
 
-def compute_social_signal(posts_df: pd.DataFrame) -> pd.DataFrame:
+def compute_social_signal(posts_df: pd.DataFrame,
+                          freq: str = "M") -> pd.DataFrame:
     """
-    Step 3 — convert a posts DataFrame into a monthly signal.
+    Step 3 — convert a posts DataFrame into a time-binned signal.
 
     posts_df expected columns:
         timestamp   – datetime
         substance   – one of opioid / cocaine / stimulant / alcohol
         risk_level  – low / medium / high
+
+    freq : "M" for monthly (default), "W" for weekly.
+        Monthly is better for CDC cross-correlation (CDC data is monthly).
+        Weekly provides finer spike detection within the social signal.
     """
     posts_df = posts_df.copy()
-    posts_df["date"] = posts_df["timestamp"].dt.to_period("M").dt.to_timestamp()
+    if freq == "W":
+        posts_df["date"] = posts_df["timestamp"].dt.to_period("W").dt.to_timestamp()
+    else:
+        posts_df["date"] = posts_df["timestamp"].dt.to_period("M").dt.to_timestamp()
 
     signal = (
         posts_df[posts_df["risk_level"].isin(["medium", "high"])]
@@ -265,6 +273,11 @@ def map_icd10_to_substance(icd_code: str) -> str | None:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def main():
+    # ── Frequency setting: "M" for monthly, "W" for weekly ────────────────────
+    # Monthly aligns with CDC data (recommended for cross-correlation).
+    # Weekly gives finer spike detection on the social signal itself.
+    SIGNAL_FREQ = "M"
+
     # ── Step 2: load & clean CDC data ─────────────────────────────────────────
     print("Step 2 — Loading CDC data …")
     cdc = load_cdc_overdose()
@@ -289,11 +302,12 @@ def main():
         print("\nSteps 4–5 skipped until posts data is available. CDC data saved.")
         return
 
-    posts_df = pd.read_csv(POSTS_PATH, parse_dates=["timestamp"])
-    signal_df = compute_social_signal(posts_df)
-    print(f"  Signal rows: {len(signal_df):,}")
-    signal_df.to_csv(PROCESSED / "social_signal.csv", index=False)
-    print(f"  Saved → {PROCESSED / 'social_signal.csv'}\n")
+    posts_df  = pd.read_csv(POSTS_PATH, parse_dates=["timestamp"])
+    signal_df = compute_social_signal(posts_df, freq=SIGNAL_FREQ)
+    print(f"  Signal rows: {len(signal_df):,}  (freq={SIGNAL_FREQ})")
+    signal_out = PROCESSED / f"social_signal_{SIGNAL_FREQ.lower()}.csv"
+    signal_df.to_csv(signal_out, index=False)
+    print(f"  Saved → {signal_out}\n")
 
     # Normalize by NSDUH population rate (if available)
     if nsduh_rates:
@@ -309,28 +323,42 @@ def main():
     print("Step 4 — Cross-correlation analysis (social signal vs CDC deaths) …")
     all_correlations = {}
 
+    # Weekly needs a larger rolling window (12 weeks ≈ 3 months)
+    spike_window = 12 if SIGNAL_FREQ == "W" else 3
+    freq_alias   = "W-SUN" if SIGNAL_FREQ == "W" else "MS"
+
     for substance in sorted(cdc["substance"].unique()):
-        # aggregate nationally and index by date
+        # CDC is always monthly regardless of SIGNAL_FREQ
         cdc_series = (
             cdc[cdc["substance"] == substance]
             .groupby("date")["deaths"].sum()
-            .asfreq("MS")          # monthly start frequency; fills gaps with NaN
+            .asfreq("MS")
         )
 
         sig_subset = signal_df[signal_df["substance"] == substance]
         if sig_subset.empty:
             continue
-        social_series = sig_subset.set_index("date")[signal_val_col].asfreq("MS")
 
-        # Detect spike months for a quick summary
-        cdc_spikes    = detect_spikes(cdc_series.dropna())
-        social_spikes = detect_spikes(social_series.dropna())
+        # Fill sparse periods with 0 (important for weekly — many zero-post weeks)
+        social_series = (
+            sig_subset.set_index("date")[signal_val_col]
+            .asfreq(freq_alias, fill_value=0)
+        )
+
+        # Detect spikes on each signal
+        cdc_spikes    = detect_spikes(cdc_series.dropna(), window=spike_window)
+        social_spikes = detect_spikes(social_series, window=spike_window)
         print(f"\n  [{substance}]")
         print(f"    CDC spike months    : {cdc_spikes.sum()}")
-        print(f"    Social spike months : {social_spikes.sum()}")
+        print(f"    Social spike periods: {social_spikes.sum()}")
 
-        # Cross-correlation
-        corr = correlate_signals(social_series, cdc_series, max_lag=3)
+        # Cross-correlation: resample weekly signal to monthly first (CDC is monthly)
+        if SIGNAL_FREQ == "W":
+            social_for_corr = social_series.resample("MS").sum()
+        else:
+            social_for_corr = social_series
+
+        corr = correlate_signals(social_for_corr, cdc_series, max_lag=3)
         all_correlations[substance] = corr
 
         best_lag = max(corr, key=lambda k: corr[k]["r"]) if corr else "n/a"
