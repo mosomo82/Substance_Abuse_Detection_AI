@@ -91,24 +91,30 @@ The enhancements below are structured around the three challenge task areas and 
 ### Member 1 — Tony Nguyen | Task 1: Embedding Trend Discovery & Behavioral Analysis
 
 **Files:**
-- `src/classifiers/finetuned_classifier.py` (create)
-- `src/eval/cluster_metrics.py` (create)
-- `models/finetuned_bert/` (create)
+- ~~`src/classifiers/finetuned_classifier.py`~~ ✅ **DONE** — `finetuned_results.csv` (41,830 rows) produced
+- ~~`src/eval/cluster_metrics.py`~~ ✅ **DONE** — `cluster_metrics.json` produced
+- ~~`models/finetuned_bert/`~~ ✅ **DONE** — checkpoint saved
+- ~~`requirements.txt`~~ ✅ **DONE** — `transformers`, `datasets`, `accelerate`, `torch`, `rouge-score`, `bert-score`, `ragas` added
+- ~~`src/classifiers/ensemble.py`~~ ✅ **DONE** — finetuned weight tables (`WEIGHTS_FULL_FT`, `WEIGHTS_NO_LLM_FT`), `FINETUNED_CSV` path, 4-return `load_classifier_outputs()`, `merge_classifiers()` finetuned branch, and voting logic all implemented
 
 **Implementation Steps:**
 
-1. **Fine-Tuned Classifier (4th method)**
-   - Load `data/processed/ensemble_results.csv` → use `ensemble_label` as pseudo-ground-truth
-   - Fine-tune `distilbert-base-uncased` via HuggingFace `Trainer` on `cleaned_text` (low=0, medium=1, high=2)
-   - 80/20 train/val split, 3 epochs, batch size 16
-   - Save model to `models/finetuned_bert/`, run inference → `data/processed/finetuned_results.csv`
-   - Update `src/classifiers/ensemble.py` to include finetuned weight (0.10)
+1. **Fine-Tuned Classifier (4th method)** ✅ **DONE (Apr 1)**
+   - Load `data/processed/posts_preprocessed.csv` + `data/processed/ensemble_results.csv` → use `final_risk_level` as pseudo-ground-truth labels
+   - Fine-tune `distilbert-base-uncased` via HuggingFace `Trainer` on `processed_text` column (low=0, medium=1, high=2)
+   - 80/20 stratified train/val split, 3 epochs, batch size 16
+   - Save model checkpoint to `models/finetuned_bert/`
+   - Run full inference → `data/processed/finetuned_results.csv` (columns: `post_id`, `risk_level`, `confidence`)
+   - ✅ `ensemble.py` already updated — will auto-load `finetuned_results.csv` when the file exists
 
-2. **Cluster Quality Metrics** (`src/eval/cluster_metrics.py`)
+2. **Cluster Quality Metrics** (`src/eval/cluster_metrics.py`) ✅ **DONE (Apr 2)**
    - Compute **Silhouette Score** on HDBSCAN/KMeans cluster assignments from `data/processed/clustered_posts.csv`
    - Compute **NDCG** — treat "high-risk" posts as relevant; measure if the embedding similarity ranking surfaces high-risk clusters at top positions
-   - Compute **Perplexity** — train a small unigram/bigram LM on processed posts; measure perplexity on the domain slang vocabulary (`SLANG_MAP` from `preprocess_posts.py`)
+   - Compute **Perplexity** — train a small unigram/bigram LM on processed posts; measure perplexity on the domain slang vocabulary (`SLANG_MAP` from `src/processing/preprocess_posts.py`)
    - Write all three scores to `data/processed/cluster_metrics.json`
+
+3. **Wire finetuned into method_comparison.csv** ← **Apr 2**
+   - After `finetuned_results.csv` is produced, update `src/eval/generate_comparison.py` to include a `"Finetuned"` row (columns: `finetuned_results.csv`, column `risk_level`) and re-run
 
 **Outputs:** `finetuned_results.csv`, `cluster_metrics.json`, `models/finetuned_bert/`
 
@@ -229,15 +235,15 @@ The enhancements below are structured around the three challenge task areas and 
 
 ## Timeline
 
-**Today: March 31, 2026 | Target Completion: April 5, 2026 EOD**
+**Today: April 1, 2026 (Day 2) | Target Completion: April 5, 2026 EOD**
 
 | Day | Date | M1 Tony | M2 Daniel | M3 Joe | M4 Tina |
 |-----|------|---------|-----------|--------|---------|
-| 1 | Mar 31 | Set up HuggingFace env, install transformers, review cluster outputs | Build eval test set, define MRR + Detection Lag schema | Design intervention rules, review RAG outputs | Outline report, gather existing results |
-| 2 | Apr 1 | Fine-tune DistilBERT (10k sample, 3 epochs), compute Silhouette Score | Implement `temporal_metrics.py`, compute Accuracy/F1/ROC-AUC per method | Implement engine v1 (3 rule types), write ROUGE-L/BERTScore script | Write Sections 1 & 2 (intro + arch) |
-| 3 | Apr 2 | Full inference run → `finetuned_results.csv`, compute NDCG + Perplexity | Build Plotly eval figures (ROC, confusion matrix, per-substance F1), wire into eval tab | Faithfulness (Ragas) check on RAG outputs, write Metamorphic test suite | Write Sections 3 & 4 (methods + innovation) |
-| 4 | Apr 3 | Update `ensemble.py`, add finetuned row to `method_comparison.csv` | Wire eval figures + temporal KPIs into dashboard, add MRR/Lag cards to Alerts tab | Build dashboard Tab 8 (table, filters, expandable rationale), add property-based safety guards | Write Sections 5 & 6 (ethics + conclusion), begin HitL annotation |
-| 5 | Apr 4 | Integration testing — full pipeline runs, `cluster_metrics.json` populated | Integration testing — all metrics compute and display correctly | Integration testing — Recommendations tab + tests passing, `summary_metrics.json` populated | Complete HitL annotation, wire HitL scorecard into Tab 6, draft PDF |
+| ~~1~~ | ~~Mar 31~~ | ~~Set up HuggingFace env, install transformers, review cluster outputs~~ ✅ **DONE** — `requirements.txt` updated with all dependencies; `ensemble.py` fully extended with finetuned weight tables, CSV path, merge logic, and voting | ~~Build eval test set, define MRR + Detection Lag schema~~ | ~~Design intervention rules, review RAG outputs~~ | ~~Outline report, gather existing results~~ |
+| ~~2~~ | ~~Apr 1~~ | ~~Create `src/classifiers/finetuned_classifier.py`~~ ✅ **DONE** — DistilBERT fine-tuned on 10k sample; `finetuned_results.csv` (41,830 rows) produced; Silhouette Score computed (0.0753) | Implement `temporal_metrics.py`, compute Accuracy/F1/ROC-AUC per method | Implement engine v1 (3 rule types), write ROUGE-L/BERTScore script | Write Sections 1 & 2 (intro + arch) |
+| ~~3~~ | ~~Apr 2~~ | ~~Create `src/eval/cluster_metrics.py`~~ ✅ **DONE** — `cluster_metrics.py` implemented (Silhouette 0.0753, NDCG@100 0.1248, Perplexity 60,897); `cluster_metrics.json` produced; `generate_comparison.py` updated with Finetuned row → `method_comparison.csv` (4 methods: Ensemble best F1=0.413) | Build Plotly eval figures (ROC, confusion matrix, per-substance F1), wire into eval tab | Faithfulness (Ragas) check on RAG outputs, write Metamorphic test suite | Write Sections 3 & 4 (methods + innovation) |
+| ~~4~~ | ~~Apr 3~~ | ~~Integration testing~~ ✅ **DONE** — Finetuned added to dashboard `_clf_files`; Cluster Quality Metrics panel (Silhouette / NDCG / Perplexity KPI cards + top-5 clusters expander) added to Model Evaluation tab; `method_comparison.csv` shows all 4 classifiers | Wire eval figures + temporal KPIs into dashboard, add MRR/Lag cards to Alerts tab | Build dashboard Tab 8 (table, filters, expandable rationale), add property-based safety guards | Write Sections 5 & 6 (ethics + conclusion), begin HitL annotation |
+| **5 ← TODAY** | **Apr 4** | Buffer / assist teammates if needed; final smoke-test of full finetuned pipeline | Integration testing — all metrics compute and display correctly | Integration testing — Recommendations tab + tests passing, `summary_metrics.json` populated | Complete HitL annotation, wire HitL scorecard into Tab 6, draft PDF |
 | 6 | **Apr 5** | **FINAL REVIEW DAY** — All members run full pipeline, validate all metrics, finalize PDF report. All tests (metamorphic + safety guards) pass. Submission package assembled by EOD. | | | |
 | 7 | **Apr 6** | **SUBMIT by 12:00 PM NOON** | | | |
 
@@ -247,10 +253,10 @@ The enhancements below are structured around the three challenge task areas and 
 
 | File | Owner | Status |
 |------|-------|--------|
-| `src/classifiers/finetuned_classifier.py` | M1 Tony | Create |
-| `models/finetuned_bert/` | M1 Tony | Create |
-| `src/classifiers/ensemble.py` | M1 Tony | Modify (add finetuned weight) |
-| `src/eval/cluster_metrics.py` | M1 Tony | Create (Silhouette, NDCG, Perplexity) |
+| `src/classifiers/finetuned_classifier.py` | M1 Tony | ✅ Done — `finetuned_results.csv` (41,830 rows) produced |
+| `models/finetuned_bert/` | M1 Tony | ✅ Done — checkpoint saved |
+| `src/classifiers/ensemble.py` | M1 Tony | ✅ Done — finetuned 4th method fully integrated |
+| `src/eval/cluster_metrics.py` | M1 Tony | ✅ Done — `cluster_metrics.json` produced (Silhouette 0.0753, NDCG@100 0.1248) |
 | `src/eval/temporal_metrics.py` | M2 Daniel | Create (MRR, Detection Lag) |
 | `src/eval/evaluation_report.py` | M2 Daniel | Create (ROC, CM, per-substance F1) |
 | `src/eval/generate_comparison.py` | M2 Daniel | Expand |
@@ -264,7 +270,7 @@ The enhancements below are structured around the three challenge task areas and 
 | `src/app/dashboard.py` | M2 + M3 + M4 | Modify (eval tab + Tab 8 + HitL scorecard) |
 | `data/processed/hitl_scores.csv` | M4 Tina | Create |
 | `report/nsf_nrt_challenge1_report.md` | M4 Tina | Create |
-| `requirements.txt` | M1 Tony | Add: `transformers`, `torch`, `rouge-score`, `bert-score`, `ragas` |
+| `requirements.txt` | M1 Tony | ✅ Done — `transformers`, `datasets`, `accelerate`, `torch`, `rouge-score`, `bert-score`, `ragas` added |
 
 ---
 
@@ -284,14 +290,28 @@ The enhancements below are structured around the three challenge task areas and 
 
 ## Verification Checklist (April 5)
 
-- [ ] `python src/classifiers/finetuned_classifier.py` → `finetuned_results.csv` produced
-- [ ] `python src/eval/cluster_metrics.py` → `cluster_metrics.json` with Silhouette, NDCG, Perplexity
+**M1 Tony**
+- [x] `requirements.txt` updated with `transformers`, `datasets`, `accelerate`, `torch`, `rouge-score`, `bert-score`, `ragas`
+- [x] `src/classifiers/ensemble.py` — finetuned 4th method weight tables, CSV path, merge, voting all implemented
+- [x] `python src/classifiers/finetuned_classifier.py` → `finetuned_results.csv` (41,830 rows: high=2.9%, med=58.3%, low=38.8%)
+- [x] `models/finetuned_bert/` saved checkpoint exists
+- [x] `python src/eval/cluster_metrics.py` → `cluster_metrics.json` with Silhouette=0.0753, NDCG@100=0.1248, Perplexity=60,897
+- [x] `python src/eval/generate_comparison.py` → `method_comparison.csv` has 4 methods; Ensemble best (Acc=0.518, F1=0.413)
+- [x] Finetuned classifier visible in dashboard Model Evaluation tab (`_clf_files` updated)
+- [x] Cluster Quality Metrics panel added to dashboard (Silhouette / NDCG / Perplexity KPI cards)
+
+**M2 Daniel**
 - [ ] `python src/eval/temporal_metrics.py` → `temporal_metrics.json` with MRR, Detection Lag
 - [ ] `python src/eval/evaluation_report.py` → ROC + confusion matrix figures in `eval_figures/`
+
+**M3 Joe**
+- [ ] `python src/agents/intervention_engine.py` → `recommendations.json` produced
 - [ ] `python src/eval/summary_metrics.py` → `summary_metrics.json` with ROUGE-L, BERTScore, Faithfulness
 - [ ] `python src/agents/intervention_engine.py` → `recommendations.json` produced
 - [ ] `python src/tests/test_metamorphic.py` → ≥80% pass rate
 - [ ] `python src/tests/test_safety_guards.py` → 100% pass rate (zero PII in outputs)
+
+**Integration**
 - [ ] `streamlit run src/app/dashboard.py` → 8 tabs visible; all metrics display; Tab 8 renders
 - [ ] `data/processed/hitl_scores.csv` has 10 annotated summaries
 - [ ] `report/nsf_nrt_challenge1_report.md` ≤ 4 pages, all sections complete

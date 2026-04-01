@@ -8,9 +8,10 @@
 
 | Name | Role |
 |------|------|
-| **Tony Nguyen** | Model Builder — LLM classifier, embeddings, RAG pipeline |
-| **Tina Nguyen** | Pipeline & Story — Data cleaning, temporal analysis, explainability |
-| **Joe Doan** | Pipeline & Story — Data cleaning, temporal analysis, explainability |
+| **Tony Nguyen** | Model Builder (LLM classifier, embedding, RAG pipeline) — Fine-tuned BERT classifier, embeddings, cluster quality metrics, ensemble fusion |
+| **Daniel Evans** | Pipeline & Story — Temporal analysis metrics, evaluation module, ROC/confusion matrix figures |
+| **Joe Vinas** | Pipeline & Story — Dashboard decision support, Temporal Analysis, intervention engine, testing framework |
+| **Tina Nguyen** | Pipeline & Story — Final report, human-in-the-loop evaluation, pipeline & explainability |
 
 ---
 
@@ -20,7 +21,7 @@ An end-to-end AI pipeline that ingests messy social text, extracts substance-abu
 
 **Core tasks:**
 1. **Ingestion & preprocessing** — clean text, apply slang lexicon, strip PII, deduplicate
-2. **Risk signal detection** — three parallel methods (rule-based, embedding, LLM) with benchmarked comparison
+2. **Risk signal detection** — four parallel methods (rule-based, embedding, LLM, fine-tuned BERT) with benchmarked comparison
 3. **Temporal & behavioral analysis** — spike detection, rolling signal rates, topic clustering
 4. **Explainability layer** — RAG-powered summaries for public health analysts, always aggregate
 
@@ -29,23 +30,25 @@ An end-to-end AI pipeline that ingests messy social text, extracts substance-abu
 ## Architecture
 
 ```
-Raw Data → Preprocessing → Detection (3-way) → Temporal Analysis → Explainability → Dashboard
+Raw Data → Preprocessing → Detection (4-way) → Temporal Analysis → Explainability → Dashboard
 ```
 
 | Layer | What it does | Key tools |
 |-------|-------------|----------|
 | **1 — Ingestion & Preprocessing** | HTML clean, PII scrub, slang normalization, dedup | pandas, spaCy, regex |
-| **2 — Risk Signal Detection** | Rule-based · Embedding cosine-similarity · LLM classifier | Sentence-BERT, Claude Haiku API |
+| **2 — Risk Signal Detection** | Rule-based · Embedding cosine-similarity · LLM classifier · Fine-Tuned BERT | Sentence-BERT, DistilBERT, Gemini Flash |
 | **3 — Temporal & Behavioral** | Daily/weekly binning, z-score spike detection, topic clustering | pandas, K-Means / HDBSCAN |
 | **4 — Explainability (RAG)** | Retrieve top-k supporting posts → LLM 3-sentence analyst summaries | FAISS / Chroma, Claude API |
 
 **Detection methods compared:**
 
-| Method | Description |
-|--------|-------------|
-| Rule-based | Regex + slang dictionary for substance mentions and distress phrases |
-| Embedding-based | Sentence-BERT cosine similarity against labeled high-risk seed examples |
-| LLM-based | Gemini Flash classifies risk level + extracts evidence spans + generates analyst summaries |
+| Method | Description | Accuracy | F1 |
+|--------|-------------|----------|----|
+| Rule-based | Regex + slang dictionary for substance mentions and distress phrases | 0.509 | 0.319 |
+| Embedding-based | Sentence-BERT cosine similarity against labeled high-risk seed examples | 0.443 | 0.389 |
+| LLM-based | Gemini Flash classifies risk level + extracts evidence spans + generates analyst summaries | — | — |
+| **Fine-Tuned BERT** | DistilBERT fine-tuned on 41k posts with ensemble pseudo-labels | 0.433 | 0.321 |
+| **Ensemble (winner)** | Weighted vote: Rule(0.20) + Embed(0.30) + LLM(0.40) + FineTuned(0.10) | **0.518** | **0.413** |
 
 ---
 
@@ -53,7 +56,6 @@ Raw Data → Preprocessing → Detection (3-way) → Temporal Analysis → Expla
 
 | Source | Purpose |
 |--------|---------|
-| Instructor-provided forum dataset | Primary social signal (anonymized) |
 | [KUC Hackathon / UCI Drug Reviews](https://www.kaggle.com/datasets/jessicali9530/kuc-hackathon-winter-2018) | Labeled seed examples + risk label training |
 | [CDC Drug Overdose API](https://data.cdc.gov/resource/xkb8-kh2a.json) | Ground-truth overdose deaths for temporal correlation |
 | NSDUH (SAMHSA) | Population disorder prevalence — normalize social signal |
@@ -80,14 +82,16 @@ src/
     rule_based_classifier.py       # Layer 1: 3-layer scored rule-based classifier
     embedding_classifier.py        # Layer 2: sentence-BERT similarity + clustering
     llm_classifier.py              # Layer 3: Gemini Flash + RAG spike summaries
-    ensemble.py                    # Weighted vote fusion of all three methods
+    finetuned_classifier.py         # Layer 4: DistilBERT fine-tuned on pseudo-labels
+    ensemble.py                     # Weighted vote fusion of all four methods
   agents/
-    signal_pipeline.py             # CDC alignment + NSDUH normalization + cross-correlation
-    rag_pipeline.py                # Advanced RAG + cross-encoder reranking for analyst reports
+    signal_pipeline.py              # CDC alignment + NSDUH normalization + cross-correlation
+    rag_pipeline.py                 # Advanced RAG + cross-encoder reranking for analyst reports
   utils/
-    narrative_evolution.py         # Temporal drift, topic tracking, UMAP, early-warning alerts
+    narrative_evolution.py          # Temporal drift, topic tracking, UMAP, early-warning alerts
   eval/
-    generate_comparison.py         # Standalone method comparison with proxy accuracy/F1
+    generate_comparison.py          # Standalone method comparison with proxy accuracy/F1
+    cluster_metrics.py              # Silhouette Score, NDCG, Perplexity for cluster quality
   app/
     dashboard.py                   # Streamlit dashboard (7 tabs)
 ```
@@ -121,23 +125,29 @@ python src/classifiers/rule_based_classifier.py
 # 7. Run embedding classifier (Layer 2 — clustering + similarity scoring)
 python src/classifiers/embedding_classifier.py
 
-# 8. Run ensemble fusion
+# 8. Run fine-tuned BERT classifier (Layer 4)
+python src/classifiers/finetuned_classifier.py
+
+# 9. Run ensemble fusion
 python src/classifiers/ensemble.py
 
-# 9. Run full signal pipeline (CDC alignment + cross-correlation)
+# 10. Run full signal pipeline (CDC alignment + cross-correlation)
 python src/agents/signal_pipeline.py
 
-# 10. Run narrative evolution analysis (drift, topics, UMAP, alerts)
+# 11. Run narrative evolution analysis (drift, topics, UMAP, alerts)
 python src/utils/narrative_evolution.py
 
-# 11. Generate method comparison with accuracy/F1 metrics
+# 12. Compute cluster quality metrics (Silhouette, NDCG, Perplexity)
+python src/eval/cluster_metrics.py
+
+# 13. Generate method comparison with accuracy/F1 metrics
 python src/eval/generate_comparison.py
 
-# 12. (Optional) Generate RAG analyst reports — requires GOOGLE_API_KEY
+# 14. (Optional) Generate RAG analyst reports — requires GOOGLE_API_KEY
 $env:GOOGLE_API_KEY = "<your-key>"
 python src/agents/rag_pipeline.py
 
-# 13. Launch dashboard
+# 15. Launch dashboard
 streamlit run src/app/dashboard.py
 ```
 

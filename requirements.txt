@@ -29,3 +29,14 @@ pyarrow>=14.0.0        # parquet I/O for embedding persistence
 plotly>=5.20.0         # interactive figures
 kaleido>=0.2.1         # static PNG export from Plotly
 streamlit>=1.35.0      # dashboard
+
+# Fine-tuned classifier (Member 1 — Task 1)
+transformers>=4.41.0   # DistilBERT fine-tuning + inference
+datasets>=2.19.0       # HuggingFace Dataset utilities
+accelerate>=0.30.0     # TPU/GPU training backend
+torch>=2.0.0           # PyTorch (CPU/GPU); for Colab TPU see notebook
+
+# Evaluation metrics (Member 1, 2, 3)
+rouge-score>=0.1.2     # ROUGE-L for summary evaluation
+bert-score>=0.3.13     # BERTScore for summary semantic similarity
+ragas>=0.1.7           # Faithfulness / RAG evaluation

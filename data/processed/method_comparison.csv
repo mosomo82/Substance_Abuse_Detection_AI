@@ -2,3 +2,4 @@ Method,Total posts,High risk,Medium risk,Low risk,High %,Medium %,Low %,Avg late
 Rule-based,41933,1320,3628,36985,3.1,8.7,88.2,0.0,0.5093,0.1405,0.3188,"Proxy GT (41933 posts aligned); labels: ['low', 'medium', 'high']"
 Embedding,41933,12032,13123,16778,28.7,31.3,40.0,0.0,0.4427,0.1625,0.3886,"Proxy GT (41933 posts aligned); labels: ['low', 'medium', 'high']"
 Ensemble,41933,1696,23646,16591,4.0,56.4,39.6,0.0,0.5185,0.1441,0.4129,"Proxy GT (41933 posts aligned); labels: ['low', 'medium', 'high']"
+Finetuned,41830,1213,24367,16250,2.9,58.3,38.8,0.0,0.4326,0.0459,0.3209,"Proxy GT (41830 posts aligned); labels: ['low', 'medium', 'high']"
