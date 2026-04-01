@@ -33,6 +33,7 @@ files = {
     "Rule-based": ("rule_based_results.csv",  "risk_level"),
     "Embedding":  ("embedding_results.csv",   "risk_level"),
     "Ensemble":   ("ensemble_results.csv",    "final_risk_level"),
+    "Finetuned":  ("finetuned_results.csv",   "risk_level"),   # DistilBERT 4th method
 }
 
 rows = []

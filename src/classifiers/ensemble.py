@@ -36,9 +36,10 @@ PROCESSED = ROOT / "data" / "processed"
 
 RULE_CSV      = PROCESSED / "rule_based_results.csv"
 EMBEDDING_CSV = PROCESSED / "embedding_results.csv"
-LLM_CSV       = PROCESSED / "llm_results.csv"
-HYBRID_CSV    = PROCESSED / "hybrid_results.csv"   # fallback if llm_results absent
-OUT_CSV       = PROCESSED / "ensemble_results.csv"
+LLM_CSV        = PROCESSED / "llm_results.csv"
+HYBRID_CSV     = PROCESSED / "hybrid_results.csv"   # fallback if llm_results absent
+FINETUNED_CSV  = PROCESSED / "finetuned_results.csv"  # optional 4th method
+OUT_CSV        = PROCESSED / "ensemble_results.csv"
 
 # ── Risk encoding ──────────────────────────────────────────────────────────────
 RISK_TO_INT = {"low": 0, "medium": 1, "high": 2}
@@ -51,20 +52,26 @@ INT_TO_RISK = {0: "low", 1: "medium", 2: "high"}
 LOW_UPPER    = 0.50
 MEDIUM_UPPER = 1.50
 
-# Weights when all three classifiers are present
+# Weights when all three classifiers are present (no fine-tuned)
 WEIGHTS_FULL   = {"rule": 0.25, "embedding": 0.35, "llm": 0.40}
 # Weights when LLM is absent (most posts skip LLM due to hybrid routing)
 WEIGHTS_NO_LLM = {"rule": 0.35, "embedding": 0.65}
+
+# Weights when fine-tuned model is also available
+WEIGHTS_FULL_FT   = {"rule": 0.20, "embedding": 0.30, "llm": 0.40, "finetuned": 0.10}
+WEIGHTS_NO_LLM_FT = {"rule": 0.30, "embedding": 0.60, "finetuned": 0.10}
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Loading
 # ══════════════════════════════════════════════════════════════════════════════
 
-def load_classifier_outputs() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame | None]:
+def load_classifier_outputs() -> tuple[
+    pd.DataFrame, pd.DataFrame, pd.DataFrame | None, pd.DataFrame | None
+]:
     """
-    Load rule-based, embedding, and (optionally) LLM results.
-    Returns (rule_df, emb_df, llm_df_or_None).
+    Load rule-based, embedding, (optionally) LLM, and (optionally) fine-tuned results.
+    Returns (rule_df, emb_df, llm_df_or_None, finetuned_df_or_None).
     """
     if not RULE_CSV.exists():
         raise FileNotFoundError(
@@ -90,7 +97,15 @@ def load_classifier_outputs() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame 
     if llm_df is None:
         print("  LLM results not found — ensemble will use rule + embedding only.")
 
-    return rule_df, emb_df, llm_df
+    # Optional 4th method: fine-tuned DistilBERT
+    finetuned_df = None
+    if FINETUNED_CSV.exists():
+        finetuned_df = pd.read_csv(FINETUNED_CSV)
+        print(f"  Fine-tuned results loaded ({len(finetuned_df):,} rows)")
+    else:
+        print("  Fine-tuned results not found — running without 4th method.")
+
+    return rule_df, emb_df, llm_df, finetuned_df
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -111,9 +126,10 @@ def _rename_cols(df: pd.DataFrame, prefix: str,
     return df
 
 
-def merge_classifiers(rule_df:  pd.DataFrame,
-                      emb_df:   pd.DataFrame,
-                      llm_df:   pd.DataFrame | None = None) -> pd.DataFrame:
+def merge_classifiers(rule_df:       pd.DataFrame,
+                      emb_df:        pd.DataFrame,
+                      llm_df:        pd.DataFrame | None = None,
+                      finetuned_df:  pd.DataFrame | None = None) -> pd.DataFrame:
     """
     Join the three classifier DataFrames on post_id.
     Rule + embedding are outer-joined (all posts should have both).
@@ -166,8 +182,36 @@ def merge_classifiers(rule_df:  pd.DataFrame,
         merged["llm_risk_level"]  = np.nan
         merged["llm_confidence"]  = np.nan
 
-    # Ensure confidence columns exist with fallback
-    for col in ("rule_confidence", "embedding_confidence", "llm_confidence"):
+    # Fine-tuned DistilBERT (optional 4th method)
+    if finetuned_df is not None and not finetuned_df.empty:
+        conf_col_ft = "confidence" if "confidence" in finetuned_df.columns else None
+        risk_col_ft = "risk_level" if "risk_level" in finetuned_df.columns else "final_risk_level"
+        ft_prep = _rename_cols(
+            finetuned_df[["post_id", risk_col_ft]
+                         + ([conf_col_ft] if conf_col_ft else [])],
+            prefix="finetuned",
+            risk_col=risk_col_ft,
+            conf_col=conf_col_ft,
+        )
+        if "post_id" in ft_prep.columns and merged["post_id"].notna().any():
+            merged = merged.merge(ft_prep, on="post_id", how="left")
+        else:
+            # Row-position alignment fallback
+            n = min(len(merged), len(ft_prep))
+            merged["finetuned_risk_level"] = np.nan
+            merged["finetuned_confidence"] = np.nan
+            merged.iloc[:n, merged.columns.get_loc("finetuned_risk_level")] = \
+                ft_prep["finetuned_risk_level"].values[:n]
+            if conf_col_ft:
+                merged.iloc[:n, merged.columns.get_loc("finetuned_confidence")] = \
+                    ft_prep["finetuned_confidence"].values[:n]
+    else:
+        merged["finetuned_risk_level"] = np.nan
+        merged["finetuned_confidence"] = np.nan
+
+    # Ensure all confidence columns exist with fallback
+    for col in ("rule_confidence", "embedding_confidence",
+                "llm_confidence", "finetuned_confidence"):
         if col not in merged.columns:
             merged[col] = np.nan
 
@@ -194,12 +238,21 @@ def compute_ensemble_row(row: "pd.Series") -> dict:
         pd.notna(row.get("llm_risk_level"))
         and row.get("llm_risk_level") in RISK_TO_INT
     )
-    weights = WEIGHTS_FULL if has_llm else WEIGHTS_NO_LLM
+    has_finetuned = (
+        pd.notna(row.get("finetuned_risk_level"))
+        and row.get("finetuned_risk_level") in RISK_TO_INT
+    )
+
+    if has_finetuned:
+        weights = WEIGHTS_FULL_FT if has_llm else WEIGHTS_NO_LLM_FT
+    else:
+        weights = WEIGHTS_FULL if has_llm else WEIGHTS_NO_LLM
 
     for source, risk_col, conf_col in (
-        ("rule",      "rule_risk_level",      "rule_confidence"),
-        ("embedding", "embedding_risk_level", "embedding_confidence"),
-        ("llm",       "llm_risk_level",       "llm_confidence"),
+        ("rule",       "rule_risk_level",       "rule_confidence"),
+        ("embedding",  "embedding_risk_level",  "embedding_confidence"),
+        ("llm",        "llm_risk_level",        "llm_confidence"),
+        ("finetuned",  "finetuned_risk_level",  "finetuned_confidence"),
     ):
         risk_val = row.get(risk_col)
         if pd.notna(risk_val) and risk_val in RISK_TO_INT:
@@ -242,15 +295,17 @@ def compute_ensemble_row(row: "pd.Series") -> dict:
 # Main entry point
 # ══════════════════════════════════════════════════════════════════════════════
 
-def run_ensemble(rule_df:  pd.DataFrame,
-                 emb_df:   pd.DataFrame,
-                 llm_df:   pd.DataFrame | None = None) -> pd.DataFrame:
+def run_ensemble(rule_df:       pd.DataFrame,
+                 emb_df:        pd.DataFrame,
+                 llm_df:        pd.DataFrame | None = None,
+                 finetuned_df:  pd.DataFrame | None = None) -> pd.DataFrame:
     """Merge classifiers, compute ensemble vote, return results DataFrame."""
-    merged  = merge_classifiers(rule_df, emb_df, llm_df)
-    votes   = merged.apply(compute_ensemble_row, axis=1, result_type="expand")
+    merged = merge_classifiers(rule_df, emb_df, llm_df, finetuned_df)
+    votes  = merged.apply(compute_ensemble_row, axis=1, result_type="expand")
 
     keep_cols = ["post_id"]
-    for col in ("rule_risk_level", "embedding_risk_level", "llm_risk_level"):
+    for col in ("rule_risk_level", "embedding_risk_level",
+                "llm_risk_level", "finetuned_risk_level"):
         if col in merged.columns:
             keep_cols.append(col)
 
@@ -260,12 +315,14 @@ def run_ensemble(rule_df:  pd.DataFrame,
 
 def main() -> None:
     print("Loading classifier outputs …")
-    rule_df, emb_df, llm_df = load_classifier_outputs()
-    print(f"  Rule-based : {len(rule_df):,} rows")
-    print(f"  Embedding  : {len(emb_df):,} rows")
+    rule_df, emb_df, llm_df, finetuned_df = load_classifier_outputs()
+    print(f"  Rule-based  : {len(rule_df):,} rows")
+    print(f"  Embedding   : {len(emb_df):,} rows")
+    if finetuned_df is not None:
+        print(f"  Fine-tuned  : {len(finetuned_df):,} rows")
 
     print("\nRunning ensemble fusion …")
-    results = run_ensemble(rule_df, emb_df, llm_df)
+    results = run_ensemble(rule_df, emb_df, llm_df, finetuned_df)
 
     print("\nEnsemble risk distribution:")
     print(results["final_risk_level"].value_counts().to_string())
