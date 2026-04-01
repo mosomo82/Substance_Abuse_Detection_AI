@@ -65,17 +65,31 @@ Raw Data → Preprocessing → Detection (3-way) → Temporal Analysis → Expla
 
 ```
 data/
-  raw/                        # source CSVs (not committed)
-  processed/                  # pipeline outputs
-  fetch_cdc_data.py           # download CDC overdose data
-  fetch_nsduh.py              # NSDUH disorder prevalence rates
-  fetch_nida_summary.py       # NIDA overdose death rates
-  process_drug_reviews.py     # Kaggle corpus → posts_classified.csv + seed bank
-  preprocess_posts.py         # text preprocessing (clean → PII scrub → slang → signals)
-  rule_based_classifier.py    # Layer 1 detection: 3-layer scored rule-based classifier
-  embedding_classifier.py     # Layer 2 detection: sentence-BERT similarity + clustering
-  llm_classifier.py           # Layer 3 detection: Gemini Flash + RAG spike summaries
-  signal_pipeline.py          # CDC alignment + NSDUH normalization + cross-correlation
+  raw/                             # source CSVs (not committed)
+  processed/                       # pipeline outputs
+  processed/narrative/             # temporal analysis outputs + Plotly figures
+scripts/
+  fetch_cdc_data.py                # download CDC overdose data
+  fetch_nsduh.py                   # NSDUH disorder prevalence rates
+  fetch_nida_summary.py            # NIDA overdose death rates
+src/
+  processing/
+    process_drug_reviews.py        # Kaggle corpus → posts_classified.csv + seed bank
+    preprocess_posts.py            # text preprocessing (clean → PII scrub → slang → signals)
+  classifiers/
+    rule_based_classifier.py       # Layer 1: 3-layer scored rule-based classifier
+    embedding_classifier.py        # Layer 2: sentence-BERT similarity + clustering
+    llm_classifier.py              # Layer 3: Gemini Flash + RAG spike summaries
+    ensemble.py                    # Weighted vote fusion of all three methods
+  agents/
+    signal_pipeline.py             # CDC alignment + NSDUH normalization + cross-correlation
+    rag_pipeline.py                # Advanced RAG + cross-encoder reranking for analyst reports
+  utils/
+    narrative_evolution.py         # Temporal drift, topic tracking, UMAP, early-warning alerts
+  eval/
+    generate_comparison.py         # Standalone method comparison with proxy accuracy/F1
+  app/
+    dashboard.py                   # Streamlit dashboard (7 tabs)
 ```
 
 ---
@@ -86,30 +100,45 @@ data/
 # 1. Activate venv
 .\venv\Scripts\Activate.ps1
 
-# 2. Fetch public health data
-python data/fetch_cdc_data.py
-python data/fetch_nsduh.py
-python data/fetch_nida_summary.py
+# 2. Install dependencies
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm
 
-# 3. Process drug review corpus (requires drugsComTrain/Test_raw.csv in data/raw/)
-python data/process_drug_reviews.py
+# 3. Fetch public health data
+python scripts/fetch_cdc_data.py
+python scripts/fetch_nsduh.py
+python scripts/fetch_nida_summary.py
 
-# 4. Preprocess posts
-python data/preprocess_posts.py
+# 4. Process drug review corpus (requires drugsComTrain/Test_raw.csv in data/raw/)
+python src/processing/process_drug_reviews.py
 
-# 5. Run rule-based classifier (Layer 1)
-python src/rule_based_classifier.py
+# 5. Preprocess posts
+python src/processing/preprocess_posts.py
 
-# 6. Run embedding classifier (Layer 2 — clustering + similarity scoring)
-# Requires: pip install sentence-transformers scikit-learn umap-learn
-python src/embedding_classifier.py
+# 6. Run rule-based classifier (Layer 1)
+python src/classifiers/rule_based_classifier.py
 
-# 7. Run LLM classifier (Layer 3 — Gemini Flash + RAG summaries)
-# Requires: pip install google-generativeai  +  GOOGLE_API_KEY env var
-python src/llm_classifier.py
+# 7. Run embedding classifier (Layer 2 — clustering + similarity scoring)
+python src/classifiers/embedding_classifier.py
 
-# 8. Run full signal pipeline (CDC alignment + correlation)
-python src/signal_pipeline.py
+# 8. Run ensemble fusion
+python src/classifiers/ensemble.py
+
+# 9. Run full signal pipeline (CDC alignment + cross-correlation)
+python src/agents/signal_pipeline.py
+
+# 10. Run narrative evolution analysis (drift, topics, UMAP, alerts)
+python src/utils/narrative_evolution.py
+
+# 11. Generate method comparison with accuracy/F1 metrics
+python src/eval/generate_comparison.py
+
+# 12. (Optional) Generate RAG analyst reports — requires GOOGLE_API_KEY
+$env:GOOGLE_API_KEY = "<your-key>"
+python src/agents/rag_pipeline.py
+
+# 13. Launch dashboard
+streamlit run src/app/dashboard.py
 ```
 
 ---

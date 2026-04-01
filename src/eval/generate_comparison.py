@@ -1,13 +1,33 @@
 """
 Standalone script: generates data/processed/method_comparison.csv
 from the three existing classifier result CSVs.
-No API key required.
+
+Ground-truth labels are derived from posts_classified.csv (heuristic risk labels
+based on drug-review phrase matching + rating thresholds). These serve as a
+proxy ground truth for computing accuracy / F1 — no API key required.
 """
 import pandas as pd
+import numpy as np
 from pathlib import Path
+from sklearn.metrics import accuracy_score, f1_score, classification_report
 
 ROOT = Path(__file__).parent.parent.parent   # project root
 PROCESSED = ROOT / "data" / "processed"
+RAW = ROOT / "data" / "raw"
+
+# ── Load proxy ground truth from posts_classified.csv ─────────────────────────
+_gt_path = RAW / "posts_classified.csv"
+ground_truth = None
+if _gt_path.exists():
+    _gt_df = pd.read_csv(str(_gt_path))
+    if "risk_level" in _gt_df.columns:
+        ground_truth = _gt_df["risk_level"].str.strip().str.lower().values
+        print(f"Ground truth loaded: {len(ground_truth)} labels "
+              f"({pd.Series(ground_truth).value_counts().to_dict()})")
+    else:
+        print("posts_classified.csv has no 'risk_level' column — accuracy metrics skipped.")
+else:
+    print("posts_classified.csv not found — accuracy metrics skipped.")
 
 files = {
     "Rule-based": ("rule_based_results.csv",  "risk_level"),
@@ -25,10 +45,35 @@ for name, (fname, col) in files.items():
     if col not in df.columns:
         print(f"No '{col}' in {fname} — columns: {list(df.columns[:5])}")
         continue
-    df["risk_level"] = df[col]  # normalise to common name
+    df["risk_level"] = df[col].str.strip().str.lower()
     n = len(df)
     vc = df["risk_level"].value_counts()
     avg_lat = round(df["latency_ms"].mean(), 1) if "latency_ms" in df.columns else 0.0
+
+    # Compute accuracy / F1 if ground truth is available and lengths match
+    acc = float("nan")
+    f1_high = float("nan")
+    f1_macro = float("nan")
+    note = "Proxy ground truth from posts_classified.csv (heuristic risk labels)"
+    if ground_truth is not None:
+        # Align lengths — use min(n, len(gt)) rows
+        _min_n = min(n, len(ground_truth))
+        _pred = df["risk_level"].iloc[:_min_n].values
+        _true = ground_truth[:_min_n]
+        _labels = ["low", "medium", "high"]
+        try:
+            acc = round(accuracy_score(_true, _pred), 4)
+            f1_high = round(f1_score(_true, _pred, labels=["high"],
+                                      average="macro", zero_division=0), 4)
+            f1_macro = round(f1_score(_true, _pred, labels=_labels,
+                                       average="macro", zero_division=0), 4)
+            note = f"Proxy GT ({_min_n} posts aligned); labels: {_labels}"
+            print(f"\n{name} vs proxy GT ({_min_n} posts):")
+            print(classification_report(_true, _pred, labels=_labels,
+                                        zero_division=0))
+        except Exception as exc:
+            note = f"Metric error: {exc}"
+
     rows.append({
         "Method":         name,
         "Total posts":    n,
@@ -39,14 +84,15 @@ for name, (fname, col) in files.items():
         "Medium %":       round(vc.get("medium", 0) / n * 100, 1),
         "Low %":          round(vc.get("low", 0) / n * 100, 1),
         "Avg latency ms": avg_lat,
-        "Accuracy":       float("nan"),
-        "F1 (high)":      float("nan"),
-        "F1 (macro)":     float("nan"),
-        "Note":           "No ground-truth labels; accuracy metrics require Gemini run",
+        "Accuracy":       acc,
+        "F1 (high)":      f1_high,
+        "F1 (macro)":     f1_macro,
+        "Note":           note,
     })
 
 out = PROCESSED / "method_comparison.csv"
 pd.DataFrame(rows).to_csv(str(out), index=False)
-print("Saved:", out)
+print("\nSaved:", out)
 for r in rows:
-    print(f"  {r['Method']:<12} High={r['High %']}%  Med={r['Medium %']}%  Low={r['Low %']}%")
+    acc_str = f"  Acc={r['Accuracy']:.3f}  F1={r['F1 (macro)']:.3f}" if not (isinstance(r['Accuracy'], float) and np.isnan(r['Accuracy'])) else ""
+    print(f"  {r['Method']:<12} High={r['High %']}%  Med={r['Medium %']}%  Low={r['Low %']}%{acc_str}")

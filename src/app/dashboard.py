@@ -113,6 +113,24 @@ def _load_spike_summaries() -> list:
     return data if isinstance(data, list) else [data]
 
 
+@st.cache_data(show_spinner="Loading cross-correlations …")
+def _load_correlations() -> dict:
+    path = PROCESSED / "correlations.json"
+    if not path.exists():
+        return {}
+    with open(str(path)) as f:
+        return json.load(f)
+
+
+@st.cache_data(show_spinner="Loading CDC state data …")
+def _load_cdc_state() -> pd.DataFrame:
+    path = DATA / "raw" / "cdc_overdose_data.csv"
+    if not path.exists():
+        return pd.DataFrame()
+    df = pd.read_csv(str(path))
+    return df
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Re-run helper (calls narrative_evolution pipeline on-demand)
 # ══════════════════════════════════════════════════════════════════════════════
@@ -192,15 +210,25 @@ with st.sidebar:
     st.caption("Outputs saved to `data/processed/narrative/`")
     st.caption("Figures saved to `data/processed/narrative/figures/`")
 
+    st.markdown("---")
+    st.markdown("**🔒 Privacy & Ethics**")
+    st.caption(
+        "All outputs are **population-level aggregates** only. "
+        "PII is scrubbed at ingestion (regex + spaCy NER). "
+        "No individual is identified or tracked. "
+        "Public datasets exclusively — CDC, NSDUH, NIDA, Kaggle."
+    )
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Main content
 # ══════════════════════════════════════════════════════════════════════════════
 
-st.title("📊 Substance Abuse Narrative Evolution")
+st.title("📊 Substance Abuse Risk Intelligence Dashboard")
 st.markdown(
-    "Temporal analysis of community language using weekly embedding "
-    "centroids, drift detection, topic tracking, and UMAP trajectories."
+    "**NSF NRT Research-A-Thon 2026 — Challenge 1, Track B** · "
+    "End-to-end AI pipeline: social signal detection → temporal drift → "
+    "early-warning alerts → explainable analyst reports."
 )
 
 # Check if outputs exist; prompt user to run the pipeline if not
@@ -212,9 +240,9 @@ if _missing:
         "`python src/narrative_evolution.py`) to generate them first."
     )
 
-tab_drift, tab_topics, tab_umap, tab_alerts, tab_eval, tab_reports = st.tabs([
+tab_drift, tab_topics, tab_umap, tab_alerts, tab_eval, tab_reports, tab_geo = st.tabs([
     "📉 Drift", "📈 Topics", "🔵 UMAP Trajectory", "🚨 Alerts",
-    "📊 Model Evaluation", "📝 Analyst Reports",
+    "📊 Model Evaluation", "📝 Analyst Reports", "🗺 Geographic",
 ])
 
 # ── Tab 1: Drift ──────────────────────────────────────────────────────────────
@@ -417,6 +445,90 @@ with tab_alerts:
             st.info(f"Most-flagged topic: **{top_topic}** "
                     f"({int(wr['topic'].value_counts().max())} alerts)")
 
+    # ── Lead-Lag Correlation Panel ──────────────────────────────────────────
+    st.markdown("---")
+    st.subheader("📡 Social Signal → CDC Deaths: Lead-Lag Correlation")
+    st.markdown(
+        "Pearson *r* between the monthly social signal rate and CDC provisional "
+        "overdose death counts at different time lags. A **negative lag** means "
+        "the social signal **leads** (precedes) the CDC death count — indicating "
+        "predictive early-warning potential. Shaded bars are statistically "
+        "significant at *p* < 0.05."
+    )
+    _corr_data = _load_correlations()
+    if _corr_data:
+        try:
+            import plotly.graph_objects as go
+
+            _lag_rows = []
+            for _substance, _lags in _corr_data.items():
+                for _lag_str, _vals in _lags.items():
+                    _lag_rows.append({
+                        "substance": _substance.title(),
+                        "lag_months": int(_lag_str),
+                        "r": _vals.get("r", 0),
+                        "p": _vals.get("p", 1),
+                        "significant": _vals.get("p", 1) < 0.05,
+                    })
+            _lag_df = pd.DataFrame(_lag_rows)
+
+            _corr_fig = go.Figure()
+            _subst_colors = {"Opioid": "#E74C3C", "Stimulant": "#9B59B6",
+                             "Cocaine": "#F39C12", "Alcohol": "#3498DB"}
+            for _subst in _lag_df["substance"].unique():
+                _sd = _lag_df[_lag_df["substance"] == _subst].sort_values("lag_months")
+                _color = _subst_colors.get(_subst, "#95A5A6")
+                _corr_fig.add_trace(go.Bar(
+                    name=_subst,
+                    x=_sd["lag_months"].astype(str) + "mo",
+                    y=_sd["r"],
+                    marker_color=[
+                        _color if sig else _color.replace("#", "#") + "80"
+                        for sig in _sd["significant"]
+                    ],
+                    marker_opacity=[1.0 if sig else 0.4 for sig in _sd["significant"]],
+                    customdata=_sd[["p", "significant"]].values,
+                    hovertemplate=(
+                        "<b>%{fullData.name}</b><br>"
+                        "Lag: %{x}<br>r = %{y:.3f}<br>p = %{customdata[0]:.4f}"
+                        "<extra></extra>"
+                    ),
+                ))
+            _corr_fig.add_hline(y=0, line_dash="dot", line_color="gray")
+            _corr_fig.update_layout(
+                barmode="group",
+                xaxis_title="Lag (negative = social signal leads CDC deaths)",
+                yaxis_title="Pearson r",
+                legend_title="Substance",
+                height=400,
+                annotations=[dict(
+                    x=0.01, y=0.97, xref="paper", yref="paper",
+                    text="Opaque = p < 0.05 (significant) | Faded = p ≥ 0.05",
+                    showarrow=False, font=dict(size=11), bgcolor="rgba(255,255,255,0.7)",
+                )],
+            )
+            st.plotly_chart(_corr_fig, use_container_width=True)
+
+            # Highlight best finding
+            _sig = _lag_df[_lag_df["significant"]].sort_values("r", ascending=False)
+            if len(_sig) > 0:
+                _best = _sig.iloc[0]
+                _direction = "leads" if _best["lag_months"] < 0 else "lags"
+                _months = abs(_best["lag_months"])
+                st.success(
+                    f"**Key finding:** {_best['substance']} social signal **{_direction}** "
+                    f"CDC overdose deaths by **{_months} month(s)** "
+                    f"(r = {_best['r']:.3f}, p = {_best['p']:.4f}). "
+                    "This supports early-warning potential from social media monitoring."
+                )
+        except ImportError:
+            st.error("plotly is required — pip install plotly")
+    else:
+        st.info(
+            "No cross-correlation data found. Run `python src/agents/signal_pipeline.py` "
+            "to compute CDC alignment and correlations."
+        )
+
 # ── Tab 5: Model Evaluation ───────────────────────────────────────────────────
 with tab_eval:
     st.subheader("Model Evaluation & Method Comparison")
@@ -562,3 +674,78 @@ with tab_reports:
                 if _rationale:
                     with st.expander("Model reasoning"):
                         st.write(_rationale)
+
+# ── Tab 7: Geographic ─────────────────────────────────────────────────────────
+with tab_geo:
+    st.subheader("Geographic Risk Distribution — CDC Overdose Deaths by State")
+    st.markdown(
+        "Provisional overdose death counts (CDC VSRR) aggregated by state. "
+        "Use the filters below to explore substance-specific and year-specific "
+        "patterns across the US."
+    )
+
+    _cdc_raw = _load_cdc_state()
+    if len(_cdc_raw) == 0:
+        st.info(
+            "No CDC data found. Run `python scripts/fetch_cdc_data.py` "
+            "to download the state-level overdose data."
+        )
+    else:
+        # Filters
+        _geo_col1, _geo_col2 = st.columns(2)
+        _all_indicators = sorted(_cdc_raw["indicator"].dropna().unique().tolist())
+        _default_ind = next(
+            (i for i in _all_indicators if "opioid" in i.lower()), _all_indicators[0]
+        )
+        _sel_indicator = _geo_col1.selectbox(
+            "Substance / Indicator", _all_indicators,
+            index=_all_indicators.index(_default_ind),
+        )
+        _all_years = sorted(_cdc_raw["year"].dropna().unique().astype(int).tolist())
+        _sel_year = _geo_col2.selectbox(
+            "Year", _all_years, index=len(_all_years) - 1
+        )
+
+        # Aggregate
+        _geo_filtered = _cdc_raw[
+            (_cdc_raw["indicator"] == _sel_indicator)
+            & (_cdc_raw["year"] == _sel_year)
+        ].copy()
+        _geo_agg = (
+            _geo_filtered.groupby(["state", "state_name"], dropna=True)["data_value"]
+            .mean()
+            .reset_index()
+            .rename(columns={"data_value": "avg_deaths"})
+        )
+
+        if len(_geo_agg) == 0:
+            st.info("No data for the selected filters.")
+        else:
+            try:
+                import plotly.express as px
+
+                _choropleth = px.choropleth(
+                    _geo_agg,
+                    locations="state",
+                    locationmode="USA-states",
+                    color="avg_deaths",
+                    hover_name="state_name",
+                    hover_data={"avg_deaths": ":.1f", "state": False},
+                    color_continuous_scale="Reds",
+                    scope="usa",
+                    title=f"{_sel_indicator} — Avg Monthly Deaths ({_sel_year})",
+                    labels={"avg_deaths": "Avg monthly deaths"},
+                )
+                _choropleth.update_layout(height=520)
+                st.plotly_chart(_choropleth, use_container_width=True)
+
+                # Top-10 states table
+                st.markdown("#### Top 10 States by Average Monthly Deaths")
+                _top10 = _geo_agg.nlargest(10, "avg_deaths").reset_index(drop=True)
+                _top10.index += 1
+                _top10.columns = ["State Code", "State", "Avg Monthly Deaths"]
+                _top10["Avg Monthly Deaths"] = _top10["Avg Monthly Deaths"].round(1)
+                st.dataframe(_top10, use_container_width=True)
+
+            except ImportError:
+                st.error("plotly is required — pip install plotly")
