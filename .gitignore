@@ -179,3 +179,14 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Data files — keep locally, never push to GitHub
+data/raw/
+data/processed/
+data/figures/
+*.csv
+*.json
+*.pkl
+*.h5
+*.parquet
+models/
