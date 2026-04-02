@@ -183,10 +183,8 @@ cython_debug/
 # Data files — keep locally, never push to GitHub
 data/raw/
 data/processed/
-data/figures/
 *.csv
 *.json
 *.pkl
-*.h5
 *.parquet
 models/
