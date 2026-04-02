@@ -1,0 +1,11 @@
+post_id,model_risk_level,human_risk_level,model_explanation_rating,human_approved,review_notes
+1001,High,High,4,True,Accurately detected fentanyl analog mention
+1002,Medium,Low,2,False,Model hallucinated distress signal from sarcastic context
+1003,Low,Low,5,True,Correctly ignored standard medical query
+1004,High,High,5,True,Identified complex slang sequence combining multiple substances
+1005,Medium,Medium,3,True,Borderline case; explanation lacked depth but classification correct
+1006,High,Low,1,False,Model misinterpreted song lyrics as active threat
+1007,Low,High,2,False,Missed novel street name for xylazine
+1008,High,High,4,True,Correctly linked dosage to overdose threshold
+1009,Medium,High,3,False,Underestimated risk of combined substance usage
+1010,Low,Low,5,True,Clean text requiring no intervention
