@@ -240,9 +240,9 @@ if _missing:
         "`python src/narrative_evolution.py`) to generate them first."
     )
 
-tab_drift, tab_topics, tab_umap, tab_alerts, tab_eval, tab_reports, tab_geo = st.tabs([
+tab_drift, tab_topics, tab_umap, tab_alerts, tab_eval, tab_reports, tab_geo, tab_recs = st.tabs([
     "📉 Drift", "📈 Topics", "🔵 UMAP Trajectory", "🚨 Alerts",
-    "📊 Model Evaluation", "📝 Analyst Reports", "🗺 Geographic",
+    "📊 Model Evaluation", "📝 Analyst Reports", "🗺 Geographic", "💡 Recommendations"
 ])
 
 # ── Tab 1: Drift ──────────────────────────────────────────────────────────────
@@ -788,6 +788,49 @@ with tab_geo:
                 _top10.columns = ["State Code", "State", "Avg Monthly Deaths"]
                 _top10["Avg Monthly Deaths"] = _top10["Avg Monthly Deaths"].round(1)
                 st.dataframe(_top10, use_container_width=True)
-
             except ImportError:
                 st.error("plotly is required — pip install plotly")
+
+# ── Tab 8: Recommendations ────────────────────────────────────────────────────
+with tab_recs:
+    st.subheader("💡 Intervention Recommendations")
+    st.markdown(
+        "Actionable public health interventions generated automatically "
+        "based on early-warning risk signals and predictive correlations."
+    )
+    
+    _rec_path = PROCESSED / "recommendations.json"
+    if not _rec_path.exists():
+        st.info("No recommendations found. Run `python src/agents/intervention_engine.py` "
+                "to generate rule-based intervention protocols.")
+    else:
+        with open(_rec_path) as f:
+            _recs = json.load(f)
+            
+        if not _recs:
+            st.info("No actionable recommendations at this time.")
+        else:
+            _rec_df = pd.DataFrame(_recs)
+            
+            # Substance Filter
+            _topics = ["All"] + sorted(_rec_df["topic"].unique().tolist())
+            _sel_topic = st.selectbox("Filter by Topic/Substance", _topics)
+            
+            if _sel_topic != "All":
+                _rec_df = _rec_df[_rec_df["topic"] == _sel_topic]
+            
+            # Display recommendations
+            _color_map = {
+                "IMMEDIATE": "🔴 IMMEDIATE",
+                "MONITOR": "🟠 MONITOR",
+                "INFORMATIONAL": "🔵 INFORMATIONAL"
+            }
+            
+            if len(_rec_df) > 0:
+                for idx, row in _rec_df.iterrows():
+                    _sev_badge = _color_map.get(row.get("severity"), row.get("severity"))
+                    with st.expander(f"{row.get('period', '')} | {_sev_badge} : {row.get('topic', '').replace('_', ' ').title()}"):
+                        st.markdown(f"**Recommendation:** {row.get('recommendation', '')}")
+                        st.markdown(f"*Rationale:* {row.get('rationale', '')}")
+            else:
+                st.info("No recommendations match the filter.")

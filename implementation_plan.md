@@ -1,5 +1,5 @@
 # NSF NRT Challenge 1 — Enhanced Submission Plan
-## Team: Joe Vinas (M3), Daniel Evans (M2), Tony Nguyen (M1), Tina Nguyen (M4)
+## Team: Joel Vinas (M3), Daniel Evans (M2), Tony Nguyen (M1), Tina Nguyen (M4)
 ## Submission Deadline: April 6, 2026 (12:00 PM) | Target Completion: April 5, 2026 (EOD)
 
 ---
@@ -149,14 +149,14 @@ The enhancements below are structured around the three challenge task areas and 
 
 ---
 
-### Member 3 — Joe Vinas | Task 3: Dashboard Decision Support + Testing Framework
+### Member 3 — Joel Vinas | Task 3: Dashboard Decision Support + Testing Framework
 
 **Files:**
-- `src/agents/intervention_engine.py` (create)
-- `src/eval/summary_metrics.py` (create)
-- `src/tests/test_metamorphic.py` (create)
-- `src/tests/test_safety_guards.py` (create)
-- Add Tab 8 to `src/app/dashboard.py`
+- ~~`src/agents/intervention_engine.py`~~ ✅ **DONE**
+- ~~`src/eval/summary_metrics.py`~~ ✅ **DONE**
+- ~~`src/tests/test_metamorphic.py`~~ ✅ **DONE**
+- ~~`src/tests/test_safety_guards.py`~~ ✅ **DONE**
+- ~~Add Tab 8 to `src/app/dashboard.py`~~ ✅ **DONE**
 
 **Implementation Steps:**
 
@@ -226,9 +226,9 @@ The enhancements below are structured around the three challenge task areas and 
 | **Detection Lag** | Task 2 | Time between spike and system alert | M2 Daniel |
 | **Accuracy / F1** | Task 2/3 | Risk detection correctness | M2 Daniel |
 | **ROC-AUC** | Task 2 | Per-method classifier quality | M2 Daniel |
-| **ROUGE-L** | Task 3 | Summary text overlap quality | M3 Joe |
-| **BERTScore** | Task 3 | Summary semantic similarity | M3 Joe |
-| **Faithfulness (Ragas)** | Task 3 | RAG groundedness (no hallucination) | M3 Joe |
+| **ROUGE-L** | Task 3 | Summary text overlap quality | M3 Joel |
+| **BERTScore** | Task 3 | Summary semantic similarity | M3 Joel |
+| **Faithfulness (Ragas)** | Task 3 | RAG groundedness (no hallucination) | M3 Joel |
 | **HitL Score** | Task 3 | Human-rated interpretability | M4 Tina |
 
 ---
@@ -237,7 +237,7 @@ The enhancements below are structured around the three challenge task areas and 
 
 **Today: April 1, 2026 (Day 2) | Target Completion: April 5, 2026 EOD**
 
-| Day | Date | M1 Tony | M2 Daniel | M3 Joe | M4 Tina |
+| Day | Date | M1 Tony | M2 Daniel | M3 Joel | M4 Tina |
 |-----|------|---------|-----------|--------|---------|
 | ~~1~~ | ~~Mar 31~~ | ~~Set up HuggingFace env, install transformers, review cluster outputs~~ ✅ **DONE** — `requirements.txt` updated with all dependencies; `ensemble.py` fully extended with finetuned weight tables, CSV path, merge logic, and voting | ~~Build eval test set, define MRR + Detection Lag schema~~ | ~~Design intervention rules, review RAG outputs~~ | ~~Outline report, gather existing results~~ |
 | ~~2~~ | ~~Apr 1~~ | ~~Create `src/classifiers/finetuned_classifier.py`~~ ✅ **DONE** — DistilBERT fine-tuned on 10k sample; `finetuned_results.csv` (41,830 rows) produced; Silhouette Score computed (0.0753) | Implement `temporal_metrics.py`, compute Accuracy/F1/ROC-AUC per method | Implement engine v1 (3 rule types), write ROUGE-L/BERTScore script | Write Sections 1 & 2 (intro + arch) |
@@ -262,11 +262,11 @@ The enhancements below are structured around the three challenge task areas and 
 | `src/eval/generate_comparison.py` | M2 Daniel | Expand |
 | `data/processed/eval_test_set.csv` | M2 Daniel | Create |
 | `data/processed/eval_figures/` | M2 Daniel | Create |
-| `src/agents/intervention_engine.py` | M3 Joe | Create |
-| `src/eval/summary_metrics.py` | M3 Joe | Create (ROUGE-L, BERTScore, Faithfulness) |
-| `src/tests/test_metamorphic.py` | M3 Joe | Create |
-| `src/tests/test_safety_guards.py` | M3 Joe | Create |
-| `data/processed/recommendations.json` | M3 Joe | Create |
+| `src/agents/intervention_engine.py` | M3 Joe | ✅ Done |
+| `src/eval/summary_metrics.py` | M3 Joe | ✅ Done — computed ROUGE-L, BERTScore, and Faithfulness |
+| `src/tests/test_metamorphic.py` | M3 Joe | ✅ Done — metamorphic substitution tests passing |
+| `src/tests/test_safety_guards.py` | M3 Joe | ✅ Done — PII checks passing |
+| `data/processed/recommendations.json` | M3 Joe | ✅ Done |
 | `src/app/dashboard.py` | M2 + M3 + M4 | Modify (eval tab + Tab 8 + HitL scorecard) |
 | `data/processed/hitl_scores.csv` | M4 Tina | Create |
 | `report/nsf_nrt_challenge1_report.md` | M4 Tina | Create |
@@ -305,11 +305,10 @@ The enhancements below are structured around the three challenge task areas and 
 - [ ] `python src/eval/evaluation_report.py` → ROC + confusion matrix figures in `eval_figures/`
 
 **M3 Joe**
-- [ ] `python src/agents/intervention_engine.py` → `recommendations.json` produced
-- [ ] `python src/eval/summary_metrics.py` → `summary_metrics.json` with ROUGE-L, BERTScore, Faithfulness
-- [ ] `python src/agents/intervention_engine.py` → `recommendations.json` produced
-- [ ] `python src/tests/test_metamorphic.py` → ≥80% pass rate
-- [ ] `python src/tests/test_safety_guards.py` → 100% pass rate (zero PII in outputs)
+- [x] `python src/agents/intervention_engine.py` → `recommendations.json` produced
+- [x] `python src/eval/summary_metrics.py` → `summary_metrics.json` with ROUGE-L, BERTScore, Faithfulness
+- [x] `python src/tests/test_metamorphic.py` → ≥80% pass rate
+- [x] `python src/tests/test_safety_guards.py` → 100% pass rate (zero PII in outputs)
 
 **Integration**
 - [ ] `streamlit run src/app/dashboard.py` → 8 tabs visible; all metrics display; Tab 8 renders

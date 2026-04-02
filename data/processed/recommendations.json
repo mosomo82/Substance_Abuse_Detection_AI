@@ -1,0 +1,5140 @@
+[
+    {
+        "period": "2008-03-24",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2008-03-24",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-03-24",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (12.4% increase)."
+    },
+    {
+        "period": "2008-03-31",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (6.6% increase)."
+    },
+    {
+        "period": "2008-04-14",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (10.5% increase)."
+    },
+    {
+        "period": "2008-04-14",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (7.4% increase)."
+    },
+    {
+        "period": "2008-04-21",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2008-04-21",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-04-21",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (12.4% increase)."
+    },
+    {
+        "period": "2008-04-28",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2008-04-28",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-04-28",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (18.9% increase)."
+    },
+    {
+        "period": "2008-05-12",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (8.9% increase)."
+    },
+    {
+        "period": "2008-05-26",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (2.3% increase)."
+    },
+    {
+        "period": "2008-06-02",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2008-06-02",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-06-02",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (30.6% increase)."
+    },
+    {
+        "period": "2008-06-02",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (5.1% increase)."
+    },
+    {
+        "period": "2008-06-09",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2008-06-09",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-06-09",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2008-06-09",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-06-09",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (16.6% increase)."
+    },
+    {
+        "period": "2008-06-30",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (22.3% increase)."
+    },
+    {
+        "period": "2008-06-30",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (23.3% increase)."
+    },
+    {
+        "period": "2008-06-30",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (10.5% increase)."
+    },
+    {
+        "period": "2008-06-30",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (10.9% increase)."
+    },
+    {
+        "period": "2008-07-14",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2008-07-14",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-07-28",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (21.8% increase)."
+    },
+    {
+        "period": "2008-08-04",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2008-08-04",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-08-11",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2008-08-11",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-08-11",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (11.6% increase)."
+    },
+    {
+        "period": "2008-09-01",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2008-09-01",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-09-15",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2008-09-15",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-09-29",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2008-09-29",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-09-29",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (13.4% increase)."
+    },
+    {
+        "period": "2008-09-29",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (5.1% increase)."
+    },
+    {
+        "period": "2008-10-06",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2008-10-06",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-10-06",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2008-10-06",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-10-06",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (14.3% increase)."
+    },
+    {
+        "period": "2008-10-06",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (5.8% increase)."
+    },
+    {
+        "period": "2008-10-06",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (6.1% increase)."
+    },
+    {
+        "period": "2008-10-27",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (14.0% increase)."
+    },
+    {
+        "period": "2008-10-27",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (11.7% increase)."
+    },
+    {
+        "period": "2008-11-03",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2008-11-03",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-11-03",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (9.0% increase)."
+    },
+    {
+        "period": "2008-11-10",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (13.6% increase)."
+    },
+    {
+        "period": "2008-11-10",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (14.3% increase)."
+    },
+    {
+        "period": "2008-11-10",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (15.6% increase)."
+    },
+    {
+        "period": "2008-12-01",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2008-12-01",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-12-01",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2008-12-01",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-12-15",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (18.6% increase)."
+    },
+    {
+        "period": "2008-12-22",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2008-12-22",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-12-22",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2008-12-22",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-12-22",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2008-12-22",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2008-12-22",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2008-12-22",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-01-05",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (14.4% increase)."
+    },
+    {
+        "period": "2009-01-12",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (10.4% increase)."
+    },
+    {
+        "period": "2009-02-02",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (8.8% increase)."
+    },
+    {
+        "period": "2009-02-09",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2009-02-09",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-02-16",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (13.1% increase)."
+    },
+    {
+        "period": "2009-02-23",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (14.5% increase)."
+    },
+    {
+        "period": "2009-03-02",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2009-03-02",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-03-02",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (9.1% increase)."
+    },
+    {
+        "period": "2009-03-02",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (11.8% increase)."
+    },
+    {
+        "period": "2009-03-16",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2009-03-16",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-03-16",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2009-03-16",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-03-16",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (10.8% increase)."
+    },
+    {
+        "period": "2009-03-16",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (15.9% increase)."
+    },
+    {
+        "period": "2009-03-16",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (19.2% increase)."
+    },
+    {
+        "period": "2009-03-16",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (4.0% increase)."
+    },
+    {
+        "period": "2009-04-06",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (5.9% increase)."
+    },
+    {
+        "period": "2009-04-20",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2009-04-20",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-04-20",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2009-04-20",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-05-25",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (7.2% increase)."
+    },
+    {
+        "period": "2009-06-01",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (29.9% increase)."
+    },
+    {
+        "period": "2009-06-01",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (15.2% increase)."
+    },
+    {
+        "period": "2009-06-01",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (10.2% increase)."
+    },
+    {
+        "period": "2009-06-08",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (9.5% increase)."
+    },
+    {
+        "period": "2009-06-08",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (24.9% increase)."
+    },
+    {
+        "period": "2009-06-08",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (9.4% increase)."
+    },
+    {
+        "period": "2009-06-08",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (11.7% increase)."
+    },
+    {
+        "period": "2009-06-22",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (6.8% increase)."
+    },
+    {
+        "period": "2009-06-29",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (4.6% increase)."
+    },
+    {
+        "period": "2009-06-29",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (11.6% increase)."
+    },
+    {
+        "period": "2009-06-29",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (8.7% increase)."
+    },
+    {
+        "period": "2009-07-13",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2009-07-13",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-07-13",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (12.5% increase)."
+    },
+    {
+        "period": "2009-08-03",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (3.2% increase)."
+    },
+    {
+        "period": "2009-08-03",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (23.0% increase)."
+    },
+    {
+        "period": "2009-08-03",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (11.6% increase)."
+    },
+    {
+        "period": "2009-08-17",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (4.5% increase)."
+    },
+    {
+        "period": "2009-08-24",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.8% increase)."
+    },
+    {
+        "period": "2009-08-31",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2009-08-31",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-08-31",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2009-08-31",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-08-31",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2009-08-31",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-08-31",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2009-08-31",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-08-31",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (10.9% increase)."
+    },
+    {
+        "period": "2009-09-07",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (11.7% increase)."
+    },
+    {
+        "period": "2009-10-05",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2009-10-05",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-10-12",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (6.0% increase)."
+    },
+    {
+        "period": "2009-11-02",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2009-11-02",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-11-02",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2009-11-02",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-11-02",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2009-11-02",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-11-16",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (19.4% increase)."
+    },
+    {
+        "period": "2009-11-16",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (5.5% increase)."
+    },
+    {
+        "period": "2009-11-23",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (7.8% increase)."
+    },
+    {
+        "period": "2009-11-30",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (15.3% increase)."
+    },
+    {
+        "period": "2009-12-14",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2009-12-14",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-12-14",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (8.8% increase)."
+    },
+    {
+        "period": "2009-12-21",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (10.3% increase)."
+    },
+    {
+        "period": "2009-12-28",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2009-12-28",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2009-12-28",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (16.5% increase)."
+    },
+    {
+        "period": "2010-01-04",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2010-01-04",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2010-01-04",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (9.8% increase)."
+    },
+    {
+        "period": "2010-01-18",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (10.7% increase)."
+    },
+    {
+        "period": "2010-01-25",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (4.1% increase)."
+    },
+    {
+        "period": "2010-02-01",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (9.2% increase)."
+    },
+    {
+        "period": "2010-02-01",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.5% increase)."
+    },
+    {
+        "period": "2010-02-08",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (6.4% increase)."
+    },
+    {
+        "period": "2010-02-08",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (4.9% increase)."
+    },
+    {
+        "period": "2010-02-22",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (5.6% increase)."
+    },
+    {
+        "period": "2010-03-01",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (10.9% increase)."
+    },
+    {
+        "period": "2010-03-01",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (12.2% increase)."
+    },
+    {
+        "period": "2010-03-22",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2010-03-22",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2010-03-22",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (7.8% increase)."
+    },
+    {
+        "period": "2010-03-22",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (6.5% increase)."
+    },
+    {
+        "period": "2010-04-05",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (5.1% increase)."
+    },
+    {
+        "period": "2010-04-19",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2010-04-19",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2010-04-19",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (40.3% increase)."
+    },
+    {
+        "period": "2010-04-19",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (8.9% increase)."
+    },
+    {
+        "period": "2010-05-10",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (11.9% increase)."
+    },
+    {
+        "period": "2010-05-17",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (18.3% increase)."
+    },
+    {
+        "period": "2010-05-17",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (11.9% increase)."
+    },
+    {
+        "period": "2010-05-24",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (8.1% increase)."
+    },
+    {
+        "period": "2010-06-07",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2010-06-07",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2010-06-07",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (10.4% increase)."
+    },
+    {
+        "period": "2010-06-07",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (5.6% increase)."
+    },
+    {
+        "period": "2010-06-14",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (5.3% increase)."
+    },
+    {
+        "period": "2010-06-21",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2010-06-21",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2010-06-21",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2010-06-21",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2010-06-21",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (11.0% increase)."
+    },
+    {
+        "period": "2010-06-28",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (8.3% increase)."
+    },
+    {
+        "period": "2010-06-28",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (8.7% increase)."
+    },
+    {
+        "period": "2010-07-05",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (5.5% increase)."
+    },
+    {
+        "period": "2010-07-12",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (21.0% increase)."
+    },
+    {
+        "period": "2010-08-02",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2010-08-02",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2010-08-02",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (5.8% increase)."
+    },
+    {
+        "period": "2010-08-09",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (12.0% increase)."
+    },
+    {
+        "period": "2010-08-16",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (8.3% increase)."
+    },
+    {
+        "period": "2010-08-23",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (18.3% increase)."
+    },
+    {
+        "period": "2010-08-23",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (10.4% increase)."
+    },
+    {
+        "period": "2010-08-30",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (16.8% increase)."
+    },
+    {
+        "period": "2010-09-13",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (13.6% increase)."
+    },
+    {
+        "period": "2010-09-20",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (12.1% increase)."
+    },
+    {
+        "period": "2010-10-04",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (15.0% increase)."
+    },
+    {
+        "period": "2010-10-11",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (7.9% increase)."
+    },
+    {
+        "period": "2010-10-11",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (7.3% increase)."
+    },
+    {
+        "period": "2010-10-11",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (3.5% increase)."
+    },
+    {
+        "period": "2010-11-01",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2010-11-01",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2010-11-01",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (9.5% increase)."
+    },
+    {
+        "period": "2010-11-08",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (10.1% increase)."
+    },
+    {
+        "period": "2010-11-29",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (9.5% increase)."
+    },
+    {
+        "period": "2010-11-29",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (11.3% increase)."
+    },
+    {
+        "period": "2010-12-06",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2010-12-06",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2010-12-13",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (12.4% increase)."
+    },
+    {
+        "period": "2010-12-27",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (3.0% increase)."
+    },
+    {
+        "period": "2011-01-03",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (21.6% increase)."
+    },
+    {
+        "period": "2011-01-10",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (25.5% increase)."
+    },
+    {
+        "period": "2011-01-31",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (10.1% increase)."
+    },
+    {
+        "period": "2011-01-31",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (18.6% increase)."
+    },
+    {
+        "period": "2011-02-07",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (8.6% increase)."
+    },
+    {
+        "period": "2011-02-21",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2011-02-21",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-03-07",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2011-03-07",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-03-07",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2011-03-07",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-03-07",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (7.3% increase)."
+    },
+    {
+        "period": "2011-03-07",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (6.9% increase)."
+    },
+    {
+        "period": "2011-03-21",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2011-03-21",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-03-28",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (11.4% increase)."
+    },
+    {
+        "period": "2011-03-28",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (4.7% increase)."
+    },
+    {
+        "period": "2011-04-11",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2011-04-11",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-04-18",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (7.0% increase)."
+    },
+    {
+        "period": "2011-04-18",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (6.5% increase)."
+    },
+    {
+        "period": "2011-04-25",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (7.7% increase)."
+    },
+    {
+        "period": "2011-04-25",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (9.6% increase)."
+    },
+    {
+        "period": "2011-05-02",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2011-05-02",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-05-16",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (9.0% increase)."
+    },
+    {
+        "period": "2011-05-23",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2011-05-23",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-05-23",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2011-05-23",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-05-23",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (11.0% increase)."
+    },
+    {
+        "period": "2011-05-23",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (21.3% increase)."
+    },
+    {
+        "period": "2011-05-30",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (14.3% increase)."
+    },
+    {
+        "period": "2011-06-13",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2011-06-13",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-06-27",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (10.5% increase)."
+    },
+    {
+        "period": "2011-06-27",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (7.9% increase)."
+    },
+    {
+        "period": "2011-06-27",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (8.7% increase)."
+    },
+    {
+        "period": "2011-07-04",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (5.0% increase)."
+    },
+    {
+        "period": "2011-07-11",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2011-07-11",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-08-01",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (11.3% increase)."
+    },
+    {
+        "period": "2011-08-01",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (9.0% increase)."
+    },
+    {
+        "period": "2011-08-01",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (10.6% increase)."
+    },
+    {
+        "period": "2011-08-08",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (8.8% increase)."
+    },
+    {
+        "period": "2011-08-15",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (5.5% increase)."
+    },
+    {
+        "period": "2011-09-26",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2011-09-26",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-09-26",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2011-09-26",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-09-26",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (8.2% increase)."
+    },
+    {
+        "period": "2011-10-03",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2011-10-03",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-10-03",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (9.5% increase)."
+    },
+    {
+        "period": "2011-10-17",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2011-10-17",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-10-17",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2011-10-17",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-10-17",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (4.1% increase)."
+    },
+    {
+        "period": "2011-10-31",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (29.3% increase)."
+    },
+    {
+        "period": "2011-10-31",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (4.1% increase)."
+    },
+    {
+        "period": "2011-11-21",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (8.5% increase)."
+    },
+    {
+        "period": "2011-12-05",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2011-12-05",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-12-05",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (5.2% increase)."
+    },
+    {
+        "period": "2011-12-05",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (4.9% increase)."
+    },
+    {
+        "period": "2011-12-12",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2011-12-12",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-12-12",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2011-12-12",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2011-12-12",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (19.2% increase)."
+    },
+    {
+        "period": "2011-12-12",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (6.0% increase)."
+    },
+    {
+        "period": "2011-12-12",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (4.8% increase)."
+    },
+    {
+        "period": "2011-12-19",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (12.8% increase)."
+    },
+    {
+        "period": "2012-01-09",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (10.9% increase)."
+    },
+    {
+        "period": "2012-01-09",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (8.7% increase)."
+    },
+    {
+        "period": "2012-01-23",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2012-01-23",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-01-23",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (7.8% increase)."
+    },
+    {
+        "period": "2012-01-30",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (4.4% increase)."
+    },
+    {
+        "period": "2012-01-30",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (15.8% increase)."
+    },
+    {
+        "period": "2012-02-06",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2012-02-06",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-02-06",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2012-02-06",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-02-06",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2012-02-06",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-02-20",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (9.2% increase)."
+    },
+    {
+        "period": "2012-02-20",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (6.9% increase)."
+    },
+    {
+        "period": "2012-02-20",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (7.6% increase)."
+    },
+    {
+        "period": "2012-03-12",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (8.1% increase)."
+    },
+    {
+        "period": "2012-03-12",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (4.7% increase)."
+    },
+    {
+        "period": "2012-03-12",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (14.9% increase)."
+    },
+    {
+        "period": "2012-03-26",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2012-03-26",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-03-26",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2012-03-26",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-04-02",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (25.7% increase)."
+    },
+    {
+        "period": "2012-04-02",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.5% increase)."
+    },
+    {
+        "period": "2012-04-16",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (10.5% increase)."
+    },
+    {
+        "period": "2012-04-30",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2012-04-30",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-04-30",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (7.1% increase)."
+    },
+    {
+        "period": "2012-04-30",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (10.0% increase)."
+    },
+    {
+        "period": "2012-04-30",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (8.0% increase)."
+    },
+    {
+        "period": "2012-04-30",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (13.0% increase)."
+    },
+    {
+        "period": "2012-04-30",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (8.8% increase)."
+    },
+    {
+        "period": "2012-05-14",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2012-05-14",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-05-14",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (8.6% increase)."
+    },
+    {
+        "period": "2012-05-28",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2012-05-28",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-06-18",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (16.5% increase)."
+    },
+    {
+        "period": "2012-07-02",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (24.4% increase)."
+    },
+    {
+        "period": "2012-07-02",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (32.8% increase)."
+    },
+    {
+        "period": "2012-07-02",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (19.9% increase)."
+    },
+    {
+        "period": "2012-07-23",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (41.3% increase)."
+    },
+    {
+        "period": "2012-07-30",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2012-07-30",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-07-30",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (13.5% increase)."
+    },
+    {
+        "period": "2012-08-06",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2012-08-06",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-09-03",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2012-09-03",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-09-10",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (9.5% increase)."
+    },
+    {
+        "period": "2012-10-01",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (10.3% increase)."
+    },
+    {
+        "period": "2012-10-01",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (19.4% increase)."
+    },
+    {
+        "period": "2012-10-08",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (9.2% increase)."
+    },
+    {
+        "period": "2012-10-08",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (11.7% increase)."
+    },
+    {
+        "period": "2012-10-15",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2012-10-15",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-10-15",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2012-10-15",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-10-15",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (11.4% increase)."
+    },
+    {
+        "period": "2012-10-22",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (17.3% increase)."
+    },
+    {
+        "period": "2012-10-22",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (15.9% increase)."
+    },
+    {
+        "period": "2012-10-29",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (7.1% increase)."
+    },
+    {
+        "period": "2012-11-05",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2012-11-05",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-11-05",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (20.4% increase)."
+    },
+    {
+        "period": "2012-11-12",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2012-11-12",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-11-12",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (21.5% increase)."
+    },
+    {
+        "period": "2012-11-19",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (9.2% increase)."
+    },
+    {
+        "period": "2012-12-03",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (6.6% increase)."
+    },
+    {
+        "period": "2012-12-10",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (7.8% increase)."
+    },
+    {
+        "period": "2012-12-17",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (19.8% increase)."
+    },
+    {
+        "period": "2012-12-24",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2012-12-24",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2012-12-31",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.6% increase)."
+    },
+    {
+        "period": "2012-12-31",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (7.7% increase)."
+    },
+    {
+        "period": "2012-12-31",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (7.6% increase)."
+    },
+    {
+        "period": "2013-01-07",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (8.3% increase)."
+    },
+    {
+        "period": "2013-01-14",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2013-01-14",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-01-14",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2013-01-14",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-01-14",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (19.3% increase)."
+    },
+    {
+        "period": "2013-01-28",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (16.4% increase)."
+    },
+    {
+        "period": "2013-02-11",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (9.8% increase)."
+    },
+    {
+        "period": "2013-02-11",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.8% increase)."
+    },
+    {
+        "period": "2013-02-11",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (5.8% increase)."
+    },
+    {
+        "period": "2013-03-18",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2013-03-18",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-03-18",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (9.1% increase)."
+    },
+    {
+        "period": "2013-03-25",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2013-03-25",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-03-25",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2013-03-25",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-03-25",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (15.2% increase)."
+    },
+    {
+        "period": "2013-04-01",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2013-04-01",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-04-01",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (4.5% increase)."
+    },
+    {
+        "period": "2013-04-15",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (4.7% increase)."
+    },
+    {
+        "period": "2013-04-15",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (16.5% increase)."
+    },
+    {
+        "period": "2013-04-22",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (10.7% increase)."
+    },
+    {
+        "period": "2013-04-22",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (10.8% increase)."
+    },
+    {
+        "period": "2013-04-22",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (11.3% increase)."
+    },
+    {
+        "period": "2013-05-06",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2013-05-06",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-05-20",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2013-05-20",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-05-20",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (15.3% increase)."
+    },
+    {
+        "period": "2013-05-27",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (4.7% increase)."
+    },
+    {
+        "period": "2013-06-03",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (9.3% increase)."
+    },
+    {
+        "period": "2013-06-10",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (2.9% increase)."
+    },
+    {
+        "period": "2013-06-17",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (6.7% increase)."
+    },
+    {
+        "period": "2013-06-17",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (11.3% increase)."
+    },
+    {
+        "period": "2013-06-24",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2013-06-24",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-06-24",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2013-06-24",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-06-24",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (13.3% increase)."
+    },
+    {
+        "period": "2013-06-24",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (6.5% increase)."
+    },
+    {
+        "period": "2013-07-15",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2013-07-15",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-07-15",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (8.3% increase)."
+    },
+    {
+        "period": "2013-07-22",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2013-07-22",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-07-22",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (9.3% increase)."
+    },
+    {
+        "period": "2013-08-05",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (6.5% increase)."
+    },
+    {
+        "period": "2013-08-05",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (9.4% increase)."
+    },
+    {
+        "period": "2013-08-19",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2013-08-19",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-09-02",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2013-09-02",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-09-09",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2013-09-09",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-09-09",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (11.2% increase)."
+    },
+    {
+        "period": "2013-09-09",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.3% increase)."
+    },
+    {
+        "period": "2013-09-16",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (10.2% increase)."
+    },
+    {
+        "period": "2013-09-30",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (5.6% increase)."
+    },
+    {
+        "period": "2013-09-30",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (9.2% increase)."
+    },
+    {
+        "period": "2013-10-07",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (11.8% increase)."
+    },
+    {
+        "period": "2013-10-14",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (6.5% increase)."
+    },
+    {
+        "period": "2013-10-21",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2013-10-21",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-10-28",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2013-10-28",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-11-04",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (9.9% increase)."
+    },
+    {
+        "period": "2013-11-11",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (9.0% increase)."
+    },
+    {
+        "period": "2013-11-18",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2013-11-18",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2013-11-18",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (11.0% increase)."
+    },
+    {
+        "period": "2013-11-18",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (3.6% increase)."
+    },
+    {
+        "period": "2013-12-02",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (9.4% increase)."
+    },
+    {
+        "period": "2013-12-02",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (10.1% increase)."
+    },
+    {
+        "period": "2013-12-30",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (4.9% increase)."
+    },
+    {
+        "period": "2014-01-06",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (80.2% increase)."
+    },
+    {
+        "period": "2014-01-13",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2014-01-13",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-01-13",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (8.2% increase)."
+    },
+    {
+        "period": "2014-01-20",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (12.9% increase)."
+    },
+    {
+        "period": "2014-01-20",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (12.1% increase)."
+    },
+    {
+        "period": "2014-01-20",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (16.2% increase)."
+    },
+    {
+        "period": "2014-01-27",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2014-01-27",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-01-27",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (17.4% increase)."
+    },
+    {
+        "period": "2014-01-27",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (11.3% increase)."
+    },
+    {
+        "period": "2014-02-10",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (4.0% increase)."
+    },
+    {
+        "period": "2014-02-24",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2014-02-24",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-02-24",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (8.8% increase)."
+    },
+    {
+        "period": "2014-03-03",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (18.2% increase)."
+    },
+    {
+        "period": "2014-03-17",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (15.5% increase)."
+    },
+    {
+        "period": "2014-03-31",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (6.8% increase)."
+    },
+    {
+        "period": "2014-04-14",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (9.0% increase)."
+    },
+    {
+        "period": "2014-04-14",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (7.8% increase)."
+    },
+    {
+        "period": "2014-04-14",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (10.4% increase)."
+    },
+    {
+        "period": "2014-04-14",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (11.8% increase)."
+    },
+    {
+        "period": "2014-05-05",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2014-05-05",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-05-05",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (14.5% increase)."
+    },
+    {
+        "period": "2014-06-09",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2014-06-09",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-06-09",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (6.9% increase)."
+    },
+    {
+        "period": "2014-06-09",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (12.9% increase)."
+    },
+    {
+        "period": "2014-06-09",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (7.1% increase)."
+    },
+    {
+        "period": "2014-06-09",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (6.2% increase)."
+    },
+    {
+        "period": "2014-06-16",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (7.5% increase)."
+    },
+    {
+        "period": "2014-06-16",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (9.3% increase)."
+    },
+    {
+        "period": "2014-06-23",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2014-06-23",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-06-23",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (2.7% increase)."
+    },
+    {
+        "period": "2014-06-30",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2014-06-30",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-06-30",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2014-06-30",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-06-30",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (29.4% increase)."
+    },
+    {
+        "period": "2014-07-28",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (8.6% increase)."
+    },
+    {
+        "period": "2014-08-04",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (12.7% increase)."
+    },
+    {
+        "period": "2014-08-18",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2014-08-18",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-08-18",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (5.5% increase)."
+    },
+    {
+        "period": "2014-08-18",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (19.8% increase)."
+    },
+    {
+        "period": "2014-08-25",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (30.1% increase)."
+    },
+    {
+        "period": "2014-09-01",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2014-09-01",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-09-08",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2014-09-08",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-09-08",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (10.3% increase)."
+    },
+    {
+        "period": "2014-09-08",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.5% increase)."
+    },
+    {
+        "period": "2014-09-08",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (11.1% increase)."
+    },
+    {
+        "period": "2014-09-22",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2014-09-22",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-09-22",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (20.5% increase)."
+    },
+    {
+        "period": "2014-09-29",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2014-09-29",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-10-13",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (7.2% increase)."
+    },
+    {
+        "period": "2014-10-20",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (16.1% increase)."
+    },
+    {
+        "period": "2014-11-03",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2014-11-03",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-11-03",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (18.2% increase)."
+    },
+    {
+        "period": "2014-11-03",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (7.2% increase)."
+    },
+    {
+        "period": "2014-11-17",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2014-11-17",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-12-08",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (11.7% increase)."
+    },
+    {
+        "period": "2014-12-08",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (8.5% increase)."
+    },
+    {
+        "period": "2014-12-08",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (9.7% increase)."
+    },
+    {
+        "period": "2014-12-15",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2014-12-15",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2014-12-15",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (8.2% increase)."
+    },
+    {
+        "period": "2014-12-15",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (10.6% increase)."
+    },
+    {
+        "period": "2014-12-29",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (15.3% increase)."
+    },
+    {
+        "period": "2015-01-19",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (7.3% increase)."
+    },
+    {
+        "period": "2015-02-16",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2015-02-16",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-02-16",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (11.1% increase)."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (20.0% increase)."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (13.5% increase)."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (10.1% increase)."
+    },
+    {
+        "period": "2015-02-23",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (5.1% increase)."
+    },
+    {
+        "period": "2015-03-02",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2015-03-02",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-03-30",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2015-03-30",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-03-30",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2015-03-30",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-03-30",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2015-03-30",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-03-30",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (6.8% increase)."
+    },
+    {
+        "period": "2015-05-04",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2015-05-04",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-05-04",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (4.4% increase)."
+    },
+    {
+        "period": "2015-05-11",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (3.9% increase)."
+    },
+    {
+        "period": "2015-05-11",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (3.9% increase)."
+    },
+    {
+        "period": "2015-05-11",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (5.8% increase)."
+    },
+    {
+        "period": "2015-05-11",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (4.1% increase)."
+    },
+    {
+        "period": "2015-05-11",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (2.4% increase)."
+    },
+    {
+        "period": "2015-05-11",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (12.6% increase)."
+    },
+    {
+        "period": "2015-05-18",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (10.7% increase)."
+    },
+    {
+        "period": "2015-05-18",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (6.0% increase)."
+    },
+    {
+        "period": "2015-06-01",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (8.8% increase)."
+    },
+    {
+        "period": "2015-06-08",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2015-06-08",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-06-15",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.3% increase)."
+    },
+    {
+        "period": "2015-06-22",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (12.9% increase)."
+    },
+    {
+        "period": "2015-07-13",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (4.5% increase)."
+    },
+    {
+        "period": "2015-07-27",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2015-07-27",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-07-27",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (10.7% increase)."
+    },
+    {
+        "period": "2015-07-27",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (3.9% increase)."
+    },
+    {
+        "period": "2015-08-10",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (8.1% increase)."
+    },
+    {
+        "period": "2015-08-17",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (17.4% increase)."
+    },
+    {
+        "period": "2015-08-31",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (14.6% increase)."
+    },
+    {
+        "period": "2015-08-31",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (7.2% increase)."
+    },
+    {
+        "period": "2015-09-07",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (4.9% increase)."
+    },
+    {
+        "period": "2015-09-07",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (4.1% increase)."
+    },
+    {
+        "period": "2015-09-07",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (8.4% increase)."
+    },
+    {
+        "period": "2015-09-21",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (7.6% increase)."
+    },
+    {
+        "period": "2015-09-28",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (9.0% increase)."
+    },
+    {
+        "period": "2015-09-28",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (7.2% increase)."
+    },
+    {
+        "period": "2015-10-05",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (4.9% increase)."
+    },
+    {
+        "period": "2015-10-19",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (2.3% increase)."
+    },
+    {
+        "period": "2015-10-26",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (2.7% increase)."
+    },
+    {
+        "period": "2015-11-02",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2015-11-02",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-11-02",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (7.4% increase)."
+    },
+    {
+        "period": "2015-11-09",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (17.7% increase)."
+    },
+    {
+        "period": "2015-11-09",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (4.5% increase)."
+    },
+    {
+        "period": "2015-11-16",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2015-11-16",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2015-11-16",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (15.9% increase)."
+    },
+    {
+        "period": "2015-11-23",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (22.9% increase)."
+    },
+    {
+        "period": "2015-12-07",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (2.6% increase)."
+    },
+    {
+        "period": "2015-12-14",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (9.0% increase)."
+    },
+    {
+        "period": "2015-12-14",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (8.6% increase)."
+    },
+    {
+        "period": "2015-12-14",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (12.9% increase)."
+    },
+    {
+        "period": "2015-12-14",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (9.2% increase)."
+    },
+    {
+        "period": "2015-12-14",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (7.0% increase)."
+    },
+    {
+        "period": "2015-12-28",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (4.7% increase)."
+    },
+    {
+        "period": "2015-12-28",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (4.0% increase)."
+    },
+    {
+        "period": "2016-01-04",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2016-01-04",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-01-04",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (7.0% increase)."
+    },
+    {
+        "period": "2016-01-18",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (5.4% increase)."
+    },
+    {
+        "period": "2016-01-18",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (7.2% increase)."
+    },
+    {
+        "period": "2016-01-25",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (6.1% increase)."
+    },
+    {
+        "period": "2016-02-01",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (4.4% increase)."
+    },
+    {
+        "period": "2016-02-22",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2016-02-22",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-02-22",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (22.7% increase)."
+    },
+    {
+        "period": "2016-02-22",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (8.9% increase)."
+    },
+    {
+        "period": "2016-02-22",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (4.3% increase)."
+    },
+    {
+        "period": "2016-02-22",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (6.2% increase)."
+    },
+    {
+        "period": "2016-02-29",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (7.1% increase)."
+    },
+    {
+        "period": "2016-02-29",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (6.4% increase)."
+    },
+    {
+        "period": "2016-03-07",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (5.1% increase)."
+    },
+    {
+        "period": "2016-03-28",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2016-03-28",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-03-28",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (11.7% increase)."
+    },
+    {
+        "period": "2016-04-04",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (16.5% increase)."
+    },
+    {
+        "period": "2016-04-11",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (5.8% increase)."
+    },
+    {
+        "period": "2016-05-02",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2016-05-02",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-05-02",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2016-05-02",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-05-02",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.6% increase)."
+    },
+    {
+        "period": "2016-05-02",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (6.7% increase)."
+    },
+    {
+        "period": "2016-05-02",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (9.1% increase)."
+    },
+    {
+        "period": "2016-05-23",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2016-05-23",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-05-30",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2016-05-30",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-05-30",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (5.9% increase)."
+    },
+    {
+        "period": "2016-05-30",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (8.6% increase)."
+    },
+    {
+        "period": "2016-06-13",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2016-06-13",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-06-13",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2016-06-13",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-06-13",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (9.0% increase)."
+    },
+    {
+        "period": "2016-06-13",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (2.4% increase)."
+    },
+    {
+        "period": "2016-06-20",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2016-06-20",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-06-20",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (11.7% increase)."
+    },
+    {
+        "period": "2016-06-20",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (13.7% increase)."
+    },
+    {
+        "period": "2016-07-18",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (5.9% increase)."
+    },
+    {
+        "period": "2016-07-18",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (9.5% increase)."
+    },
+    {
+        "period": "2016-07-25",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (5.3% increase)."
+    },
+    {
+        "period": "2016-07-25",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (2.6% increase)."
+    },
+    {
+        "period": "2016-08-01",
+        "topic": "craving",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated craving signals (9.3% increase)."
+    },
+    {
+        "period": "2016-08-15",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (5.0% increase)."
+    },
+    {
+        "period": "2016-08-22",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (4.0% increase)."
+    },
+    {
+        "period": "2016-08-22",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (9.3% increase)."
+    },
+    {
+        "period": "2016-08-29",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (5.4% increase)."
+    },
+    {
+        "period": "2016-09-05",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2016-09-05",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-09-05",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (6.9% increase)."
+    },
+    {
+        "period": "2016-09-05",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (14.6% increase)."
+    },
+    {
+        "period": "2016-09-12",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (8.9% increase)."
+    },
+    {
+        "period": "2016-09-19",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (9.4% increase)."
+    },
+    {
+        "period": "2016-10-03",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2016-10-03",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-10-17",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2016-10-17",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-10-17",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (2.2% increase)."
+    },
+    {
+        "period": "2016-10-17",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (6.5% increase)."
+    },
+    {
+        "period": "2016-10-31",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2016-10-31",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-11-14",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2016-11-14",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2016-11-14",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (10.4% increase)."
+    },
+    {
+        "period": "2016-11-14",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (8.7% increase)."
+    },
+    {
+        "period": "2016-11-14",
+        "topic": "harm_reduction",
+        "severity": "MONITOR",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (6.5% increase)."
+    },
+    {
+        "period": "2016-11-14",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (18.9% increase)."
+    },
+    {
+        "period": "2016-11-28",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2016-11-28",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-01-02",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical withdrawal alert detected."
+    },
+    {
+        "period": "2017-01-02",
+        "topic": "withdrawal",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-01-02",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2017-01-02",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-01-02",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (5.6% increase)."
+    },
+    {
+        "period": "2017-01-02",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (4.4% increase)."
+    },
+    {
+        "period": "2017-01-30",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (4.2% increase)."
+    },
+    {
+        "period": "2017-02-06",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2017-02-06",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-02-13",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (5.1% increase)."
+    },
+    {
+        "period": "2017-02-20",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2017-02-20",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-02-27",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical recovery alert detected."
+    },
+    {
+        "period": "2017-02-27",
+        "topic": "recovery",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-02-27",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (11.8% increase)."
+    },
+    {
+        "period": "2017-02-27",
+        "topic": "harm_reduction",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Increase harm reduction outreach messaging",
+        "rationale": "Rising harm_reduction topic (8.2% increase)."
+    },
+    {
+        "period": "2017-03-06",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (6.8% increase)."
+    },
+    {
+        "period": "2017-03-06",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (9.8% increase)."
+    },
+    {
+        "period": "2017-03-06",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (3.0% increase)."
+    },
+    {
+        "period": "2017-03-13",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (6.5% increase)."
+    },
+    {
+        "period": "2017-03-13",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (5.4% increase)."
+    },
+    {
+        "period": "2017-03-13",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (8.3% increase)."
+    },
+    {
+        "period": "2017-03-13",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (12.8% increase)."
+    },
+    {
+        "period": "2017-03-27",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (13.8% increase)."
+    },
+    {
+        "period": "2017-04-03",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2017-04-03",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-04-17",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (3.2% increase)."
+    },
+    {
+        "period": "2017-04-17",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (3.6% increase)."
+    },
+    {
+        "period": "2017-04-24",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (15.3% increase)."
+    },
+    {
+        "period": "2017-05-01",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical procurement alert detected."
+    },
+    {
+        "period": "2017-05-01",
+        "topic": "procurement",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-05-01",
+        "topic": "relapse",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated relapse signals (5.6% increase)."
+    },
+    {
+        "period": "2017-05-22",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (2.7% increase)."
+    },
+    {
+        "period": "2017-05-29",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical craving alert detected."
+    },
+    {
+        "period": "2017-05-29",
+        "topic": "craving",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-05-29",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (21.2% increase)."
+    },
+    {
+        "period": "2017-06-05",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2017-06-05",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-06-05",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (7.1% increase)."
+    },
+    {
+        "period": "2017-06-05",
+        "topic": "recovery",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch recovery signals (13.5% increase)."
+    },
+    {
+        "period": "2017-06-12",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (8.6% increase)."
+    },
+    {
+        "period": "2017-06-19",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2017-06-19",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-06-19",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (6.4% increase)."
+    },
+    {
+        "period": "2017-07-17",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (10.3% increase)."
+    },
+    {
+        "period": "2017-07-17",
+        "topic": "overdose",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch overdose signals (3.2% increase)."
+    },
+    {
+        "period": "2017-07-24",
+        "topic": "hopelessness",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated hopelessness signals (10.7% increase)."
+    },
+    {
+        "period": "2017-07-31",
+        "topic": "procurement",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated procurement signals (6.1% increase)."
+    },
+    {
+        "period": "2017-08-21",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (5.5% increase)."
+    },
+    {
+        "period": "2017-08-28",
+        "topic": "withdrawal",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated withdrawal signals (6.4% increase)."
+    },
+    {
+        "period": "2017-09-04",
+        "topic": "hopelessness",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch hopelessness signals (9.6% increase)."
+    },
+    {
+        "period": "2017-09-18",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2017-09-18",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-09-18",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2017-09-18",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-09-18",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2017-09-18",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-09-18",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (5.3% increase)."
+    },
+    {
+        "period": "2017-10-02",
+        "topic": "craving",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch craving signals (6.0% increase)."
+    },
+    {
+        "period": "2017-10-16",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (11.6% increase)."
+    },
+    {
+        "period": "2017-10-23",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical hopelessness alert detected."
+    },
+    {
+        "period": "2017-10-23",
+        "topic": "hopelessness",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-10-23",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical overdose alert detected."
+    },
+    {
+        "period": "2017-10-23",
+        "topic": "overdose",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-10-23",
+        "topic": "recovery",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated recovery signals (13.8% increase)."
+    },
+    {
+        "period": "2017-10-30",
+        "topic": "overdose",
+        "severity": "MONITOR",
+        "recommendation": "Monitor local community forums and alert local health officials",
+        "rationale": "Elevated overdose signals (8.2% increase)."
+    },
+    {
+        "period": "2017-11-06",
+        "topic": "relapse",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch relapse signals (8.3% increase)."
+    },
+    {
+        "period": "2017-11-13",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical harm_reduction alert detected."
+    },
+    {
+        "period": "2017-11-13",
+        "topic": "harm_reduction",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-11-13",
+        "topic": "procurement",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch procurement signals (12.5% increase)."
+    },
+    {
+        "period": "2017-12-04",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Deploy naloxone in top-3 states by death rate (Unknown)",
+        "rationale": "Critical relapse alert detected."
+    },
+    {
+        "period": "2017-12-04",
+        "topic": "relapse",
+        "severity": "IMMEDIATE",
+        "recommendation": "Activate early warning protocol 3 months before projected spike",
+        "rationale": "Social signal leads CDC deaths by 3 months."
+    },
+    {
+        "period": "2017-12-04",
+        "topic": "withdrawal",
+        "severity": "INFORMATIONAL",
+        "recommendation": "Track topic trajectory in dashboard",
+        "rationale": "Watch withdrawal signals (7.1% increase)."
+    }
+]
