@@ -118,8 +118,69 @@ def compute_social_signal(posts_df: pd.DataFrame,
     return signal
 
 
-# Path to classified posts produced by the detection pipeline
-POSTS_PATH = DATA / "raw" / "posts_classified.csv"
+# Paths to classified posts
+POSTS_PATH        = DATA / "raw" / "posts_classified.csv"
+EROWID_POSTS_PATH = DATA / "raw" / "erowid_posts.csv"
+
+# Shared columns used when merging sources
+_MERGE_COLS = ["post_id", "timestamp", "substance", "risk_level", "review",
+               "drugName", "rating", "source"]
+
+
+def load_erowid_posts(path: Path = EROWID_POSTS_PATH) -> pd.DataFrame | None:
+    """
+    Load the Erowid classified posts CSV produced by process_erowid.py.
+    Returns None (with a warning) if the file does not exist.
+    """
+    if not path.exists():
+        print(f"  ⚠  Erowid posts not found at {path}")
+        print("     Run src/processing/process_erowid_lsa.py to generate them.")
+        return None
+
+    df = pd.read_csv(path, parse_dates=["timestamp"])
+    # Ensure required columns are present
+    for col in ["timestamp", "substance", "risk_level", "review"]:
+        if col not in df.columns:
+            print(f"  ⚠  Erowid CSV missing column '{col}' — skipping.")
+            return None
+
+    if "source" not in df.columns:
+        df["source"] = "erowid"
+
+    df = df.dropna(subset=["substance"])
+    print(f"  Erowid posts loaded: {len(df):,} rows  "
+          f"(with timestamp: {df['timestamp'].notna().sum():,})")
+    return df
+
+
+def merge_post_sources(
+    drug_reviews_df: pd.DataFrame | None,
+    erowid_df: pd.DataFrame | None,
+) -> pd.DataFrame:
+    """
+    Concatenate drug-review and Erowid posts into a single DataFrame.
+    Aligns on shared columns; adds a 'source' tag for attribution.
+    At least one source must be non-None.
+    """
+    frames = []
+
+    if drug_reviews_df is not None and not drug_reviews_df.empty:
+        df = drug_reviews_df.copy()
+        if "source" not in df.columns:
+            df["source"] = "drug_review"
+        frames.append(df)
+
+    if erowid_df is not None and not erowid_df.empty:
+        frames.append(erowid_df.copy())
+
+    if not frames:
+        raise ValueError("No post sources available. Provide at least one dataset.")
+
+    merged = pd.concat(frames, ignore_index=True)
+    merged["timestamp"] = pd.to_datetime(merged["timestamp"], errors="coerce")
+    print(f"  Merged posts: {len(merged):,} total  "
+          f"({merged['source'].value_counts().to_dict()})")
+    return merged
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -240,6 +301,122 @@ def correlate_signals(social_series: pd.Series, cdc_series: pd.Series,
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# STEP 4b — Erowid spillover detection
+# ══════════════════════════════════════════════════════════════════════════════
+# Uses the NMF substance similarity graph produced by process_erowid_lsa.py to
+# detect "spillover" patterns: when one substance spikes, do its semantically
+# related peers (per Erowid's experience corpus) also spike within ±35 days?
+# This reveals polysubstance and substitution dynamics invisible in CDC data.
+# Both functions degrade gracefully when erowid_substance_similarity.json is absent.
+
+EROWID_SIM_PATH = PROCESSED / "erowid_substance_similarity.json"
+
+
+def load_erowid_similarity_graph(
+    sim_path: Path = EROWID_SIM_PATH,
+    threshold: float = 0.70,
+) -> dict[str, list[str]]:
+    """
+    Load Erowid NMF substance similarity graph.
+
+    Returns {substance: [related_substance, ...]} for all pairs whose cosine
+    similarity in NMF topic space exceeds `threshold`.
+
+    Returns an empty dict if the file is missing (graceful degradation).
+    """
+    if not sim_path.exists():
+        return {}
+    try:
+        with open(sim_path, encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return {}
+
+    graph: dict[str, list[str]] = {}
+    for sub, peers in data.get("similarity_matrix", {}).items():
+        related = [p for p, score in peers.items() if score >= threshold]
+        if related:
+            graph[sub] = related
+    return graph
+
+
+def detect_spillover_spikes(
+    signal_df: pd.DataFrame,
+    similarity_graph: dict[str, list[str]],
+    spike_window: int = 3,
+    spike_threshold: float = 2.0,
+    co_occurrence_days: int = 35,
+) -> pd.DataFrame:
+    """
+    For each detected spike event, check whether NMF-related substances
+    (per Erowid similarity graph) show elevated activity within ±co_occurrence_days.
+
+    A "spillover" flag is set when one or more semantically related substances
+    also spike around the same date — a pattern consistent with polysubstance
+    use or drug-market substitution (e.g., heroin → fentanyl shift).
+
+    Parameters
+    ----------
+    signal_df          : output of compute_social_signal() (date, substance, post_count)
+    similarity_graph   : output of load_erowid_similarity_graph()
+    spike_window       : rolling window for z-score spike detection
+    spike_threshold    : z-score threshold to declare a spike
+    co_occurrence_days : ±day window for spillover co-occurrence check
+
+    Returns
+    -------
+    DataFrame with columns:
+        date, substance, related_substances_spiking (JSON list), spillover_flag,
+        erowid_signal (True — marks this as an Erowid-derived finding)
+
+    Returns an empty DataFrame if similarity_graph is empty or no spikes detected.
+    """
+    if not similarity_graph or signal_df.empty:
+        return pd.DataFrame(columns=[
+            "date", "substance", "related_substances_spiking",
+            "spillover_flag", "erowid_signal",
+        ])
+
+    # ── Detect spike dates per substance ─────────────────────────────────────
+    spike_dates: dict[str, set] = {}
+    for substance in signal_df["substance"].unique():
+        series = (
+            signal_df[signal_df["substance"] == substance]
+            .set_index("date")["post_count"]
+            .sort_index()
+        )
+        spike_mask = detect_spikes(series, window=spike_window,
+                                   threshold=spike_threshold)
+        spike_set  = set(series.index[spike_mask])
+        if spike_set:
+            spike_dates[substance] = spike_set
+
+    # ── Check for spillover co-occurrence ─────────────────────────────────────
+    rows = []
+    delta = pd.Timedelta(days=co_occurrence_days)
+
+    for substance, s_dates in spike_dates.items():
+        related = similarity_graph.get(substance, [])
+        for date in s_dates:
+            related_spiking = [
+                r for r in related
+                if any(abs(date - d) <= delta for d in spike_dates.get(r, set()))
+            ]
+            rows.append({
+                "date":                       date,
+                "substance":                  substance,
+                "related_substances_spiking": json.dumps(related_spiking),
+                "spillover_flag":             len(related_spiking) > 0,
+                "erowid_signal":              True,
+            })
+
+    return pd.DataFrame(rows) if rows else pd.DataFrame(columns=[
+        "date", "substance", "related_substances_spiking",
+        "spillover_flag", "erowid_signal",
+    ])
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # STEP 5 — ICD-10 → substance mapping (for WONDER / raw death data)
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -289,15 +466,30 @@ def main():
 
     # ── Step 3: social signal ────────────────────────────────────────────────
     print("Step 3 — Social signal …")
-    if not POSTS_PATH.exists():
-        print(f"  ⚠  No posts dataset found at: {POSTS_PATH}")
-        print("     Provide your classified posts CSV with columns:")
-        print("       timestamp, substance, risk_level")
-        print("     Then re-run this script.")
-        print("\nSteps 4–5 skipped until posts data is available. CDC data saved.")
+
+    # Load drug-review posts (Kaggle)
+    drug_reviews_df = None
+    if POSTS_PATH.exists():
+        drug_reviews_df = pd.read_csv(POSTS_PATH, parse_dates=["timestamp"])
+        if "source" not in drug_reviews_df.columns:
+            drug_reviews_df["source"] = "drug_review"
+        print(f"  Drug-review posts loaded: {len(drug_reviews_df):,} rows")
+    else:
+        print(f"  ⚠  No drug-review posts found at: {POSTS_PATH}")
+        print("     Run src/processing/process_drug_reviews.py to generate them.")
+
+    # Load Erowid posts (optional enrichment)
+    print("  Loading Erowid posts …")
+    erowid_df = load_erowid_posts()
+
+    # Require at least one source
+    if drug_reviews_df is None and erowid_df is None:
+        print("\nSteps 4–5 skipped — no post sources available. CDC data saved.")
         return
 
-    posts_df  = pd.read_csv(POSTS_PATH, parse_dates=["timestamp"])
+    # Merge both sources
+    print("  Merging post sources …")
+    posts_df  = merge_post_sources(drug_reviews_df, erowid_df)
     signal_df = compute_social_signal(posts_df, freq=SIGNAL_FREQ)
     print(f"  Signal rows: {len(signal_df):,}  (freq={SIGNAL_FREQ})")
     signal_out = PROCESSED / f"social_signal_{SIGNAL_FREQ.lower()}.csv"
@@ -368,6 +560,25 @@ def main():
     with open(out_path, "w") as f:
         json.dump(all_correlations, f, indent=2)
     print(f"\n  Cross-correlation results saved → {out_path}")
+
+    # ── Step 4b: Erowid spillover analysis ───────────────────────────────────
+    print("\nStep 4b — Erowid spillover analysis …")
+    sim_graph = load_erowid_similarity_graph()
+    if not sim_graph:
+        print("  Erowid similarity graph not found — skipping spillover analysis.")
+        print("  Run 'python scripts/process_erowid_lsa.py' to generate it.")
+    else:
+        print(f"  Similarity graph loaded: {len(sim_graph)} substance(s) with peers")
+        spillover_df = detect_spillover_spikes(signal_df, sim_graph)
+        if spillover_df.empty:
+            print("  No spillover events detected.")
+        else:
+            flagged   = spillover_df[spillover_df["spillover_flag"]]
+            out_spill = PROCESSED / "erowid_spillover.csv"
+            spillover_df.to_csv(out_spill, index=False)
+            print(f"  Spillover events detected : {len(flagged):,}")
+            print(f"  Total spike rows saved    : {len(spillover_df):,}")
+            print(f"  Saved → {out_spill}")
 
     # ── Step 5: ICD-10 mapping demo ───────────────────────────────────────────
     print("\nStep 5 — ICD-10 mapping reference (sample):")

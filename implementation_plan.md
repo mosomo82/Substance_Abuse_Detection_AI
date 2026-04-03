@@ -94,7 +94,7 @@ The enhancements below are structured around the three challenge task areas and 
 - ~~`src/classifiers/finetuned_classifier.py`~~ ✅ **DONE** — `finetuned_results.csv` (41,830 rows) produced
 - ~~`src/eval/cluster_metrics.py`~~ ✅ **DONE** — `cluster_metrics.json` produced
 - ~~`models/finetuned_bert/`~~ ✅ **DONE** — checkpoint saved
-- ~~`requirements.txt`~~ ✅ **DONE** — `transformers`, `datasets`, `accelerate`, `torch`, `rouge-score`, `bert-score`, `ragas` added
+- ~~`requirements.txt`~~ ✅ **DONE** — `transformers`, `datasets`, `accelerate`, `torch`, `rouge-score`, `bert-score`, `ragas`, `beautifulsoup4`, `lxml` added
 - ~~`src/classifiers/ensemble.py`~~ ✅ **DONE** — finetuned weight tables (`WEIGHTS_FULL_FT`, `WEIGHTS_NO_LLM_FT`), `FINETUNED_CSV` path, 4-return `load_classifier_outputs()`, `merge_classifiers()` finetuned branch, and voting logic all implemented
 
 **Implementation Steps:**
@@ -113,7 +113,7 @@ The enhancements below are structured around the three challenge task areas and 
    - Compute **Perplexity** — train a small unigram/bigram LM on processed posts; measure perplexity on the domain slang vocabulary (`SLANG_MAP` from `src/processing/preprocess_posts.py`)
    - Write all three scores to `data/processed/cluster_metrics.json`
 
-3. **Wire finetuned into method_comparison.csv** ← **Apr 2**
+3. **Wire finetuned into method_comparison.csv**  ✅ **DONE (Apr 2)**
    - After `finetuned_results.csv` is produced, update `src/eval/generate_comparison.py` to include a `"Finetuned"` row (columns: `finetuned_results.csv`, column `risk_level`) and re-run
 
 **Outputs:** `finetuned_results.csv`, `cluster_metrics.json`, `models/finetuned_bert/`
@@ -160,7 +160,7 @@ The enhancements below are structured around the three challenge task areas and 
 
 **Implementation Steps:**
 
-1. **Intervention Recommendation Engine** (`src/agents/intervention_engine.py`)
+1. **Intervention Recommendation Engine** (`src/agents/intervention_engine.py`)  ✅ **DONE (Apr 2)**
    - Read `warning_report.csv` + `correlations.json` + `cdc_cleaned.csv`
    - Rules:
      - Critical opioid/fentanyl alert → "Deploy naloxone in top-3 states by death rate"
@@ -170,13 +170,13 @@ The enhancements below are structured around the three challenge task areas and 
    - Write `data/processed/recommendations.json`
    - Add **Tab 8 "Recommendations"** to dashboard: sortable table with badges, substance filter, expandable rationale
 
-2. **Summary Quality Metrics** (`src/eval/summary_metrics.py`)
+2. **Summary Quality Metrics** (`src/eval/summary_metrics.py`)  ✅ **DONE (Apr 2)**
    - **ROUGE-L:** Compare RAG-generated summaries in `spike_summaries.json` against reference summaries (manually write 3–5 reference summaries for known spike events)
    - **BERTScore:** Semantic similarity between generated and reference summaries
    - **Faithfulness (Ragas):** Check that each claim in analyst summaries is grounded in retrieved evidence spans — flag any ungrounded sentences
    - Write scores to `data/processed/summary_metrics.json`
 
-3. **Innovation Testing Framework**
+3. **Innovation Testing Framework**  ✅ **DONE (Apr 2)**
    - **Metamorphic Testing** (`src/tests/test_metamorphic.py`):
      - Take 50 high-risk posts, replace drug terms with NIDA slang equivalents from `preprocess_posts.py:SLANG_MAP`
      - Assert: risk label must remain "high" after substitution
@@ -253,6 +253,12 @@ The enhancements below are structured around the three challenge task areas and 
 
 | File | Owner | Status |
 |------|-------|--------|
+| `scripts/fetch_erowid.py` | M1 Tony | ✅ Done — git clone Erowid mirror; idempotent |
+| `scripts/process_erowid_lsa.py` | M1 Tony | ✅ Done — `erowid_substance_profiles.json` + similarity JSON (19 substances) |
+| `src/processing/process_erowid.py` | M1 Tony | ✅ Done — BS4 HTML parse + PII scrub + risk label → `erowid_posts.csv` |
+| `src/processing/process_erowid_lsa.py` | M1 Tony | ✅ Done — LSA variant → `erowid_posts.csv` (356 rows) |
+| `data/processed/erowid_substance_profiles.json` | M1 Tony | ✅ Done — NMF topic profiles |
+| `data/processed/erowid_substance_similarity.json` | M1 Tony | ✅ Done — 196 substance pairs |
 | `src/classifiers/finetuned_classifier.py` | M1 Tony | ✅ Done — `finetuned_results.csv` (41,830 rows) produced |
 | `models/finetuned_bert/` | M1 Tony | ✅ Done — checkpoint saved |
 | `src/classifiers/ensemble.py` | M1 Tony | ✅ Done — finetuned 4th method fully integrated |
@@ -262,15 +268,71 @@ The enhancements below are structured around the three challenge task areas and 
 | `src/eval/generate_comparison.py` | M2 Daniel | Expand |
 | `data/processed/eval_test_set.csv` | M2 Daniel | Create |
 | `data/processed/eval_figures/` | M2 Daniel | Create |
-| `src/agents/intervention_engine.py` | M3 Joe | ✅ Done |
-| `src/eval/summary_metrics.py` | M3 Joe | ✅ Done — computed ROUGE-L, BERTScore, and Faithfulness |
-| `src/tests/test_metamorphic.py` | M3 Joe | ✅ Done — metamorphic substitution tests passing |
-| `src/tests/test_safety_guards.py` | M3 Joe | ✅ Done — PII checks passing |
-| `data/processed/recommendations.json` | M3 Joe | ✅ Done |
-| `src/app/dashboard.py` | M2 + M3 + M4 | Modify (eval tab + Tab 8 + HitL scorecard) |
+| `src/agents/intervention_engine.py` | M3 Joel | ✅ Done |
+| `src/eval/summary_metrics.py` | M3 Joel | ✅ Done — computed ROUGE-L, BERTScore, and Faithfulness |
+| `src/tests/test_metamorphic.py` | M3 Joel | ✅ Done — metamorphic substitution tests passing |
+| `src/tests/test_safety_guards.py` | M3 Joel | ✅ Done — PII checks passing |
+| `data/processed/recommendations.json` | M3 Joel | ✅ Done |
+| `src/agents/signal_pipeline.py` | M1 Tony | ✅ Done — `load_erowid_posts()` + `merge_post_sources()` added; CDC + Erowid + drug-review signal merged |
+| `src/app/dashboard.py` | M2 + M3 + M4 | ✅ Partially done — source filter (Drug Reviews / Erowid / Both), `_load_post_sources()`, data-source sidebar panel added; eval tab + HitL scorecard pending |
 | `data/processed/hitl_scores.csv` | M4 Tina | Create |
 | `report/nsf_nrt_challenge1_report.md` | M4 Tina | Create |
 | `requirements.txt` | M1 Tony | ✅ Done — `transformers`, `datasets`, `accelerate`, `torch`, `rouge-score`, `bert-score`, `ragas` added |
+
+---
+
+## Erowid LSA Integration (Signal Enrichment — Additive)
+
+> **PI-approved:** Aggregate signal discovery only. No individual reports stored or surfaced. All outputs are population-level. Integrated with CDC/NIDA per PI guidance.
+
+### What It Adds
+
+| Layer | Enhancement |
+|-------|-------------|
+| **Risk Detection** | Substance weight boost (0.05–0.15) for substances whose NMF dominant terms overlap with harm vocabulary (overdose, withdrawal, needle, seizure, ...) |
+| **Preprocessing** | Slang lexicon expansion with substance-specific terms surfaced by NMF (k-hole, rolling, shrooms, ...) |
+| **Temporal Analysis** | Spillover spike detection — when one substance spikes, check if NMF-similar substances co-spike within ±35 days |
+| **Explainability (RAG)** | Aggregate NMF topic terms injected into Gemini context before analyst summaries; `erowid_nmf_context` field in `spike_summaries.json` |
+
+### New Files
+
+| File | Role | Status |
+|------|------|--------|
+| `scripts/fetch_erowid.py` | Download erowid-scrape.py + run scraper (urllib direct download — avoids Windows git path issues) | Done |
+| `scripts/process_erowid_lsa.py` | TF-IDF + NMF (8 topics) on scraped reports -> `erowid_substance_profiles.json` + `erowid_substance_similarity.json` | Done |
+| `src/processing/process_erowid_lsa.py` | Parse Erowid HTML reports -> `erowid_posts.csv` (schema-compatible with `posts_classified.csv`) | Done |
+| `data/raw/erowid-lsa-repo/erowid-scrape.py` | Python 3 port of original scraper with Windows-safe filenames, rate limiting, correct request params | Done |
+
+### Modified Files
+
+| File | Change | Status |
+|------|--------|--------|
+| `src/classifiers/rule_based_classifier.py` | `load_erowid_substance_boost()` + `_EROWID_BOOSTS` applied in `score_substance_mentions()` | Done |
+| `src/processing/preprocess_posts.py` | `load_erowid_slang_extensions()` appended to `SLANG_LEXICON` before pattern compilation | Done |
+| `src/agents/signal_pipeline.py` | `load_erowid_similarity_graph()` + `detect_spillover_spikes()` -> `erowid_spillover.csv` | Done |
+| `src/agents/rag_pipeline.py` | `_load_erowid_profile_for_substance()` prepended to `flagged_posts`; `erowid_nmf_context` in output | Done |
+
+### Artifacts
+
+| File | Contents |
+|------|----------|
+| `data/processed/erowid_substance_profiles.json` | NMF topic profiles per substance (19 substances, 212 reports, 8 topics each) |
+| `data/processed/erowid_substance_similarity.json` | Pairwise cosine similarity between substance NMF vectors (196 pairs) |
+| `data/processed/erowid_spillover.csv` | Co-spiking substance pairs flagged by spillover detection |
+| `data/raw/erowid_posts.csv` | 356 classified Erowid experience reports (low=190, medium=83, high=83) |
+
+### Run Order
+
+```powershell
+python scripts/fetch_erowid.py                  # download + scrape (network-bound, 10-30 min)
+python src/processing/process_erowid_lsa.py     # classify reports -> erowid_posts.csv
+python scripts/process_erowid_lsa.py            # NMF analysis -> substance profiles + similarity JSON
+# then run existing pipeline as normal
+```
+
+### Graceful Degradation
+
+All 4 integration points check for file existence at import and return empty dicts / `None` if either JSON is missing. The full pipeline produces identical results to the pre-integration baseline when Erowid files are absent.
 
 ---
 
@@ -291,7 +353,7 @@ The enhancements below are structured around the three challenge task areas and 
 ## Verification Checklist (April 5)
 
 **M1 Tony**
-- [x] `requirements.txt` updated with `transformers`, `datasets`, `accelerate`, `torch`, `rouge-score`, `bert-score`, `ragas`
+- [x] `requirements.txt` updated with `transformers`, `datasets`, `accelerate`, `torch`, `rouge-score`, `bert-score`, `ragas`, `beautifulsoup4>=4.12`, `lxml>=5.0`
 - [x] `src/classifiers/ensemble.py` — finetuned 4th method weight tables, CSV path, merge, voting all implemented
 - [x] `python src/classifiers/finetuned_classifier.py` → `finetuned_results.csv` (41,830 rows: high=2.9%, med=58.3%, low=38.8%)
 - [x] `models/finetuned_bert/` saved checkpoint exists
@@ -299,12 +361,15 @@ The enhancements below are structured around the three challenge task areas and 
 - [x] `python src/eval/generate_comparison.py` → `method_comparison.csv` has 4 methods; Ensemble best (Acc=0.518, F1=0.413)
 - [x] Finetuned classifier visible in dashboard Model Evaluation tab (`_clf_files` updated)
 - [x] Cluster Quality Metrics panel added to dashboard (Silhouette / NDCG / Perplexity KPI cards)
+- [x] `src/processing/process_erowid.py` → `erowid_posts.csv` produced (BS4 parse, PII scrub, risk labels)
+- [x] `src/agents/signal_pipeline.py` → `load_erowid_posts()` + `merge_post_sources()` integrated; Erowid + Kaggle posts merged for signal
+- [x] `src/app/dashboard.py` → source filter radio (Drug Reviews / Erowid Narratives / Both) + data-source counts in sidebar
 
 **M2 Daniel**
 - [ ] `python src/eval/temporal_metrics.py` → `temporal_metrics.json` with MRR, Detection Lag
 - [ ] `python src/eval/evaluation_report.py` → ROC + confusion matrix figures in `eval_figures/`
 
-**M3 Joe**
+**M3 Joel**
 - [x] `python src/agents/intervention_engine.py` → `recommendations.json` produced
 - [x] `python src/eval/summary_metrics.py` → `summary_metrics.json` with ROUGE-L, BERTScore, Faithfulness
 - [x] `python src/tests/test_metamorphic.py` → ≥80% pass rate

@@ -151,6 +151,80 @@ SLANG_LEXICON: dict[str, str] = {
     "dope sick":    "withdrawal",
 }
 
+# ── Erowid NMF slang extensions ───────────────────────────────────────────────
+# Load additional slang terms surfaced by the Erowid NMF dominant topic terms.
+# These are substance-specific words that appear frequently in user narratives
+# but are absent from the curated SLANG_LEXICON above.
+# Degrades gracefully — returns {} if erowid_substance_profiles.json is absent.
+
+_EROWID_PROFILES_PATH = DATA / "processed" / "erowid_substance_profiles.json"
+
+# Terms that are too generic to map as slang (would create false positives)
+_EROWID_SLANG_BLOCKLIST: frozenset[str] = frozenset({
+    "use", "feel", "feel", "time", "like", "took", "got", "one", "two",
+    "day", "way", "good", "bad", "high", "drug", "effect", "hour",
+    "minut", "experi", "know", "think", "make", "come", "back",
+})
+
+# Canonical mapping for substances found in Erowid but absent from SUBSTANCE_WEIGHTS
+_EROWID_CANONICAL_MAP: dict[str, str] = {
+    "ketamine":       "ketamine",
+    "mdma":           "mdma",
+    "psilocybin":     "psilocybin",
+    "lsd":            "lsd",
+    "dxm":            "dxm",
+    "ghb":            "ghb",
+    "mushrooms":      "psilocybin",
+    "salvia":         "salvia",
+    "2cb":            "2cb",
+    "mescaline":      "mescaline",
+}
+
+
+def load_erowid_slang_extensions(
+    profiles_path: Path = _EROWID_PROFILES_PATH,
+    blocklist: frozenset[str] = _EROWID_SLANG_BLOCKLIST,
+    canonical_map: dict[str, str] = _EROWID_CANONICAL_MAP,
+) -> dict[str, str]:
+    """
+    Extract additional slang/vernacular terms from Erowid NMF dominant topic terms
+    and return them as {term: canonical_name} additions to SLANG_LEXICON.
+
+    Only single-word alphabetic terms not already in the lexicon are returned.
+    Terms in the blocklist (overly generic) are excluded to prevent false positives.
+
+    Returns an empty dict if profiles_path does not exist (graceful degradation).
+    """
+    if not profiles_path.exists():
+        return {}
+    try:
+        with open(profiles_path, encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return {}
+
+    existing = set(SLANG_LEXICON.keys()) | set(SLANG_LEXICON.values())
+    extensions: dict[str, str] = {}
+
+    for substance, info in data.get("substances", {}).items():
+        canonical = canonical_map.get(substance, substance)
+        for term in info.get("dominant_topic_terms", []):
+            term = term.lower().strip()
+            if (
+                len(term) >= 3
+                and term.isalpha()
+                and term not in existing
+                and term not in blocklist
+                and term not in extensions
+            ):
+                extensions[term] = canonical
+
+    return extensions
+
+
+# Merge Erowid NMF extensions into the main slang lexicon before compiling patterns
+SLANG_LEXICON.update(load_erowid_slang_extensions())
+
 # Pre-compile patterns sorted longest-first (multi-word slang gets priority)
 _SLANG_PATTERNS: list[tuple[re.Pattern, str]] = [
     (re.compile(r"\b" + re.escape(slang) + r"\b"), canonical)

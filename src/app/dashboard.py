@@ -122,6 +122,27 @@ def _load_correlations() -> dict:
         return json.load(f)
 
 
+@st.cache_data(show_spinner="Loading post sources …")
+def _load_post_sources() -> pd.DataFrame:
+    """Load drug-review and/or Erowid posts with a 'source' column."""
+    frames = []
+    drug_path = DATA / "raw" / "posts_classified.csv"
+    erowid_path = DATA / "raw" / "erowid_posts.csv"
+    if drug_path.exists():
+        df = pd.read_csv(str(drug_path), parse_dates=["timestamp"])
+        df["source"] = "Drug Reviews (Kaggle)"
+        frames.append(df)
+    if erowid_path.exists():
+        df = pd.read_csv(str(erowid_path), parse_dates=["timestamp"])
+        df["source"] = "Erowid Narratives"
+        frames.append(df)
+    if not frames:
+        return pd.DataFrame()
+    merged = pd.concat(frames, ignore_index=True)
+    merged["timestamp"] = pd.to_datetime(merged["timestamp"], errors="coerce")
+    return merged
+
+
 @st.cache_data(show_spinner="Loading CDC state data …")
 def _load_cdc_state() -> pd.DataFrame:
     path = DATA / "raw" / "cdc_overdose_data.csv"
@@ -216,8 +237,25 @@ with st.sidebar:
         "All outputs are **population-level aggregates** only. "
         "PII is scrubbed at ingestion (regex + spaCy NER). "
         "No individual is identified or tracked. "
-        "Public datasets exclusively — CDC, NSDUH, NIDA, Kaggle."
+        "Public datasets exclusively — CDC, NSDUH, NIDA, Kaggle, Erowid."
     )
+
+    st.markdown("---")
+    st.markdown("**📂 Data Sources**")
+    _post_sources = _load_post_sources()
+    if not _post_sources.empty and "source" in _post_sources.columns:
+        _src_counts = _post_sources["source"].value_counts()
+        for _src, _cnt in _src_counts.items():
+            st.caption(f"• **{_src}**: {_cnt:,} posts")
+        with st.expander("ℹ️ About Erowid data"):
+            st.caption(
+                "Erowid experience reports are used **for signal discovery "
+                "only**, not as ground truth. Data is from a public GitHub "
+                "mirror of scraped reports. Used in aggregate; "
+                "no individual report is surfaced in this dashboard."
+            )
+    else:
+        st.caption("No post datasets found. Run the ETL scripts to load data.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -455,6 +493,29 @@ with tab_alerts:
         "predictive early-warning potential. Shaded bars are statistically "
         "significant at *p* < 0.05."
     )
+
+    # Source filter
+    _all_posts = _load_post_sources()
+    _available_sources = (
+        ["Both"] + sorted(_all_posts["source"].unique().tolist())
+        if not _all_posts.empty and "source" in _all_posts.columns
+        else ["Both"]
+    )
+    _sel_source = st.radio(
+        "Signal source",
+        options=_available_sources,
+        horizontal=True,
+        help="Filter the social signal to posts from a specific data source.",
+    )
+    if _sel_source != "Both" and not _all_posts.empty:
+        _filtered_posts = _all_posts[_all_posts["source"] == _sel_source]
+        st.caption(
+            f"Showing **{len(_filtered_posts):,}** posts from **{_sel_source}** "
+            f"({_filtered_posts['risk_level'].value_counts().get('high', 0):,} high-risk)"
+        )
+    elif not _all_posts.empty:
+        _filtered_posts = _all_posts
+        st.caption(f"Showing all **{len(_filtered_posts):,}** posts from both sources.")
     _corr_data = _load_correlations()
     if _corr_data:
         try:
@@ -475,6 +536,16 @@ with tab_alerts:
             _corr_fig = go.Figure()
             _subst_colors = {"Opioid": "#E74C3C", "Stimulant": "#9B59B6",
                              "Cocaine": "#F39C12", "Alcohol": "#3498DB"}
+
+            def _hex_to_rgba(_hex: str, _alpha: float) -> str:
+                _hex = _hex.lstrip("#")
+                if len(_hex) != 6:
+                    return f"rgba(149,165,166,{_alpha})"
+                _r = int(_hex[0:2], 16)
+                _g = int(_hex[2:4], 16)
+                _b = int(_hex[4:6], 16)
+                return f"rgba({_r},{_g},{_b},{_alpha})"
+
             for _subst in _lag_df["substance"].unique():
                 _sd = _lag_df[_lag_df["substance"] == _subst].sort_values("lag_months")
                 _color = _subst_colors.get(_subst, "#95A5A6")
@@ -483,10 +554,9 @@ with tab_alerts:
                     x=_sd["lag_months"].astype(str) + "mo",
                     y=_sd["r"],
                     marker_color=[
-                        _color if sig else _color.replace("#", "#") + "80"
+                        _hex_to_rgba(_color, 1.0 if sig else 0.4)
                         for sig in _sd["significant"]
                     ],
-                    marker_opacity=[1.0 if sig else 0.4 for sig in _sd["significant"]],
                     customdata=_sd[["p", "significant"]].values,
                     hovertemplate=(
                         "<b>%{fullData.name}</b><br>"

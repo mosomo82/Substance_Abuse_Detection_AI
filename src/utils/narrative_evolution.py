@@ -495,7 +495,8 @@ def compute_lead_lag_correlation(topic_df: pd.DataFrame,
         .rename(cdc_col)
     )
 
-    combined = pd.concat([topic_series, cdc_agg], axis=1).dropna()
+    # Explicit sort=False avoids pandas default-sort deprecation warning.
+    combined = pd.concat([topic_series, cdc_agg], axis=1, sort=False).dropna()
 
     if len(combined) < 5:
         print(f"  ⚠  Not enough overlapping data for {topic_col} ({len(combined)} rows)")

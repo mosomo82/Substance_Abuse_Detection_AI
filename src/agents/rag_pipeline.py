@@ -51,6 +51,45 @@ CDC_CSV         = PROCESSED / "cdc_cleaned.csv"
 WINDOW_PARQUET  = PROCESSED / "narrative" / "window_df.parquet"
 OUT_SPIKES_JSON = PROCESSED / "spike_summaries.json"
 
+# ── Erowid NMF context loader ─────────────────────────────────────────────────
+
+def _load_erowid_profile_for_substance(
+    substance: str,
+    profiles_path: Path = PROCESSED / "erowid_substance_profiles.json",
+) -> str | None:
+    """
+    Return a short formatted string describing the Erowid NMF dominant topic
+    terms for a given substance, for injection into the Gemini prompt.
+
+    The string is explicitly labeled as aggregate community-report data so
+    Gemini treats it as a reference signal, not a verbatim user post.
+
+    Returns None if the profiles file is absent or the substance is not found
+    (graceful degradation — the RAG pipeline continues without Erowid context).
+
+    Example output:
+        "Erowid self-report corpus (N=842 aggregate experiences, NMF topic
+         signals) for heroin: withdrawal, sick, needle, vein, rush, sweat,
+         craving, dark, desperate, inject."
+    """
+    if not profiles_path.exists():
+        return None
+    try:
+        with open(profiles_path, encoding="utf-8") as f:
+            data = json.load(f)
+        sub_data = data.get("substances", {}).get(substance.lower())
+        if not sub_data:
+            return None
+        terms  = sub_data.get("dominant_topic_terms", [])[:10]
+        n_docs = sub_data.get("n_docs", "unknown")
+        return (
+            f"Erowid self-report corpus (N={n_docs} aggregate experiences, "
+            f"NMF topic signals) for {substance}: {', '.join(terms)}."
+        )
+    except Exception:
+        return None
+
+
 # ── Cross-encoder lazy loader ──────────────────────────────────────────────────
 _CE_MODEL      = None
 _CE_AVAILABLE  = False
@@ -351,6 +390,31 @@ def run_rag_for_spike(spike:       dict,
         for p in top_posts
     ]
 
+    # ── Step 6b: Inject Erowid NMF context for the dominant substance ─────────
+    # Identify the dominant substance from the retrieved posts, then prepend an
+    # aggregate Erowid reference entry so Gemini has grounded vocabulary about
+    # what this substance's user community typically reports.
+    # This entry is clearly labeled as aggregate community data, not a real post.
+    erowid_context_str: str | None = None
+    _all_substances: list[str] = []
+    for p in top_posts:
+        raw = p.get("substance", "[]")
+        try:
+            subs = json.loads(raw) if isinstance(raw, str) else raw
+            _all_substances.extend(subs if isinstance(subs, list) else [])
+        except Exception:
+            pass
+    _top_sub = Counter(_all_substances).most_common(1)
+    if _top_sub:
+        erowid_context_str = _load_erowid_profile_for_substance(_top_sub[0][0])
+    if erowid_context_str:
+        flagged_posts = [{
+            "processed_text": erowid_context_str,
+            "risk_level":     "context",     # sentinel — not a real risk label
+            "rerank_score":   0.0,
+            "_erowid_signal": True,
+        }] + flagged_posts
+
     # ── Step 7: Generate via Gemini (or store retrieval-only record) ───────────
     raw_summary = generate_spike_summary(
         flagged_posts=flagged_posts,
@@ -429,6 +493,8 @@ def run_rag_for_spike(spike:       dict,
     normalized["cdc_context"]       = cdc_context
     normalized["pct_high"]          = spike.get("pct_high")
     normalized["drift_score"]       = spike.get("drift_score")
+    # Erowid community-reference signal (aggregate NMF, not a real post)
+    normalized["erowid_nmf_context"] = erowid_context_str
 
     return normalized
 

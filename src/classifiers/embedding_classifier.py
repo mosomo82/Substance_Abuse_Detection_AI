@@ -512,17 +512,61 @@ def compare_methods(rule_df:         pd.DataFrame,
     """
     from sklearn.metrics import classification_report
 
-    merged = rule_df[["post_id", "risk_level"]].merge(
-        embedding_df[["post_id", "risk_level"]],
-        on="post_id",
-        suffixes=("_rule", "_embedding"),
-    )
+    # Align rows safely. If post_id is missing/null/duplicated heavily,
+    # a plain merge can create a huge cartesian product and OOM.
+    rule_cmp = rule_df[["post_id", "risk_level"]].copy()
+    emb_cmp = embedding_df[["post_id", "risk_level"]].copy()
+
+    # Remove null keys before merge; NaN-to-NaN matches can explode row count.
+    rule_cmp = rule_cmp[rule_cmp["post_id"].notna()].copy()
+    emb_cmp = emb_cmp[emb_cmp["post_id"].notna()].copy()
+    rule_cmp["post_id"] = rule_cmp["post_id"].astype(str).str.strip()
+    emb_cmp["post_id"] = emb_cmp["post_id"].astype(str).str.strip()
+    rule_cmp = rule_cmp[rule_cmp["post_id"] != ""]
+    emb_cmp = emb_cmp[emb_cmp["post_id"] != ""]
+
+    if len(rule_cmp) and len(emb_cmp):
+        rule_dupes = int(rule_cmp["post_id"].duplicated().sum())
+        emb_dupes = int(emb_cmp["post_id"].duplicated().sum())
+        if rule_dupes or emb_dupes:
+            print(
+                "  !!  Duplicate post_id values detected "
+                f"(rule={rule_dupes:,}, embedding={emb_dupes:,}); "
+                "keeping first occurrence per post_id for comparison."
+            )
+            rule_cmp = rule_cmp.drop_duplicates("post_id", keep="first")
+            emb_cmp = emb_cmp.drop_duplicates("post_id", keep="first")
+
+        merged = rule_cmp.merge(
+            emb_cmp,
+            on="post_id",
+            suffixes=("_rule", "_embedding"),
+        )
+        if merged.empty:
+            print("  !!  No overlapping post_id values; using positional alignment.")
+    else:
+        merged = pd.DataFrame()
+
+    # Fallback for datasets with unusable/missing ids: compare by row order.
+    if merged.empty:
+        n = min(len(rule_df), len(embedding_df))
+        if n == 0:
+            print("  !!  No rows available for method comparison.")
+            return pd.DataFrame(), pd.DataFrame()
+        merged = pd.DataFrame({
+            "risk_level_rule": rule_df["risk_level"].iloc[:n].values,
+            "risk_level_embedding": embedding_df["risk_level"].iloc[:n].values,
+        })
+        print(f"  !!  Compared first {n:,} rows using positional alignment.")
 
     has_truth = ground_truth_col in rule_df.columns
     if has_truth:
-        merged = merged.merge(
-            rule_df[["post_id", ground_truth_col]], on="post_id"
-        )
+        if "post_id" in merged.columns:
+            merged = merged.merge(
+                rule_df[["post_id", ground_truth_col]], on="post_id"
+            )
+        else:
+            merged[ground_truth_col] = rule_df[ground_truth_col].iloc[:len(merged)].values
         for name, col in [("Rule-based", "risk_level_rule"),
                           ("Embedding-based", "risk_level_embedding")]:
             print(f"\n=== {name} ===")
@@ -619,20 +663,43 @@ def save_embeddings_parquet(post_ids: list[str],
             "  pip install pyarrow"
         )
 
+    # Arrow string arrays reject float values (including NaN); normalize IDs.
+    norm_post_ids: list[str] = []
+    for i, pid in enumerate(post_ids):
+        if pd.isna(pid):
+            norm_post_ids.append(f"row_{i}")
+        elif isinstance(pid, (np.floating, float)) and float(pid).is_integer():
+            norm_post_ids.append(str(int(pid)))
+        else:
+            text_pid = str(pid).strip()
+            norm_post_ids.append(text_pid if text_pid else f"row_{i}")
+
+    if len(norm_post_ids) != len(embeddings):
+        raise ValueError(
+            "post_ids and embeddings length mismatch: "
+            f"{len(norm_post_ids)} != {len(embeddings)}"
+        )
+
     arrays: dict = {
-        "post_id":   pa.array(post_ids, type=pa.string()),
+        "post_id":   pa.array(norm_post_ids, type=pa.string()),
         "embedding": pa.array(
             [row.astype("float32").tolist() for row in embeddings],
             type=pa.list_(pa.float32()),
         ),
     }
     if texts is not None:
-        arrays["text"] = pa.array(texts, type=pa.string())
+        norm_texts = ["" if pd.isna(t) else str(t) for t in texts]
+        if len(norm_texts) != len(embeddings):
+            raise ValueError(
+                "texts and embeddings length mismatch: "
+                f"{len(norm_texts)} != {len(embeddings)}"
+            )
+        arrays["text"] = pa.array(norm_texts, type=pa.string())
 
     table = pa.table(arrays)
     path.parent.mkdir(parents=True, exist_ok=True)
     pq.write_table(table, str(path))
-    print(f"  Embeddings saved -> {path}  ({len(post_ids):,} rows, "
+    print(f"  Embeddings saved -> {path}  ({len(norm_post_ids):,} rows, "
           f"dim={embeddings.shape[1]})")
 
 

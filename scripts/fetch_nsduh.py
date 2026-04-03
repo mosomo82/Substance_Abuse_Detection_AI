@@ -18,7 +18,7 @@ from pathlib import Path
 import requests
 import pandas as pd
 
-OUT_PATH = Path(__file__).parent / "raw" / "nsduh_prevalence.csv"
+OUT_PATH = Path(__file__).parent.parent / "data" / "raw" / "nsduh_prevalence.csv"
 OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 # ── SAMHSA RDAS API ────────────────────────────────────────────────────────────

@@ -63,6 +63,59 @@ SUBSTANCE_WEIGHTS: dict[str, float] = {
     "cannabis":           0.20,
 }
 
+# ── Erowid NMF substance boost ────────────────────────────────────────────────
+# Additive calibration derived from Erowid experience-report NMF topic terms.
+# Substances whose dominant NMF topics overlap with high-harm vocabulary
+# (overdose, withdrawal, needle, seizure, etc.) receive a small positive delta.
+# Degrades gracefully — returns {} if erowid_substance_profiles.json is absent.
+
+_EROWID_HARM_TERMS: frozenset[str] = frozenset({
+    "overdos", "overdose", "withdraw", "withdrawal", "seizur", "seizure",
+    "needle", "inject", "death", "die", "died", "dying", "hospital",
+    "uncons", "unconscious", "vomit", "convuls", "respiratori",
+    "naloxon", "narcan", "resuscit",
+})
+
+_EROWID_PROFILES_PATH = DATA / "processed" / "erowid_substance_profiles.json"
+
+
+def load_erowid_substance_boost(
+    profiles_path: Path = _EROWID_PROFILES_PATH,
+    harm_terms: frozenset[str] = _EROWID_HARM_TERMS,
+) -> dict[str, float]:
+    """
+    Return {substance: additive_boost} derived from Erowid NMF dominant topic terms.
+
+    Boost tiers (additive, capped at 1.0 in score_substance_mentions):
+        3–4 overlapping harm terms → +0.05
+        5–6 overlapping harm terms → +0.10
+        7+  overlapping harm terms → +0.15
+
+    Returns an empty dict if profiles_path does not exist (graceful degradation).
+    """
+    if not profiles_path.exists():
+        return {}
+    try:
+        with open(profiles_path, encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return {}
+
+    boosts: dict[str, float] = {}
+    for substance, info in data.get("substances", {}).items():
+        dom_terms = set(info.get("dominant_topic_terms", []))
+        overlap   = len(dom_terms & harm_terms)
+        if overlap >= 7:
+            boosts[substance] = 0.15
+        elif overlap >= 5:
+            boosts[substance] = 0.10
+        elif overlap >= 3:
+            boosts[substance] = 0.05
+    return boosts
+
+
+_EROWID_BOOSTS: dict[str, float] = load_erowid_substance_boost()
+
 # Patterns that reduce a substance mention's risk weight
 _NEGATION_RE = re.compile(
     r"\b(never|not|no longer|quit|stopped|clean from|sober from|"
@@ -90,6 +143,11 @@ def score_substance_mentions(text: str,
     for substance in substances:
         weight = SUBSTANCE_WEIGHTS.get(substance, 0.40)
 
+        # Apply Erowid NMF harm-overlap boost (additive, bounded at 1.0)
+        erowid_delta = _EROWID_BOOSTS.get(substance, 0.0)
+        if erowid_delta > 0:
+            weight = min(weight + erowid_delta, 1.0)
+
         negated = bool(_NEGATION_RE.search(text + " " + substance))
         past    = bool(_PAST_RE.search(text))
 
@@ -103,7 +161,10 @@ def score_substance_mentions(text: str,
             ctx = "active"
 
         scores.append(weight)
-        evidence.append(f"Substance: {substance} (weight={weight:.2f}, ctx={ctx})")
+        ev_entry = f"Substance: {substance} (weight={weight:.2f}, ctx={ctx})"
+        if erowid_delta > 0:
+            ev_entry += f" [Erowid NMF boost +{erowid_delta:.2f}]"
+        evidence.append(ev_entry)
 
     return round(max(scores), 3), evidence
 

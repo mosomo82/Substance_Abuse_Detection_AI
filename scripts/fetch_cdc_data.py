@@ -24,7 +24,7 @@ try:
     # 4. Save it locally so you don't have to download it again
     # Resolve the output path relative to this script's location so the script
     # works regardless of which directory it is launched from.
-    output_path = Path(__file__).parent / "raw" / "cdc_overdose_data.csv"
+    output_path = Path(__file__).parent.parent / "data" / "raw" / "cdc_overdose_data.csv"
     output_path.parent.mkdir(parents=True, exist_ok=True)  # create data/raw/ if needed
 
     cdc_df.to_csv(output_path, index=False)

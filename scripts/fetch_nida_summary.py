@@ -2,7 +2,7 @@ from pathlib import Path
 import requests
 import pandas as pd
 
-OUT_PATH = Path(__file__).parent / "raw" / "nida_rates.csv"
+OUT_PATH = Path(__file__).parent.parent / "data" / "raw" / "nida_rates.csv"
 OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 # ── CDC WONDER API (JSON) ──────────────────────────────────────────────────────

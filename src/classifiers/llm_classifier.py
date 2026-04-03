@@ -80,7 +80,14 @@ except ImportError:
     _client         = None
     _GEMINI_AVAILABLE = False
 
-_FLASH_MODEL = "gemini-2.0-flash"
+# Try newer models first; fall back if a model is unavailable for this account.
+_MODEL_CANDIDATES = [
+    "gemini-3.1-flash-lite-preview", # Ultra-fast, new 2026 "workhorse"
+    "gemini-3-flash-preview",      # High-performance default
+    "gemini-2.5-flash",            # Current stable production "Gold Standard"
+    "gemini-3.1-pro-preview",       # Best reasoning for "Ambiguous" cases
+]
+_ACTIVE_MODEL: str | None = None
 
 # ══════════════════════════════════════════════════════════════════════════════
 # STEP 1 — System prompt
@@ -207,7 +214,7 @@ _FALLBACK_RESULT = {
     "analyst_summary":       "Classification unavailable.",
     "requires_human_review": True,
     "method":                "llm",
-    "model":                 _FLASH_MODEL,
+    "model":                 _MODEL_CANDIDATES[0],
 }
 
 
@@ -218,6 +225,51 @@ def _parse_response(raw: str) -> dict:
         raw = re.sub(r"^```(?:json)?\n?", "", raw)
         raw = re.sub(r"\n?```$", "", raw)
     return json.loads(raw)
+
+
+def _is_model_unavailable_error(exc: Exception) -> bool:
+    msg = str(exc).lower()
+    return (
+        "404" in msg
+        or "not_found" in msg
+        or "no longer available" in msg
+        or "model not found" in msg
+    )
+
+
+def _generate_with_model_fallback(contents: str) -> tuple[object, str]:
+    """
+    Generate content using the first available model from _MODEL_CANDIDATES.
+    Returns (response, model_name).
+    """
+    global _ACTIVE_MODEL
+
+    candidates = []
+    if _ACTIVE_MODEL:
+        candidates.append(_ACTIVE_MODEL)
+    for m in _MODEL_CANDIDATES:
+        if m not in candidates:
+            candidates.append(m)
+
+    last_exc: Exception | None = None
+    for model_name in candidates:
+        try:
+            response = _client.models.generate_content(
+                model=model_name,
+                contents=contents,
+            )
+            _ACTIVE_MODEL = model_name
+            return response, model_name
+        except Exception as exc:
+            last_exc = exc
+            if _is_model_unavailable_error(exc):
+                print(f"  Model unavailable: {model_name}. Trying next model ...")
+                continue
+            raise
+
+    if last_exc:
+        raise last_exc
+    raise RuntimeError("No model candidates configured.")
 
 
 def classify_post_llm(post_text: str,
@@ -248,15 +300,12 @@ def classify_post_llm(post_text: str,
     for attempt in range(max_retries):
         try:
             t0 = time.perf_counter()
-            response = _client.models.generate_content(
-                model=_FLASH_MODEL,
-                contents=full_prompt,
-            )
+            response, used_model = _generate_with_model_fallback(full_prompt)
             latency_ms = round((time.perf_counter() - t0) * 1000, 1)
 
             result = _parse_response(response.text)
             result["method"]     = "llm"
-            result["model"]      = _FLASH_MODEL
+            result["model"]      = used_model
             result["latency_ms"] = latency_ms
             return result
 
@@ -295,12 +344,19 @@ def classify_corpus_hybrid(processed_df: pd.DataFrame,
 
     Returns unified DataFrame with routing column.
     """
-    from embedding_classifier import score_post_embedding
+    score_post_embedding = None
+    if seed_bank:
+        try:
+            from embedding_classifier import score_post_embedding as _score_post_embedding
+            score_post_embedding = _score_post_embedding
+        except Exception as exc:
+            print(f"  WARNING: embedding stage unavailable; skipping ({exc})")
+            seed_bank = None
 
     results: list[dict] = []
     llm_queue: list[dict] = []
 
-    print(f"Routing {len(processed_df):,} posts …")
+    print(f"Routing {len(processed_df):,} posts ...")
 
     for i, (_, row) in enumerate(processed_df.iterrows()):
         rule_row = rule_results_df.iloc[i]
@@ -318,7 +374,7 @@ def classify_corpus_hybrid(processed_df: pd.DataFrame,
             continue
 
         # Stage 2 — embedding for moderate-confidence range
-        if seed_bank and 0.10 < score < 0.40:
+        if seed_bank and score_post_embedding and 0.10 < score < 0.40:
             emb = score_post_embedding(row["processed_text"], seed_bank)
             if emb.get("confidence", 0) >= 0.20:
                 results.append({
@@ -360,7 +416,7 @@ def classify_corpus_hybrid(processed_df: pd.DataFrame,
 def print_routing_summary(results_df: pd.DataFrame) -> None:
     counts = results_df["routing"].value_counts()
     total  = len(results_df)
-    print("\n── Routing Summary ────────────────────────")
+    print("\n-- Routing Summary ------------------------")
     for route, count in counts.items():
         print(f"  {route:<22} {count:>6,}  ({count/total:.1%})")
     print(f"  {'TOTAL':<22} {total:>6,}")
@@ -431,16 +487,22 @@ def generate_spike_summary(flagged_posts: list[dict],
         "\n\nGenerate a population-level analyst summary."
     )
 
-    response = _client.models.generate_content(
-        model=_FLASH_MODEL,
-        contents=RAG_SUMMARY_PROMPT + "\n\n" + user_msg,
-    )
-
-    result = _parse_response(response.text)
-    result["spike_date"]   = spike_date
-    result["post_count"]   = len(flagged_posts)
-    result["generated_at"] = pd.Timestamp.now().isoformat()
-    return result
+    try:
+        response, used_model = _generate_with_model_fallback(
+            RAG_SUMMARY_PROMPT + "\n\n" + user_msg
+        )
+        result = _parse_response(response.text)
+        result["spike_date"]   = spike_date
+        result["post_count"]   = len(flagged_posts)
+        result["generated_at"] = pd.Timestamp.now().isoformat()
+        result["model"]        = used_model
+        return result
+    except Exception as exc:
+        return {
+            "error": f"Spike summary generation failed: {exc}",
+            "spike_date": spike_date,
+            "post_count": len(flagged_posts),
+        }
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -495,7 +557,7 @@ def run_full_comparison(rule_df:      pd.DataFrame,
         })
 
     cmp_df = pd.DataFrame(rows)
-    print("\n── Method Comparison ──────────────────────────────────")
+    print("\n-- Method Comparison ----------------------------------")
     print(cmp_df.to_string(index=False))
     return cmp_df
 
@@ -506,29 +568,29 @@ def run_full_comparison(rule_df:      pd.DataFrame,
 
 def main() -> None:
     if not _GEMINI_AVAILABLE:
-        print("⚠  Gemini API not available.")
-        print("   pip install google-generativeai")
+        print("WARNING: Gemini API not available.")
+        print("   pip install google-genai")
         print("   set GOOGLE_API_KEY=your_key")
         return
 
     if not IN_CSV.exists():
-        print(f"⚠  Input not found: {IN_CSV}")
+        print(f"WARNING: Input not found: {IN_CSV}")
         print("   Run data/preprocess_posts.py first.")
         return
 
-    print(f"Loading posts from {IN_CSV} …")
+    print(f"Loading posts from {IN_CSV} ...")
     df = pd.read_csv(IN_CSV)
     print(f"  {len(df):,} rows loaded\n")
 
     # ── Option A: LLM-only classification (no hybrid routing) ─────────────────
     if not RULE_CSV.exists():
-        print("Rule-based results not found — running LLM on full corpus …")
+        print("Rule-based results not found - running LLM on full corpus ...")
         print("(This may take a while and consume API quota.)\n")
 
         results = []
         for i, (_, row) in enumerate(df.iterrows()):
             if i % 50 == 0:
-                print(f"  [{i}/{len(df)}] classifying …")
+                print(f"  [{i}/{len(df)}] classifying ...")
             result = classify_post_llm(str(row.get("processed_text", "")))
             result["post_id"]   = row.get("post_id")
             result["timestamp"] = row.get("timestamp")
@@ -537,11 +599,11 @@ def main() -> None:
 
         results_df = pd.DataFrame(results)
         results_df.to_csv(OUT_LLM_CSV, index=False)
-        print(f"\nSaved {len(results_df):,} rows → {OUT_LLM_CSV}")
+        print(f"\nSaved {len(results_df):,} rows -> {OUT_LLM_CSV}")
 
     else:
         # ── Option B: Hybrid routing (recommended) ────────────────────────────
-        print("Rule-based results found — running hybrid pipeline …\n")
+        print("Rule-based results found - running hybrid pipeline ...\n")
         rule_df = pd.read_csv(RULE_CSV)
 
         # Try to load seed bank for embedding stage
@@ -564,11 +626,11 @@ def main() -> None:
         print_routing_summary(hybrid_df)
 
         hybrid_df.to_csv(OUT_HYBRID_CSV, index=False)
-        print(f"\nSaved hybrid results → {OUT_HYBRID_CSV}")
+        print(f"\nSaved hybrid results -> {OUT_HYBRID_CSV}")
 
         # ── Method comparison ─────────────────────────────────────────────────
         if EMBEDDING_CSV.exists():
-            print("\nRunning 3-method comparison …")
+            print("\nRunning 3-method comparison ...")
             emb_df = pd.read_csv(EMBEDDING_CSV)
             # Add ground truth if risk_level was in original data
             if "risk_level" in df.columns:
@@ -577,10 +639,10 @@ def main() -> None:
                 hybrid_df["true_label"] = df["risk_level"].values
             cmp_df = run_full_comparison(rule_df, emb_df, hybrid_df)
             cmp_df.to_csv(OUT_COMPARE_CSV, index=False)
-            print(f"Saved → {OUT_COMPARE_CSV}")
+            print(f"Saved -> {OUT_COMPARE_CSV}")
 
     # ── Demo: RAG spike summary ───────────────────────────────────────────────
-    print("\nDemo — generating RAG spike summary …")
+    print("\nDemo - generating RAG spike summary ...")
     sample_posts = df.head(10).to_dict("records")
     for p in sample_posts:
         p["risk_level"] = "high"
@@ -596,9 +658,9 @@ def main() -> None:
 
     with open(OUT_SPIKES_JSON, "w") as f:
         json.dump([summary], f, indent=2)
-    print(f"Saved → {OUT_SPIKES_JSON}")
+    print(f"Saved -> {OUT_SPIKES_JSON}")
 
-    print("\nDone ✓")
+    print("\nDone")
 
 
 if __name__ == "__main__":
