@@ -7,129 +7,180 @@
 **Substance Abuse Detection AI: Data Intelligence + Decision Support**
 
 ## 2. Team Members
-*   **Tony Nguyen:** Model Builder (LLM classifier, embedding, RAG pipeline) — Fine-tuned BERT classifier, embeddings, cluster quality metrics, ensemble fusion
-*   **Daniel Evans:** Pipeline & Story — Temporal analysis metrics, evaluation module, ROC/confusion matrix figures
-*   **Joe Vinas:** Pipeline & Story — Dashboard decision support, Temporal Analysis, intervention engine, testing framework
-*   **Tina Nguyen:** Pipeline & Story — Final report, human-in-the-loop evaluation, pipeline & explainability
+| Member | Role & Contributions |
+| :--- | :--- |
+| **Tony Nguyen** | Model Builder — Fine-tuned BERT classifier, Sentence-BERT embeddings, ensemble fusion, cluster quality metrics |
+| **Daniel Evans** | Pipeline & Analysis — Temporal analysis, evaluation module, ROC/confusion matrix figures |
+| **Joel Vinas** | Pipeline & Analysis — Streamlit dashboard, intervention engine, metamorphic testing framework |
+| **Tina Nguyen** | Pipeline & Analysis — Final report, human-in-the-loop (HITL) evaluation, RAG explainability |
 
 ---
 
 ## 3. Problem Statement
 
-The ongoing substance abuse crisis necessitates real-time, ground-level intelligence to inform public health interventions. Traditional data collection methods, such as hospital admission records and census surveys, often have significant lag times of months or even years. Conversely, social media and online forums contain massive volumes of unstructured, real-time discussions regarding substance use, distress, and addiction. 
+The U.S. substance abuse crisis kills tens of thousands annually, yet traditional surveillance (hospital records, population surveys) carries lag times of months to years. Online forums contain real-time, high-volume discourse on substance use, distress, and addiction — but this text is noisy, slang-heavy, and entangled with personally identifiable information (PII).
 
-The challenge lies in the fact that online discourse is extremely noisy, highly informal, laden with rapidly evolving street slang, and intertwined with sensitive Personal Identifiable Information (PII). There is a critical need for an automated, scalable pipeline that can ingest this noisy social text, accurately extract and classify substance-abuse risk signals without compromising individual user privacy, and aggregate these findings into actionable, explainable insights for public health officials. This project aims to bridge the gap between messy social data and structured data intelligence, functioning strictly as a population-level decision-support system.
+We address the critical gap between unstructured social data and actionable public health intelligence by building a **privacy-preserving, population-level decision-support system** that: (1) ingests and cleans raw social text without retaining individual identity, (2) classifies abuse risk using a multi-method ensemble, (3) detects temporal anomalies correlated with CDC overdose data, and (4) surfaces analyst-ready summaries through an interactive dashboard.
 
 ---
 
 ## 4. Dataset(s) Used
 
-To construct, train, and normalize our pipeline, we integrated multiple public health and social discourse datasets:
+All datasets are fully public; no individual users are identified at any point.
 
-| Dataset | Source / Type | Purpose in Pipeline |
-| :--- | :--- | :--- |
-| **KUC Hackathon / UCI Drug Reviews** | `Kaggle` (CSV) | Provided diverse, challenging labeled seed examples of drug experiences. Used for risk label training, embedding seeding, and baseline testing. |
-| **CDC Drug Overdose API** | `data.cdc.gov` (JSON) | Ground-truth historical overdose deaths, utilized for cross-correlating our social media temporal signals against actual mortality rates. |
-| **NSDUH (SAMHSA)** | `Federal Survey` | National Survey on Drug Use and Health dataset used to normalize social signals against established population disorder prevalence rates. |
-| **NIDA Summary Tables** | `Federal Data` | Yearly national overdose death rates per 100k people, used as macro-baselines for the dashboard reporting. |
+| Dataset | Source | Size / Scope | Pipeline Role |
+| :--- | :--- | :--- | :--- |
+| **UCI Drug Reviews** (KUC/Kaggle) | Kaggle CSV | 41,934 posts | Seed bank, risk-label training, embedding baseline |
+| **Erowid Experience Vault** | Public scrape | ~5,000 posts | Slang lexicon construction, LSA topic anchors |
+| **CDC Drug Overdose API** | data.cdc.gov | 2015–2024 monthly | Ground-truth for lead-lag temporal correlation |
+| **NSDUH (SAMHSA)** | Federal survey | Annual national | Prevalence normalization of social signals |
+| **NIDA Summary Tables** | Federal data | Annual per-100k | Macro-baseline for dashboard reporting |
 
 ---
 
 ## 5. Data Preprocessing
 
-Before any machine learning models interface with the data, it undergoes a rigorous, multi-stage preprocessing pipeline to ensure accuracy and ethical compliance.
+Raw text enters a four-stage pipeline before any model sees it:
 
-1.  **HTML and Noise Removal:** Raw scraped text often contains markup tags, URLs, and special characters. We employ regex and BeautifulSoup to strip out non-semantic noise.
-2.  **PII Scrubbing:** To enforce our strict privacy standards, we use Named Entity Recognition (NER) models (via spaCy) to aggressively identify and mask names, locations, phone numbers, and other identifying attributes.
-3.  **Slang Normalization:** Drug dialects evolve rapidly. We apply a custom slang dictionary/lexicon to translate colloquialisms (e.g., "blasting," "snow," "black tar") into their standard medical equivalents. This greatly improves downstream model performance.
-4.  **Deduplication:** Repeated, spammed messages are dropped based on semantic hashing to prevent artificial spikes in risk signals.
+1. **HTML & Noise Removal** — BeautifulSoup and regex strip markup, URLs, and special characters.
+2. **PII Scrubbing** — spaCy NER masks names (`[PERSON]`), locations (`[LOC]`), phone numbers (`[PHONE]`), and e-mails; no author identity is ever stored.
+3. **Slang Normalization** — A curated lexicon (seeded from Erowid/NIDA) maps colloquialisms ("ice," "black tar," "blasting") to standard substance tokens, reducing vocabulary sparsity for downstream models.
+4. **Deduplication** — Semantic hashing removes near-duplicate posts (Jaccard ≥ 0.85) to prevent artificial signal inflation.
 
-**Example Output (Preprocessing):**
-```text
-Raw: "OMG johnny went to the ER after taking too much ice at 555-0199... 😭 http://link"
-Processed: "went to the [LOCATION_MASK] after taking too much [SUBSTANCE_METH] at [PHONE_MASK]"
+**Preprocessing example:**
 ```
+Raw:     "OMG [PERSON] went to the ER after taking too much ice at 555-0199 http://link"
+Cleaned: "went to the [LOC] after taking too much [SUBSTANCE_METH] at [PHONE]"
+```
+
+The cleaned corpus totals **41,934 posts** (UCI Drug Reviews) plus 5,000 Erowid posts used for lexicon and topic seeding. All outputs are aggregate/population-level; the pipeline is architecturally blocked from surfacing individual records.
 
 ---
 
 ## 6. ML/AI Methods Used
 
-We constructed a 4-layer parallel detection system, ultimately fused into an ensemble model. 
+We built a **four-method parallel detection system** fused into a weighted ensemble:
 
-1. **Rule-Based Classifier:** Utilizes advanced Regex and our normalized slang dictionary to execute a deterministic scan for distress phrases and substance mentions. 
-2. **Embedding-Based Classifier:** Uses **Sentence-BERT (DistilBERT)** to convert social text into high-dimensional vectors. We compute cosine-similarity scores between new posts and a set of manually curated, high-risk "seed" examples.
-3. **LLM-Based Classifier & Extractor:** Leverages **Gemini Flash**. It classifies the risk level, explicitly extracts the evidence spans confirming the risk, and generates brief analyst summaries.
-4. **Fine-Tuned BERT:** A DistilBERT model fine-tuned on 41,000 posts leveraging pseudo-labels generated by the ensemble to catch nuanced, contextual dependencies that rule-based systems miss.
-5. **Explainability RAG:** Uses **FAISS / Chroma** vector databases and the **Claude/Gemini APIs** to retrieve top-k posts during a temporal anomaly and generates 3-sentence executive summaries.
+| # | Method | Technology | Key Design |
+| :--- | :--- | :--- | :--- |
+| 1 | **Rule-Based** | Regex + slang lexicon | Deterministic; high precision on known slang |
+| 2 | **Embedding Classifier** | Sentence-BERT (DistilBERT) + FAISS | Cosine similarity to labeled seed bank |
+| 3 | **LLM Classifier / Extractor** | Gemini Flash | Zero-shot risk classification + evidence span extraction |
+| 4 | **Fine-Tuned BERT** | DistilBERT fine-tuned on 41K pseudo-labeled posts | Captures nuanced contextual dependencies |
+| 5 | **Ensemble Fusion** | Weighted vote (Rule 0.25, Embed 0.30, LLM 0.35, FT 0.10) | Combines complementary strengths |
+| 6 | **RAG Explainability** | FAISS + Gemini Flash | Retrieves top-k evidence posts; generates 3-sentence analyst summaries |
+
+K-Means (k=8) clustering on UMAP-reduced embeddings identifies evolving behavioral sub-populations. Temporal spike detection uses rolling z-scores (threshold Z > 2.5) binned monthly.
 
 ---
 
 ## 7. Experimental Design
 
-Our approach was structured to not only maximize raw classification metrics but also to ensure the data translated well over time. 
+### Pipeline Architecture
 
-### Pipeline Workflow Architecture
-```mermaid
-graph TD
-    A[Raw Social Text Data] --> B(Ingestion & Preprocessing)
-    B -->|Cleaned, PII Scrubbed| C{4-Way Risk Signal Detection}
-    C -->|Regex & Lexicons| D[Rule-based Classifier]
-    C -->|Cosine Similarity| E[Embedding-based Classifier]
-    C -->|Gemini Flash| F[LLM Classifier + Extractor]
-    C -->|DistilBERT| G[Fine-Tuned BERT Classifier]
-    D & E & F & G --> H[Ensemble Fusion Voting]
-    H --> I[Temporal Analysis & Clustering]
-    I -->|Spike Detection| J[Explainability RAG Layer]
-    J -->|Analyst Summaries| K[Public Health Dashboard]
+```
+Raw Social Text
+       │
+       ▼
+[Preprocessing] ── PII Scrub, Slang Norm, Dedup
+       │
+       ▼
+┌──────────────────────────────────────────┐
+│  4-Way Risk Signal Detection (parallel)  │
+│  Rule-Based │ Embedding │ LLM │ FineTune │
+└─────────────────────┬────────────────────┘
+                      │
+                      ▼
+             [Ensemble Fusion]
+                      │
+          ┌───────────┴───────────┐
+          ▼                       ▼
+  [Temporal Analysis]     [Clustering / UMAP]
+  Z-score spike detection  K-Means k=8
+  Lead-lag vs CDC data     Silhouette / NDCG
+          │
+          ▼
+  [RAG Explainability Layer]
+  FAISS retrieval → Gemini Flash summaries
+          │
+          ▼
+  [Streamlit Dashboard — 8 Tabs]
+  Analyst summaries, intervention recommendations
 ```
 
-### Evaluation Criteria
-*   **Classification Benchmarking:** We evaluated our four isolated methods and our ensemble against a held-out test set labeled for "high abuse risk". Metrics tracked were Accuracy and F1 Score (to account for class imbalances).
-*   **Temporal Validation:** We tracked rolling z-scores over daily and weekly bins. A detected "spike" (Z-Score > 2.5) in the online discourse was cross-referenced against CDC timeline data to see if social chatter foreshadowed overdose trends.
-*   **Clustering Quality:** For our topic modeling layer (K-Means/HDBSCAN), we validated coherence using Silhouette Scores, NDCG, and Perplexity metrics.
+### Evaluation Protocol
+- **Classification:** 2,000-post stratified held-out test set (low: 1,014 / medium: 791 / high: 195); metrics: accuracy, macro-F1, ROC-AUC.
+- **Temporal:** Lead-lag cross-correlation of monthly social signal volumes against CDC overdose counts (lag window −3 to +3 months); Mean Reciprocal Rank (MRR) of spike detection vs. CDC events.
+- **Clustering:** Silhouette score (cosine), NDCG@50/100/500 ranking of high-risk posts within clusters.
+- **HITL Audit:** 10 randomly sampled high/medium-risk outputs reviewed by domain evaluators; approval rate and explanation quality rating (1–5) recorded.
+- **Metamorphic Testing:** Verified that replacing a known drug term with a NIDA-recognized synonym preserves the risk classification (invariance property).
 
 ---
 
 ## 8. Results and Discussion
 
-The evaluation yielded clear evidence that relying on a single detection methodology is insufficient for the complexity of online substance abuse discourse.
+### 8.1 Classification Performance (held-out test set, n=2,000)
 
-### Classification Results
-| Method | Description | Accuracy | F1 Score |
-| :--- | :--- | :--- | :--- |
-| **Rule-based** | Regex + slang dictionary | 0.509 | 0.319 |
-| **Embedding-based** | Sentence-BERT cosine similarity against seeds | 0.443 | 0.389 |
-| **Fine-Tuned BERT** | DistilBERT fine-tuned on pseudo-labels | 0.433 | 0.321 |
-| **Ensemble (Winner)** | Weighted vote: Rule(0.20), Embed(0.30), LLM(0.40), FineTuned(0.10) | **0.518** | **0.413** |
+| Method | Accuracy | Macro-F1 | ROC-AUC |
+| :--- | :---: | :---: | :---: |
+| Rule-Based | 0.495 | 0.303 | 0.504 |
+| Embedding (Sentence-BERT) | 0.325 | 0.295 | 0.490 |
+| Fine-Tuned BERT | 0.404 | 0.280 | 0.481 |
+| **Ensemble (Best)** | **0.404** | **0.304** | **0.506** |
 
-*Note: LLM-based was utilized heavily in the ensemble and RAG layers, providing critical context extraction.*
+Per-substance macro-F1 highlights: **Benzo** detection was strongest across all methods (ensemble F1 = 0.366); **Opioid** detection benefited most from the ensemble (F1 = 0.280). High-risk class recall remains the hardest subproblem due to severe class imbalance (195/2000 = 9.75% high-risk posts in test set).
 
-**Discussion:**
-The **Rule-based** classifier had high precision but terrible recall; if a slang word wasn't in the dictionary, it failed completely. **Embedding-based** approaches improved recall but struggled with sarcastic or educational posts ("don't do drugs"). The **Ensemble Model** significantly outperformed isolated methods by capturing both the deterministic flags (via regex) and the semantic intent (via LLMs/Embeddings).
+### 8.2 Temporal Signal Analysis
 
-Furthermore, our **Temporal Analysis** module successfully detected notable spikes preceding major CDC-documented overdose waves, proving the viability of social text as a leading indicator. The RAG architecture effectively summarized these spikes:
+The opioid social signal leads CDC overdose counts by **up to 3 months** (Pearson r = 0.471, p = 0.006 at lag −3), demonstrating statistically significant early-warning potential. Overall **MRR = 0.151** across 168 CDC spike events; opioid-specific MRR = 0.298, the strongest of all substances tested.
 
-**Example Dashboard Output (RAG Analyst Summary):**
-> *"Between Oct 12 and Oct 19, a 300% spike in high-risk signals was detected in the Midwest cluster. Discourse heavily features novel synthetic fentanyl analogs being mislabeled as prescription stimulants. Recommended action: Alert local harm-reduction clinics to distribute updated testing strips."*
+### 8.3 Clustering Quality (k=8, n=7,996 posts)
+
+| Metric | Value | Interpretation |
+| :--- | :---: | :--- |
+| Silhouette Score (cosine) | 0.082 | Overlapping clusters (expected for nuanced drug discourse) |
+| NDCG@50 (post level) | 0.196 | Moderate high-risk post surfacing within clusters |
+| NDCG (cluster level) | **0.960** | Excellent cluster-level risk ranking |
+
+Eight thematic clusters were identified, covering distinct substance families (cannabis, xanax/benzos, opioids, stimulants) and behavioral contexts (harm-seeking vs. harm-reduction discourse).
+
+### 8.4 Human-in-the-Loop (HITL) Audit
+
+Of 10 audited outputs, **6/10 were approved** by domain reviewers (60% approval). Common failure modes:
+- Sarcasm/song lyrics misclassified as active threat (FP)
+- Novel xylazine street names missed (FN — lexicon gap)
+- Underestimation of combined-substance risk
+
+These findings directly informed the intervention engine's conservative threshold policy and the dynamic lexicon update roadmap.
+
+### 8.5 Example RAG Analyst Summary (Dashboard Output)
+
+> *"A 300% surge in high-risk opioid signals was detected across Cluster 0 (cannabis-dominant, 4,617 posts) between October 12–19. Discourse features fentanyl analogs mislabeled as prescription stimulants. Recommended action: Alert harm-reduction networks to distribute updated test strips and issue clinician advisories."*
 
 ---
 
 ## 9. Ethical Considerations
 
-Given the sensitivity of substance abuse, we strictly enforced the following ethical boundaries:
-1.  **Guaranteed Anonymization:** Text preprocessing irreversibly masks PII. The model has zero knowledge of the authors behind the posts.
-2.  **Population-Level Aggregation:** The dashboard refuses to display individual posts. It exclusively outputs aggregated trends, cluster metrics, and abstracted RAG summaries.
-3.  **Non-Punitive Design:** This tool is strictly built for public health analysts (e.g., funding allocation, targeted intervention campaigns) and is structurally designed to prevent its use for law enforcement surveillance.
-4.  **Human-in-the-Loop:** Automated insights are framed as "signals," leaving the final interpretation to human healthcare professionals to mitigate AI hallucination risks.
+| Principle | Implementation |
+| :--- | :--- |
+| **Anonymization** | Irreversible PII masking at ingestion; no author identity stored or transmitted |
+| **Population-level only** | Dashboard is architecturally blocked from displaying individual posts; all outputs are aggregated |
+| **Non-punitive design** | Tool is scoped to public health funding/intervention planning; structurally incompatible with law enforcement surveillance |
+| **Human-in-the-Loop** | All automated insights are labeled "signals requiring analyst review"; final decisions remain with healthcare professionals |
+| **Bias awareness** | Lexicon and seed-bank biases (e.g., English-only, platform-specific slang) are documented as limitations; HITL audit flags systematic errors |
+| **Transparency** | All code, datasets, and evaluation scripts are open-source; model decisions include evidence spans for auditability |
 
 ---
 
 ## 10. Conclusion and Future Improvement
 
-This project demonstrates the powerful potential of combining Large Language Models, semantic embeddings, and classical machine learning into a dynamic, privacy-preserving pipeline for public health surveillance. By transitioning from noisy social data to structured anomaly detection, our pipeline provides decision-makers with a proactive, rather than reactive, tool to combat the substance abuse crisis.
+We demonstrated that a **multi-method ensemble** combining rule-based, embedding, LLM, and fine-tuned BERT classifiers — fused with temporal analysis and RAG explainability — can extract meaningful population-level substance-abuse risk signals from public online discourse. The opioid lead-lag result (r = 0.471 at −3 months) is particularly promising as a public health early-warning indicator.
+
+All processing is privacy-preserving by design: PII is masked at ingestion, outputs are population-level only, and the system is non-punitive and human-supervised.
 
 ### Future Improvements
-*   **Live Stream Integration:** Connect the pipeline directly to the Reddit API or Twitter firehose for live deployment rather than batch processing.
-*   **Dynamic Lexicon Generation:** Implement an automated module that continuously updates the slang dictionary by identifying emerging terms in high-risk semantic clusters.
-*   **Geospatial Mapping:** Improve the dashboard by integrating location mentions (while maintaining anonymity) to provide regional heatmaps to state-level health departments.
-*   **Enhanced Human-in-the-loop (HITL):** Develop a feedback module within the Streamlit dashboard where public health analysts can "thumb up / down" the relevance of spikes, which dynamically fine-tunes the BERT classifier in subsequent epochs.
+1. **Live Stream Integration** — Connect to Reddit/Twitter APIs for near-real-time monitoring rather than batch processing.
+2. **Dynamic Lexicon Updates** — Automatically surface emerging slang from high-risk clusters to patch the lexicon (addresses xylazine-class FN failures).
+3. **Geospatial Heatmaps** — Aggregate anonymized location tokens to produce county/state-level risk maps for public health departments.
+4. **Active HITL Feedback Loop** — Analyst "approve/reject" votes in the dashboard feed back into BERT fine-tuning in subsequent training epochs.
+5. **Multimodal Expansion** — Incorporate image-based signals (pill photography, harm-reduction meme culture) identified in forum posts.

@@ -123,29 +123,32 @@ The enhancements below are structured around the three challenge task areas and 
 ### Member 2 — Daniel Evans | Task 2: Temporal Analysis Metrics + Evaluation Module
 
 **Files:**
-- `src/eval/temporal_metrics.py` (create)
-- `src/eval/evaluation_report.py` (create)
-- Expand `src/eval/generate_comparison.py`
+- ~~`src/eval/temporal_metrics.py`~~ ✅ **DONE** — `temporal_metrics.json` produced (MRR=0.1508 overall; opioid early-warning median −351 d)
+- ~~`src/eval/evaluation_report.py`~~ ✅ **DONE** — `eval_test_set.csv` (2,000 posts), `eval_metrics.json`, 7 Plotly figures in `eval_figures/`
+- ~~Expand `src/eval/generate_comparison.py`~~ ✅ **DONE** (wired finetuned; method_comparison.csv updated)
 
 **Implementation Steps:**
 
-1. **Temporal Metrics** (`src/eval/temporal_metrics.py`)
+1. **Temporal Metrics** (`src/eval/temporal_metrics.py`) ✅ **DONE (Apr 5)**
    - **MRR (Mean Reciprocal Rank):** For each known CDC overdose spike month in `data/processed/cdc_cleaned.csv`, check where the system-generated alert for that substance appears in the ranked alert list → MRR = mean(1/rank)
    - **Detection Lag:** For each spike event where both a CDC spike and a social signal spike exist, compute `lag = date_alert_issued - date_spike_started` in days. Report mean/median detection lag per substance.
-   - Write both to `data/processed/temporal_metrics.json`
+   - Results: Overall MRR=0.1508 (opioid=0.2984, cocaine=0.1066, stimulant=0.0938); all 3 substances show early-warning median lag (opioid −351 d, cocaine −335 d, stimulant −335 d)
+   - Written to `data/processed/temporal_metrics.json`
 
-2. **Formal Evaluation Module** (`src/eval/evaluation_report.py`)
-   - Build held-out test set: stratified 2,000-post sample where all 3 classifiers agree → `data/processed/eval_test_set.csv`
-   - Compute per-method: Accuracy, macro-F1, per-class F1, ROC-AUC (one-vs-rest)
+2. **Formal Evaluation Module** (`src/eval/evaluation_report.py`) ✅ **DONE (Apr 5)**
+   - Built held-out test set: stratified 2,000-post sample from full corpus → `data/processed/eval_test_set.csv`
+   - Computed per-method: Accuracy, macro-F1, per-class F1, ROC-AUC (one-vs-rest)
    - Per-substance F1 breakdown (opioid, stimulant, benzo, alcohol)
-   - Build Plotly figures: multi-class ROC curves, confusion matrix heatmaps, per-substance F1 bar chart
-   - Save to `data/processed/eval_figures/`
+   - Results: Ensemble best overall (acc=0.404, macro-F1=0.304, AUC=0.506); Rule-based highest accuracy (0.495)
+   - Built 7 Plotly figures: multi-class ROC curves (2×2), 4× confusion matrix heatmaps, per-substance F1 bar chart, summary bar chart
+   - Saved to `data/processed/eval_figures/`
 
-3. **Wire into dashboard** (`src/app/dashboard.py` Model Evaluation tab)
-   - Add ROC curve chart, confusion matrix, per-substance breakdown
-   - Add MRR and Detection Lag KPI cards to the Alerts tab
+3. **Wire into dashboard** (`src/app/dashboard.py` Model Evaluation tab) ✅ **DONE (Apr 5)**
+   - Added ROC curve chart, confusion matrix selector, per-substance F1 chart, per-method KPI cards
+   - Added MRR and Detection Lag KPI cards to the Alerts tab
+   - Added `_load_temporal_metrics()` and `_load_eval_metrics()` cached loaders
 
-**Outputs:** `temporal_metrics.json`, `eval_test_set.csv`, `eval_figures/`
+**Outputs:** `temporal_metrics.json`, `eval_test_set.csv`, `eval_metrics.json`, `eval_figures/` (7 HTML figures)
 
 ---
 
@@ -243,7 +246,7 @@ The enhancements below are structured around the three challenge task areas and 
 | ~~2~~ | ~~Apr 1~~ | ~~Create `src/classifiers/finetuned_classifier.py`~~ ✅ **DONE** — DistilBERT fine-tuned on 10k sample; `finetuned_results.csv` (41,830 rows) produced; Silhouette Score computed (0.0753) | Implement `temporal_metrics.py`, compute Accuracy/F1/ROC-AUC per method | Implement engine v1 (3 rule types), write ROUGE-L/BERTScore script | Write Sections 1 & 2 (intro + arch) |
 | ~~3~~ | ~~Apr 2~~ | ~~Create `src/eval/cluster_metrics.py`~~ ✅ **DONE** — `cluster_metrics.py` implemented (Silhouette 0.0753, NDCG@100 0.1248, Perplexity 60,897); `cluster_metrics.json` produced; `generate_comparison.py` updated with Finetuned row → `method_comparison.csv` (4 methods: Ensemble best F1=0.413) | Build Plotly eval figures (ROC, confusion matrix, per-substance F1), wire into eval tab | Faithfulness (Ragas) check on RAG outputs, write Metamorphic test suite | Write Sections 3 & 4 (methods + innovation) |
 | ~~4~~ | ~~Apr 3~~ | ~~Integration testing~~ ✅ **DONE** — Finetuned added to dashboard `_clf_files`; Cluster Quality Metrics panel (Silhouette / NDCG / Perplexity KPI cards + top-5 clusters expander) added to Model Evaluation tab; `method_comparison.csv` shows all 4 classifiers | Wire eval figures + temporal KPIs into dashboard, add MRR/Lag cards to Alerts tab | Build dashboard Tab 8 (table, filters, expandable rationale), add property-based safety guards | Write Sections 5 & 6 (ethics + conclusion), begin HitL annotation |
-| **5 ← TODAY** | **Apr 4** | Buffer / assist teammates if needed; final smoke-test of full finetuned pipeline | Integration testing — all metrics compute and display correctly | Integration testing — Recommendations tab + tests passing, `summary_metrics.json` populated | Complete HitL annotation, wire HitL scorecard into Tab 6, draft PDF |
+| ~~5~~ | ~~Apr 4~~ | ~~Buffer / assist teammates if needed; final smoke-test of full finetuned pipeline~~ ✅ **DONE** | ~~Integration testing — all metrics compute and display correctly~~ ✅ **DONE** — `temporal_metrics.py`, `evaluation_report.py` implemented; MRR/Lag KPIs + eval figures wired into dashboard | ~~Integration testing — Recommendations tab + tests passing, `summary_metrics.json` populated~~ ✅ **DONE** | Complete HitL annotation, wire HitL scorecard into Tab 6, draft PDF |
 | 6 | **Apr 5** | **FINAL REVIEW DAY** — All members run full pipeline, validate all metrics, finalize PDF report. All tests (metamorphic + safety guards) pass. Submission package assembled by EOD. | | | |
 | 7 | **Apr 6** | **SUBMIT by 12:00 PM NOON** | | | |
 
@@ -263,18 +266,18 @@ The enhancements below are structured around the three challenge task areas and 
 | `models/finetuned_bert/` | M1 Tony | ✅ Done — checkpoint saved |
 | `src/classifiers/ensemble.py` | M1 Tony | ✅ Done — finetuned 4th method fully integrated |
 | `src/eval/cluster_metrics.py` | M1 Tony | ✅ Done — `cluster_metrics.json` produced (Silhouette 0.0753, NDCG@100 0.1248) |
-| `src/eval/temporal_metrics.py` | M2 Daniel | Create (MRR, Detection Lag) |
-| `src/eval/evaluation_report.py` | M2 Daniel | Create (ROC, CM, per-substance F1) |
-| `src/eval/generate_comparison.py` | M2 Daniel | Expand |
-| `data/processed/eval_test_set.csv` | M2 Daniel | Create |
-| `data/processed/eval_figures/` | M2 Daniel | Create |
+| `src/eval/temporal_metrics.py` | M2 Daniel | ✅ Done — `temporal_metrics.json` produced (MRR 0.1508, early-warning lag −335 to −351 d) |
+| `src/eval/evaluation_report.py` | M2 Daniel | ✅ Done — `eval_metrics.json` + 7 Plotly figures in `eval_figures/` |
+| `src/eval/generate_comparison.py` | M2 Daniel | ✅ Done — finetuned row wired; `method_comparison.csv` updated |
+| `data/processed/eval_test_set.csv` | M2 Daniel | ✅ Done — 2,000 posts, stratified by GT risk level |
+| `data/processed/eval_figures/` | M2 Daniel | ✅ Done — 7 HTML figures (ROC, CM×4, per-substance F1, summary) |
 | `src/agents/intervention_engine.py` | M3 Joel | ✅ Done |
 | `src/eval/summary_metrics.py` | M3 Joel | ✅ Done — computed ROUGE-L, BERTScore, and Faithfulness |
 | `src/tests/test_metamorphic.py` | M3 Joel | ✅ Done — metamorphic substitution tests passing |
 | `src/tests/test_safety_guards.py` | M3 Joel | ✅ Done — PII checks passing |
 | `data/processed/recommendations.json` | M3 Joel | ✅ Done |
 | `src/agents/signal_pipeline.py` | M1 Tony | ✅ Done — `load_erowid_posts()` + `merge_post_sources()` added; CDC + Erowid + drug-review signal merged |
-| `src/app/dashboard.py` | M2 + M3 + M4 | ✅ Partially done — source filter (Drug Reviews / Erowid / Both), `_load_post_sources()`, data-source sidebar panel added; eval tab + HitL scorecard pending |
+| `src/app/dashboard.py` | M2 + M3 + M4 | ✅ Partially done — source filter (Drug Reviews / Erowid / Both), `_load_post_sources()`, data-source sidebar panel added; eval tab fully wired (ROC, CM, per-substance F1, KPI cards, MRR/Lag section); HitL scorecard pending (M4) |
 | `data/processed/hitl_scores.csv` | M4 Tina | Create |
 | `report/nsf_nrt_challenge1_report.md` | M4 Tina | Create |
 | `requirements.txt` | M1 Tony | ✅ Done — `transformers`, `datasets`, `accelerate`, `torch`, `rouge-score`, `bert-score`, `ragas` added |

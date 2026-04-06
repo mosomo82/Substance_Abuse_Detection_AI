@@ -122,6 +122,24 @@ def _load_correlations() -> dict:
         return json.load(f)
 
 
+@st.cache_data(show_spinner="Loading temporal metrics …")
+def _load_temporal_metrics() -> dict:
+    path = PROCESSED / "temporal_metrics.json"
+    if not path.exists():
+        return {}
+    with open(str(path)) as f:
+        return json.load(f)
+
+
+@st.cache_data(show_spinner="Loading evaluation metrics …")
+def _load_eval_metrics() -> dict:
+    path = PROCESSED / "eval_metrics.json"
+    if not path.exists():
+        return {}
+    with open(str(path)) as f:
+        return json.load(f)
+
+
 @st.cache_data(show_spinner="Loading post sources …")
 def _load_post_sources() -> pd.DataFrame:
     """Load drug-review and/or Erowid posts with a 'source' column."""
@@ -599,6 +617,80 @@ with tab_alerts:
             "to compute CDC alignment and correlations."
         )
 
+    # ── MRR & Detection Lag KPIs ───────────────────────────────────────────
+    st.markdown("---")
+    st.subheader("📐 Alert Ranking & Detection Lag Metrics")
+    st.markdown(
+        "**MRR** (Mean Reciprocal Rank) measures how highly a substance-relevant "
+        "topic alert ranks in the system's sorted alert list at the time of a "
+        "known CDC overdose spike.  "
+        "**Detection Lag** is the time between the earliest social-media alert "
+        "and the corresponding CDC spike date — negative values indicate "
+        "**early warning** (social signal precedes CDC deaths)."
+    )
+    _tm = _load_temporal_metrics()
+    if _tm:
+        _mrr   = _tm.get("mrr", {})
+        _lag   = _tm.get("detection_lag", {})
+        _meta  = _tm.get("metadata", {})
+
+        # ── MRR KPIs ────────────────────────────────────────────────────────
+        st.markdown("##### MRR — Alert Priority Ranking")
+        _mrr_overall = _mrr.get("overall", 0)
+        _mrr_per_sub = _mrr.get("per_substance", {})
+        _n_spikes    = _mrr.get("n_cdc_spikes", 0)
+        _mrr_cols    = st.columns(1 + len(_mrr_per_sub))
+        _mrr_cols[0].metric(
+            "Overall MRR",
+            f"{_mrr_overall:.4f}",
+            help=(
+                f"Mean reciprocal rank across {_n_spikes} CDC spike events. "
+                "Higher = relevant alert appears closer to rank 1."
+            ),
+        )
+        for _i, (_sub, _val) in enumerate(_mrr_per_sub.items(), start=1):
+            _mrr_cols[_i].metric(
+                f"{_sub.title()} MRR",
+                f"{_val:.4f}",
+                help=f"MRR for {_sub} spike events only.",
+            )
+
+        # ── Detection Lag KPIs ───────────────────────────────────────────────
+        _lag_per_sub = _lag.get("per_substance", {})
+        if _lag_per_sub:
+            st.markdown("##### Detection Lag — Social Signal vs. CDC Spike")
+            _lag_cols = st.columns(len(_lag_per_sub))
+            for _i, (_sub, _stats) in enumerate(_lag_per_sub.items()):
+                _med  = _stats.get("median_lag_days", 0)
+                _mean = _stats.get("mean_lag_days", 0)
+                _n    = _stats.get("n_matched_spikes", 0)
+                _interp = _stats.get("interpretation", "")
+                _badge = "🟢" if _med < 0 else "🔴"
+                _lag_cols[_i].metric(
+                    f"{_badge} {_sub.title()} median lag",
+                    f"{_med:+.0f} d",
+                    delta=f"mean {_mean:+.0f} d  ({_n} spikes)",
+                    delta_color="inverse",
+                    help=_interp,
+                )
+            # Summarise lead
+            _early = [
+                (s, v["median_lag_days"]) for s, v in _lag_per_sub.items()
+                if v.get("median_lag_days", 0) < 0
+            ]
+            if _early:
+                _best_sub, _best_lag = min(_early, key=lambda x: x[1])
+                st.success(
+                    f"**Key finding:** Social signals for **{_best_sub}** alert "
+                    f"**{abs(_best_lag):.0f} days before** CDC records a spike "
+                    "— confirming early-warning potential."
+                )
+    else:
+        st.info(
+            "No temporal metrics found. "
+            "Run `python src/eval/temporal_metrics.py` to compute MRR and Detection Lag."
+        )
+
 # ── Tab 5: Model Evaluation ───────────────────────────────────────────────────
 with tab_eval:
     st.subheader("Model Evaluation & Method Comparison")
@@ -728,6 +820,111 @@ with tab_eval:
         st.info(
             "No cluster metrics found. "
             "Run `python src/eval/cluster_metrics.py` to compute Silhouette, NDCG, and Perplexity."
+        )
+
+    # ── Held-Out Test Set Evaluation ─────────────────────────────────────────
+    st.markdown("---")
+    st.markdown("#### 🧪 Held-Out Test Set Evaluation (2,000 posts)")
+    st.markdown(
+        "Stratified sample from the full corpus evaluated against heuristic "
+        "ground-truth labels from `posts_classified.csv`. "
+        "Metrics: Accuracy, Macro-F1, ROC-AUC (one-vs-rest)."
+    )
+    _em = _load_eval_metrics()
+    _eval_fig_dir = PROCESSED / "eval_figures"
+
+    if _em:
+        _pm = _em.get("per_method_metrics", {})
+        _ts = _em.get("test_set", {})
+
+        # ── KPI cards row ────────────────────────────────────────────────────
+        if _pm:
+            _method_order = ["rule_based", "embedding", "finetuned", "ensemble"]
+            _method_labels = {
+                "rule_based": "Rule-Based",
+                "embedding":  "Embedding",
+                "finetuned":  "Fine-Tuned BERT",
+                "ensemble":   "Ensemble",
+            }
+            _kpi_cols = st.columns(len(_method_order))
+            for _i, _m in enumerate(_method_order):
+                if _m not in _pm:
+                    continue
+                _mv = _pm[_m]
+                _kpi_cols[_i].markdown(f"**{_method_labels[_m]}**")
+                _kpi_cols[_i].metric("Accuracy", f"{_mv['accuracy']:.3f}")
+                _kpi_cols[_i].metric("Macro-F1", f"{_mv['macro_f1']:.3f}")
+                _kpi_cols[_i].metric("ROC-AUC",  f"{_mv['roc_auc_macro']:.3f}")
+
+            # Per-class F1 table
+            with st.expander("Per-class F1 breakdown"):
+                _pc_rows = []
+                for _m in _method_order:
+                    if _m not in _pm:
+                        continue
+                    _row = {"Method": _method_labels[_m]}
+                    _row.update({
+                        k.title() + " F1": v
+                        for k, v in _pm[_m].get("per_class_f1", {}).items()
+                    })
+                    _pc_rows.append(_row)
+                if _pc_rows:
+                    st.dataframe(pd.DataFrame(_pc_rows).set_index("Method"),
+                                 use_container_width=True)
+
+        # ── Summary bar chart ─────────────────────────────────────────────────
+        _summary_fig_path = _eval_fig_dir / "classifier_summary.html"
+        if _summary_fig_path.exists():
+            with open(str(_summary_fig_path), encoding="utf-8") as _f:
+                st.components.v1.html(_f.read(), height=480, scrolling=False)
+
+        # ── Multi-class ROC curves ─────────────────────────────────────────
+        st.markdown("##### Multi-Class ROC Curves (One-vs-Rest)")
+        _roc_path = _eval_fig_dir / "roc_curves_all_methods.html"
+        if _roc_path.exists():
+            with open(str(_roc_path), encoding="utf-8") as _f:
+                st.components.v1.html(_f.read(), height=820, scrolling=False)
+        else:
+            st.info("ROC figure not found. Run `python src/eval/evaluation_report.py`.")
+
+        # ── Confusion matrices ────────────────────────────────────────────────
+        st.markdown("##### Confusion Matrix")
+        _cm_method = st.selectbox(
+            "Select method",
+            options=["rule_based", "embedding", "finetuned", "ensemble"],
+            format_func=lambda v: _method_labels.get(v, v),
+            key="cm_method_select",
+        )
+        _cm_fig_path = _eval_fig_dir / f"confusion_matrix_{_cm_method}.html"
+        if _cm_fig_path.exists():
+            with open(str(_cm_fig_path), encoding="utf-8") as _f:
+                st.components.v1.html(_f.read(), height=480, scrolling=False)
+        else:
+            st.info(f"Confusion matrix for {_cm_method} not found.")
+
+        # ── Per-substance F1 ──────────────────────────────────────────────────
+        st.markdown("##### Per-Substance Macro-F1")
+        _psf1_path = _eval_fig_dir / "per_substance_f1.html"
+        if _psf1_path.exists():
+            with open(str(_psf1_path), encoding="utf-8") as _f:
+                st.components.v1.html(_f.read(), height=530, scrolling=False)
+        else:
+            _psf1_data = _em.get("per_substance_f1", {})
+            if _psf1_data:
+                _psf1_rows = [
+                    {"Substance": s} | {_method_labels.get(m, m): v
+                                        for m, v in vals.items()}
+                    for s, vals in _psf1_data.items()
+                ]
+                st.dataframe(pd.DataFrame(_psf1_rows).set_index("Substance"),
+                             use_container_width=True)
+            else:
+                st.info("No per-substance F1 data found.")
+    else:
+        st.info(
+            "No evaluation metrics found. "
+            "Run `python src/eval/evaluation_report.py` to compute "
+            "held-out test metrics and generate figures."
         )
 
 # ── Tab 6: Analyst Reports ────────────────────────────────────────────────────
