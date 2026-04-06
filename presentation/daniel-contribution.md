@@ -62,6 +62,6 @@ The edit was straightforward — scene assembly, trimming dead air, and ensuring
 | `title-card-slide.svg` | SVG title card for Scene 1 |
 | `cdc-correlation-slide.svg` | SVG findings slide for Scene 6 |
 | `team-summary-slide.svg` | SVG team summary slide for Scene 7 |
-| *(video file)* | Final edited 3-minute video, submitted to Canvas and Research-A-Thon |
+| [video](https://drive.google.com/file/d/14KaZGUeLJig0ayF_UU8aXy2XPABRFBxF) | Final edited 3-minute video, submitted to Canvas and Research-A-Thon |
 
 The above files (excluding video) were committed in `ede0d7b` — `feat: add presentation slides and video script for Lab 10 demo`.
