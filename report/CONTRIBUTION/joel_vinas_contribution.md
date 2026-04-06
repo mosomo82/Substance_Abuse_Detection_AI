@@ -2,8 +2,9 @@
 ## NSF NRT Research-A-Thon 2026 — Challenge 1, Track B
 
 **Name:** Joel Vinas
-**GitHub:** jvinas
+**GitHub:** 'joelvinas'
 **Date:** April 6, 2026
+**Team GitHub:** https://github.com/mosomo82/Substance_Abuse_Detection_AI
 
 ---
 
