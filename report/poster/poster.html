@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+
+/* ── Print setup ── */
+@page { size: 48in 36in; margin: 0; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 48in;
+  height: 36in;
+  background: #f5f4ef;
+  color: #1a1a2e;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* ── Top-level grid ── */
+.poster {
+  width: 48in;
+  height: 36in;
+  display: grid;
+  grid-template-rows: 3.3in 31.65in 1.05in;  /* explicit, sums to 36in */
+  overflow: hidden;
+}
+
+/* ━━━━━━━━━━━━ HEADER ━━━━━━━━━━━━ */
+.header {
+  background: #0e1117;
+  border-bottom: 5px solid #9b2335;
+  padding: 0.32in 0.7in;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.09in;
+}
+
+.title {
+  font-size: 96pt;
+  font-weight: 800;
+  color: #e0e0e0;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.title em { color: #e8c0c7; font-style: normal; }
+
+.subtitle {
+  font-size: 44pt;
+  font-weight: 300;
+  color: #999;
+}
+
+.header-meta {
+  font-size: 22pt;
+  color: #555;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-top: 0.04in;
+}
+
+.authors {
+  font-size: 28pt;
+  color: #777;
+}
+
+/* ━━━━━━━━━━━━ BODY ━━━━━━━━━━━━ */
+/* Landscape 48×36: available width = 48-2×0.65=46.7in; 3 cols + 2 gaps(0.35)=46.7in */
+.body {
+  display: grid;
+  grid-template-columns: 14in 18in 14in;
+  column-gap: 0.35in;
+  padding: 0.24in 0.65in;
+  overflow: hidden;
+  height: 31.65in;  /* matches grid-template-rows middle row */
+}
+
+.body > div {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* ━━━━━━━━━━━━ SECTION ━━━━━━━━━━━━ */
+.section { margin-bottom: 0.2in; }
+
+.section-label {
+  font-size: 20pt;
+  color: #9b2335;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.08in;
+  padding-bottom: 0.05in;
+  border-bottom: 1px solid #9b233533;
+}
+
+.section-title {
+  font-size: 48pt;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.1;
+  margin-bottom: 0.14in;
+}
+
+/* ━━━━━━━━━━━━ BODY TEXT ━━━━━━━━━━━━ */
+p {
+  font-size: 30pt;
+  color: #444;
+  line-height: 1.4;
+  margin-bottom: 0.12in;
+}
+strong { color: #1a1a2e; }
+
+ul {
+  padding-left: 0.28in;
+  margin-top: 0.06in;
+}
+li {
+  font-size: 30pt;
+  color: #444;
+  line-height: 1.4;
+  margin-bottom: 0.1in;
+}
+
+/* ━━━━━━━━━━━━ TABLES ━━━━━━━━━━━━ */
+table { width: 100%; border-collapse: collapse; }
+
+th {
+  background: #1a1a2e;
+  color: #f5f4ef;
+  font-size: 12pt;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.09in 0.11in;
+  text-align: left;
+  border-bottom: 1px solid #9b233533;
+}
+
+td {
+  padding: 0.1in 0.12in;
+  font-size: 26pt;
+  color: #444;
+  border-bottom: 1px solid #e0dfd8;
+  vertical-align: top;
+  line-height: 1.3;
+}
+tr:last-child td { border-bottom: none; }
+
+td.num {
+  text-align: center;
+  font-weight: 600;
+  color: #1a1a2e;
+  font-variant-numeric: tabular-nums;
+}
+
+tr.best td { background: #f0ede5; }
+tr.best td.num { color: #9b2335; font-size: 28pt; }
+tr.best td:first-child { color: #1a1a2e; font-weight: 600; }
+
+/* ━━━━━━━━━━━━ HERO CALLOUT (lead-lag) ━━━━━━━━━━━━ */
+.hero-callout {
+  background: #1a1a2e;
+  border-left: 6px solid #9b2335;
+  border-radius: 0 8pt 8pt 0;
+  padding: 0.13in 0.18in;
+  margin-bottom: 0.16in;
+}
+
+.hero-num {
+  font-size: 82pt;
+  font-weight: 900;
+  color: #e8c0c7;
+  line-height: 1;
+}
+
+.hero-desc {
+  font-size: 26pt;
+  color: #c8cce0;
+  line-height: 1.35;
+  margin-top: 0.09in;
+}
+
+.hero-desc strong { color: #ffffff; }
+
+.hero-stats {
+  display: flex;
+  gap: 0.28in;
+  margin-top: 0.14in;
+  flex-wrap: wrap;
+}
+
+.hero-stat-item {
+  font-size: 21pt;
+  color: #8888aa;
+}
+.hero-stat-item span {
+  color: #e0e0f0;
+  font-weight: 600;
+}
+
+/* ━━━━━━━━━━━━ STAT CARDS ━━━━━━━━━━━━ */
+.stat-row {
+  display: flex;
+  gap: 0.16in;
+  margin-bottom: 0.18in;
+}
+
+.stat-card {
+  flex: 1;
+  background: #fff;
+  border: 1.5px solid #c8bfb8;
+  border-radius: 8pt;
+  padding: 0.1in 0.1in;
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 56pt;
+  font-weight: 800;
+  color: #9b2335;
+  line-height: 1;
+  display: block;
+}
+
+.stat-label {
+  font-size: 17pt;
+  color: #777;
+  margin-top: 0.06in;
+  line-height: 1.3;
+}
+
+/* ━━━━━━━━━━━━ ETHICS GRID ━━━━━━━━━━━━ */
+.ethics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.1in;
+  margin-top: 0.06in;
+}
+
+.ethics-pill {
+  background: #fff;
+  border: 1px solid #d8d4cc;
+  border-radius: 6pt;
+  padding: 0.09in 0.13in;
+}
+
+.ethics-pill strong {
+  font-size: 23pt;
+  color: #1a1a2e;
+  display: block;
+  margin-bottom: 0.05in;
+  font-weight: 600;
+}
+
+.ethics-pill span {
+  font-size: 19pt;
+  color: #666;
+  line-height: 1.35;
+}
+
+/* ━━━━━━━━━━━━ ARCHITECTURE WRAPPER ━━━━━━━━━━━━ */
+.arch-wrapper {
+  background: #f7f6f1;
+  border: 1px solid #d8d4cc;
+  border-radius: 8pt;
+  padding: 0.15in;
+  width: 100%;
+}
+
+.arch-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ━━━━━━━━━━━━ METHODS TABLE ━━━━━━━━━━━━ */
+.methods-table th { font-size: 14pt; padding: 0.08in 0.1in; }
+.methods-table td { font-size: 19pt; padding: 0.08in 0.1in; }
+
+td.weight {
+  text-align: center;
+  font-weight: 700;
+  color: #9b2335;
+  font-size: 15pt;
+}
+
+/* ━━━━━━━━━━━━ RAG QUOTE ━━━━━━━━━━━━ */
+.rag-quote {
+  background: #fff;
+  border: 1px solid #d8d4cc;
+  border-left: 4px solid #9b2335;
+  border-radius: 0 6pt 6pt 0;
+  padding: 0.16in 0.18in;
+  font-size: 16pt;
+  color: #555;
+  font-style: italic;
+  line-height: 1.55;
+  margin-bottom: 0.18in;
+  position: relative;
+}
+
+.rag-quote::before {
+  content: '\201C';
+  font-size: 50pt;
+  color: #9b233322;
+  position: absolute;
+  top: 0.05in;
+  left: 0.1in;
+  line-height: 1;
+  font-style: normal;
+}
+
+.rag-quote p {
+  padding-left: 0.35in;
+  font-size: 26pt;
+  color: #555;
+  margin-bottom: 0;
+}
+
+/* ━━━━━━━━━━━━ SMALL NOTE ━━━━━━━━━━━━ */
+.note {
+  font-size: 22pt;
+  color: #777;
+  line-height: 1.4;
+  margin-top: 0.08in;
+}
+
+/* ━━━━━━━━━━━━ FOOTER ━━━━━━━━━━━━ */
+.footer {
+  background: #1a1a2e;
+  border-top: 2px solid #9b2335;
+  padding: 0 0.7in;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-item {
+  font-size: 26pt;
+  color: #8888aa;
+}
+
+.footer-item.center { color: #666888; text-align: center; }
+
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ════════════════════ HEADER ════════════════════ -->
+  <header class="header">
+    <div class="title">Substance Abuse Detection <em>AI</em></div>
+    <div class="subtitle">Data Intelligence + Decision Support</div>
+    <div class="header-meta">NSF NRT Research-A-Thon 2026 &nbsp;·&nbsp; Challenge 1 &nbsp;·&nbsp; University of Missouri – Kansas City</div>
+    <div class="authors">Tony Nguyen &nbsp;&nbsp;·&nbsp;&nbsp; Daniel Evans &nbsp;&nbsp;·&nbsp;&nbsp; Joel Vinas &nbsp;&nbsp;·&nbsp;&nbsp; Tina Nguyen</div>
+  </header>
+
+  <!-- ════════════════════ BODY ════════════════════ -->
+  <main class="body">
+
+    <!-- ══════════ LEFT COLUMN ══════════ -->
+    <div>
+
+      <div class="section">
+        <div class="section-label">Problem</div>
+        <div class="section-title">A Crisis Without Real-Time Surveillance</div>
+        <p>The U.S. substance abuse crisis causes <strong>80,000+ deaths annually</strong>, yet traditional surveillance — hospital records, population surveys — carries lag times of <strong>months to years</strong>.</p>
+        <p>Online forums hold real-time, high-volume discourse on substance use, distress, and addiction. But this text is noisy, slang-heavy, and entangled with personally identifiable information.</p>
+        <p>We bridge this gap with a <strong>privacy-preserving, population-level decision-support system</strong>: ingest social text → detect risk signals → correlate with CDC data → surface analyst-ready summaries.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Data</div>
+        <div class="section-title">Five Public Datasets</div>
+        <table>
+          <thead>
+            <tr><th>Dataset</th><th>Size / Scope</th><th>Pipeline Role</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>UCI Drug Reviews</strong><br><span style="font-size:13pt;color:#666">Kaggle CSV</span></td>
+              <td>41,934 posts</td>
+              <td>Training · risk labels · embedding baseline</td>
+            </tr>
+            <tr>
+              <td><strong>Erowid Experience Vault</strong><br><span style="font-size:13pt;color:#666">Public scrape</span></td>
+              <td>~5,000 posts</td>
+              <td>Slang lexicon · LSA topic anchors</td>
+            </tr>
+            <tr>
+              <td><strong>CDC Overdose API</strong><br><span style="font-size:13pt;color:#666">data.cdc.gov</span></td>
+              <td>2015–2024 monthly</td>
+              <td>Ground-truth for lead-lag correlation</td>
+            </tr>
+            <tr>
+              <td><strong>NSDUH</strong><br><span style="font-size:13pt;color:#666">SAMHSA</span></td>
+              <td>Annual national</td>
+              <td>Prevalence normalization</td>
+            </tr>
+            <tr>
+              <td><strong>NIDA Summary Tables</strong><br><span style="font-size:13pt;color:#666">Federal data</span></td>
+              <td>Annual per-100k</td>
+              <td>Macro-baseline for dashboard reporting</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Preprocessing</div>
+        <div class="section-title">Four-Stage Privacy Pipeline</div>
+        <p>Raw text passes through four stages before any model sees it:</p>
+        <ol style="padding-left:0.22in;margin-top:0.06in;">
+          <li style="font-size:30pt;color:#444;line-height:1.4;margin-bottom:0.1in;"><strong>HTML &amp; Noise Removal</strong> — BeautifulSoup + regex strip markup, URLs, special characters</li>
+          <li style="font-size:30pt;color:#444;line-height:1.4;margin-bottom:0.1in;"><strong>PII Scrubbing</strong> — spaCy NER masks names, locations, phones, e-mails; no identity stored</li>
+          <li style="font-size:30pt;color:#444;line-height:1.4;margin-bottom:0.1in;"><strong>Slang Normalization</strong> — Curated lexicon maps colloquialisms to standard substance tokens</li>
+          <li style="font-size:30pt;color:#444;line-height:1.4;margin-bottom:0.1in;"><strong>Deduplication</strong> — Semantic hashing removes near-duplicates (Jaccard ≥ 0.85)</li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Ethics</div>
+        <div class="section-title">Privacy-Preserving by Design</div>
+        <div class="ethics-grid">
+          <div class="ethics-pill">
+            <strong>Anonymization</strong>
+            <span>Irreversible PII masking at ingestion — no identity stored or transmitted</span>
+          </div>
+          <div class="ethics-pill">
+            <strong>Population-level only</strong>
+            <span>Dashboard architecturally blocked from surfacing individual records</span>
+          </div>
+          <div class="ethics-pill">
+            <strong>Non-punitive design</strong>
+            <span>Scoped to public health planning; structurally incompatible with law enforcement</span>
+          </div>
+          <div class="ethics-pill">
+            <strong>Human-in-the-Loop</strong>
+            <span>All signals labeled for analyst review — final decisions remain with humans</span>
+          </div>
+          <div class="ethics-pill">
+            <strong>Bias-aware</strong>
+            <span>Lexicon and seed-bank biases documented; HITL audit flags systematic errors</span>
+          </div>
+          <div class="ethics-pill">
+            <strong>Transparent</strong>
+            <span>All code, datasets, and model decisions open-source and auditable</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left -->
+
+    <!-- ══════════ CENTER COLUMN ══════════ -->
+    <div>
+
+      <div class="section">
+        <div class="section-label">System Architecture</div>
+        <div class="section-title">End-to-End Pipeline</div>
+        <div class="arch-wrapper">
+          <img
+            src="../lab10/data/figures/substance_abuse_ai_pipeline_track_b_architecture.svg"
+            alt="System architecture diagram"
+          >
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Methods</div>
+        <div class="section-title">Four-Method Ensemble</div>
+        <table class="methods-table">
+          <thead>
+            <tr><th>Method</th><th>Technology</th><th>Weight</th><th>Key Strength</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Rule-Based</strong></td>
+              <td>Regex + slang lexicon</td>
+              <td class="weight">0.25</td>
+              <td>Deterministic; high precision on known slang</td>
+            </tr>
+            <tr>
+              <td><strong>Embedding</strong></td>
+              <td>Sentence-BERT + FAISS</td>
+              <td class="weight">0.30</td>
+              <td>Cosine similarity to labeled seed bank</td>
+            </tr>
+            <tr>
+              <td><strong>LLM Classifier</strong></td>
+              <td>Gemini Flash</td>
+              <td class="weight">0.35</td>
+              <td>Zero-shot + evidence span extraction</td>
+            </tr>
+            <tr>
+              <td><strong>Fine-Tuned BERT</strong></td>
+              <td>DistilBERT (41K posts)</td>
+              <td class="weight">0.10</td>
+              <td>Captures nuanced contextual dependencies</td>
+            </tr>
+            <tr>
+              <td><strong>RAG Explainability</strong></td>
+              <td>FAISS + Gemini Flash</td>
+              <td class="weight">—</td>
+              <td>Top-k evidence retrieval → analyst summaries</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:0.12in;">K-Means (k=8) clustering on UMAP-reduced embeddings identifies evolving behavioral sub-populations. Temporal spike detection uses rolling z-scores (threshold Z&nbsp;&gt;&nbsp;2.5) binned monthly.</p>
+      </div>
+
+    </div><!-- /center -->
+
+    <!-- ══════════ RIGHT COLUMN ══════════ -->
+    <div>
+
+      <div class="section">
+        <div class="section-label">Key Finding</div>
+        <div class="section-title">Early Warning Signal</div>
+        <div class="hero-callout">
+          <div class="hero-num">−3 mo</div>
+          <div class="hero-desc">Opioid social signals lead CDC overdose counts by <strong>up to 3 months</strong> — a statistically significant early-warning indicator for public health response</div>
+          <div class="hero-stats">
+            <div class="hero-stat-item">Pearson r&nbsp;<span>0.471</span></div>
+            <div class="hero-stat-item">p-value&nbsp;<span>0.006</span></div>
+            <div class="hero-stat-item">MRR (opioid)&nbsp;<span>0.298</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Classification Results</div>
+        <div class="section-title">Held-out Test Set (n = 2,000)</div>
+        <table>
+          <thead>
+            <tr><th>Method</th><th>Accuracy</th><th>Macro-F1</th><th>ROC-AUC</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rule-Based</td>
+              <td class="num">0.495</td><td class="num">0.303</td><td class="num">0.504</td>
+            </tr>
+            <tr>
+              <td>Embedding (SBERT)</td>
+              <td class="num">0.325</td><td class="num">0.295</td><td class="num">0.490</td>
+            </tr>
+            <tr>
+              <td>Fine-Tuned BERT</td>
+              <td class="num">0.404</td><td class="num">0.280</td><td class="num">0.481</td>
+            </tr>
+            <tr class="best">
+              <td><strong>Ensemble</strong></td>
+              <td class="num">0.404</td><td class="num">0.304</td><td class="num">0.506</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">Test set: low-risk 1,014 / medium 791 / high 195 (9.75% high-risk). Benzo detection strongest (ensemble F1 = 0.366). High-risk recall is hardest due to class imbalance.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Clustering</div>
+        <div class="section-title">Behavioral Sub-populations (k = 8)</div>
+        <div class="stat-row">
+          <div class="stat-card">
+            <span class="stat-num">0.960</span>
+            <div class="stat-label">Cluster-level NDCG — excellent risk ranking across 8 thematic groups</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">60%</span>
+            <div class="stat-label">HITL approval rate — 6 of 10 audited analyst outputs approved by domain reviewers</div>
+          </div>
+        </div>
+        <p>Eight clusters span distinct substance families (cannabis, xanax/benzos, opioids, stimulants) and behavioral contexts (harm-seeking vs. harm-reduction). Silhouette = 0.082, consistent with overlapping drug discourse.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Example System Output</div>
+        <div class="section-title">RAG Analyst Summary</div>
+        <div class="rag-quote">
+          <p>A 300% surge in high-risk opioid signals was detected across Cluster 0 (4,617 posts) between October 12–19. Discourse features fentanyl analogs mislabeled as prescription stimulants. Recommended action: Alert harm-reduction networks to distribute updated test strips and issue clinician advisories.</p>
+        </div>
+        <p class="note">All summaries are aggregate and population-level. Individual posts are never surfaced. Final intervention decisions remain with healthcare professionals.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Future Work</div>
+        <div class="section-title">Roadmap</div>
+        <ul>
+          <li><strong>Live stream integration</strong> — Reddit/Twitter APIs for near-real-time monitoring rather than batch processing</li>
+          <li><strong>Dynamic lexicon updates</strong> — Auto-surface emerging slang (e.g. xylazine-class terms) from high-risk clusters</li>
+          <li><strong>Geospatial heatmaps</strong> — County/state-level risk maps from anonymized location tokens</li>
+          <li><strong>Active HITL feedback loop</strong> — Analyst approve/reject votes feed back into BERT fine-tuning</li>
+          <li><strong>Multimodal expansion</strong> — Image signals from pill photography and harm-reduction meme culture</li>
+        </ul>
+      </div>
+
+    </div><!-- /right -->
+
+  </main><!-- /body -->
+
+  <!-- ════════════════════ FOOTER ════════════════════ -->
+  <footer class="footer">
+    <div class="footer-item">UMKC CS-5542 · Spring 2026</div>
+    <div class="footer-item center">NSF NRT Research-A-Thon 2026 · Challenge 1 · AI for Substance Abuse Risk Detection</div>
+    <div class="footer-item">github.com/mosomo82/Substance_Abuse_Detection_AI</div>
+  </footer>
+
+</div>
+</body>
+</html>
