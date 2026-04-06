@@ -31,7 +31,7 @@ Three supplementary SVG slides were generated to accompany scenes that had no su
 | `cdc-correlation-slide.svg` | Scene 6 | CDC correlation finding (r=0.471, p=0.006, lag −3 weeks) |
 | `team-summary-slide.svg` | Scene 7 | Team member cards with role descriptions |
 
-These were generated via LLM and refined iteratively — adjustments included layout, removing unnecessary footer content, and correcting the "Track B" designation that wasn't in the Canvas assignment.
+These were generated via LLM and refined iteratively — adjustments included layout, removing unnecessary footer content, and correcting the "Track B" designation that wasn't in the Canvas assignment. Assets in the `presentation/` folder.
 
 ---
 
@@ -64,4 +64,4 @@ The edit was straightforward — scene assembly, trimming dead air, and ensuring
 | `team-summary-slide.svg` | SVG team summary slide for Scene 7 |
 | [video](https://drive.google.com/file/d/14KaZGUeLJig0ayF_UU8aXy2XPABRFBxF) | Final edited 3-minute video, submitted to Canvas and Research-A-Thon |
 
-The above files (excluding video) were committed in `ede0d7b` — `feat: add presentation slides and video script for Lab 10 demo`.
+The above files (excluding video) were committed in `ede0d7b` — `feat: add presentation slides and video script for Lab 10 demo` to the `presentation/` folder.
